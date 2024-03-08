@@ -82,12 +82,16 @@
     <!-- Incluye la última versión de la librería de Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
     <script>
         // Código JavaScript para inicializar el mapa Leaflet
         var mymap = L.map('map').setView([10.951775, -74.781660], 13);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
+
+        // Inicialización de la conexión con el servidor WebSocket
+        const socket = io();
 
         // Código JavaScript para obtener y actualizar la ubicación del vehículo
         function actualizarUbicacion(data) {
@@ -102,8 +106,6 @@
         }
 
         // Conexión con el servidor WebSocket
-        const socket = io();
-        
         socket.on('connect', function() {
             console.log('Conexión establecida correctamente con el servidor WebSocket');
         });
@@ -115,6 +117,7 @@
     </script>
 </body>
 </html>
+
 
 
 
