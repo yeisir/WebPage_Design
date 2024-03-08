@@ -22,34 +22,34 @@ def index():
 @app.route('/recibir_udp', methods=['GET', 'POST'])
 def recibir_udp():
     if request.method == 'GET':
-        # GET, obtener los datos de la consulta
+        # Si la solicitud es GET, obtener los datos de la consulta
         latitud = request.args.get('latitud')
         longitud = request.args.get('longitud')
         altitud = request.args.get('altitud')
         timestamp = request.args.get('timestamp')
     elif request.method == 'POST':
-        # OST, obtener los datos del cuerpo JSON
+        # Si la solicitud es POST, obtener los datos del cuerpo JSON
         data = request.json
         print("Datos recibidos en la solicitud POST:", data)
 
-        # datos
+        # Extraer los valores de latitud, longitud, altitud y timestamp
         latitud = data.get('latitud')
         longitud = data.get('longitud')
         altitud = data.get('altitud')
         timestamp = data.get('timestamp')
     else:
-        #Mostrar en consola
+        # Si la solicitud no es ni GET ni POST, retornar un mensaje de error
         return 'Método no permitido'
 
-    # Insertar en MySQL
+    # Insertar los datos en la base de datos MySQL
     cursor = db.cursor()
-    insert_query = "INSERT INTO coordenadas (latitud, longitud, altitud, timestamp) VALUES (%s, %s, %s, %s)"
+    insert_query = "INSERT INTO data1 (latitud, longitud, altitud, timestamp) VALUES (%s, %s, %s, %s)"
     data_tuple = (latitud, longitud, altitud, timestamp)
     cursor.execute(insert_query, data_tuple)
     db.commit()
     cursor.close()
 
-    # Mostrarlos en el html
+    # Emitir los datos al cliente WebSocket
     socketio.emit('update_coords', {'latitud': latitud, 'longitud': longitud, 'altitud': altitud, 'timestamp': timestamp})
     print("Datos enviados al cliente WebSocket:", {'latitud': latitud, 'longitud': longitud, 'altitud': altitud, 'timestamp':timestamp})
     return 'Datos recibidos y procesados correctamente'
