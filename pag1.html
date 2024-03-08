@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Coordenadas</title>
+    <!-- Estilos CSS -->
+    <style>
+        body {
+            background-color: #ffecf2; /* Rosa claro */
+            color: #cc3b62; /* Rosa oscuro */
+            font-family: 'Arial Black', sans-serif; /* Fuente más atractiva */
+            padding: 20px;
+            margin: 0; /* Eliminar el margen predeterminado del cuerpo */
+        }
+        h1 {
+            display: none; /* Oculta el título "Coordenadas" */
+        }
+        .header-container {
+            background-color: white; /* Fondo blanco */
+            border-radius: 0; /* Bordes cuadrados */
+            border: 2px solid #cc3b62; /* Rosa oscuro */
+            padding: 10px 20px; /* Menor espacio de relleno arriba y abajo, mayor espacio de relleno a los lados */
+            margin-bottom: 20px;
+        }
+        header {
+            margin: 0; /* Eliminar el margen del encabezado */
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 20px; /* Dejar espacio debajo del encabezado */
+        }
+        .coord-data {
+            font-family: 'Arial Rounded MT Bold', sans-serif; /* Fuente más atractiva */
+            font-size: 14px; /* Tamaño de la letra */
+            border-radius: 10px;
+            border: 2px solid #cc3b62; /* Rosa oscuro */
+            padding: 8px;
+            margin-bottom: 8px;
+            width: calc(25% - 15px); /* Ancho de los cuadros */
+            margin-right: 15px; /* Espacio entre los cuadros */
+            box-sizing: border-box; /* Incluye el borde en el cálculo del ancho */
+            background-color: white; /* Fondo blanco */
+        }
+        #map-container {
+            width: 100%;
+            margin-top: 20px;
+        }
+        #map {
+            height: 400px;
+            border-radius: 10px;
+            border: 2px solid #cc3b62; /* Rosa oscuro */
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    <!-- Encabezado dentro de un cuadro con bordes cuadrados -->
+    <div class="header-container">
+        <header>
+            <h1>¡Bienvenido!</h1>
+            <p>Gracias por visitar nuestra página web. Aquí podrás seguir en tiempo real la ubicación del vehículo.</p>
+        </header>
+    </div>
+
+    <!-- Contenedor de coordenadas -->
+    <div class="container">
+        <div class="coord-data">Latitud: <span id="latitud"></span></div>
+        <div class="coord-data">Longitud: <span id="longitud"></span></div>
+        <div class="coord-data">Altitud: <span id="altitud"></span></div>
+        <div class="coord-data">Timestamp: <span id="timestamp"></span></div>
+    </div>
+
+    <!-- Mapa -->
+    <div id="map-container">
+        <div id="map"></div>
+    </div>
+
+    <!-- Incluye la última versión de la librería de Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Código JavaScript para inicializar el mapa Leaflet
+        var mymap = L.map('map').setView([10.951775, -74.781660], 13);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(mymap);
+
+        // Código JavaScript para obtener y actualizar la ubicación del vehículo
+        function actualizarUbicacion(data) {
+            document.getElementById('longitud').innerText = data.longitud;
+            document.getElementById('latitud').innerText = data.latitud;
+            document.getElementById('altitud').innerText = data.altitud;
+            document.getElementById('timestamp').innerText = data.timestamp;
+
+            // Actualiza la posición del marcador en el mapa Leaflet
+            L.marker([data.latitud, data.longitud]).addTo(mymap)
+                .bindPopup("Ubicación del vehículo").openPopup();
+        }
+
+        // Conexión con el servidor WebSocket
+        const socket = io();
+        
+        socket.on('connect', function() {
+            console.log('Conexión establecida correctamente con el servidor WebSocket');
+        });
+
+        // Escucha el evento 'update_coords' del servidor WebSocket
+        socket.on('update_coords', function(data) {
+            actualizarUbicacion(data);
+        });
+    </script>
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
