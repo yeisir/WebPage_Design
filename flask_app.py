@@ -10,7 +10,7 @@ db = mysql.connector.connect(
     host="database-1.c50sa4y2g28z.us-east-2.rds.amazonaws.com",
     user="admin",
     password="10122022",
-    database="database"
+    database="database1"
 )
 
 #hola
