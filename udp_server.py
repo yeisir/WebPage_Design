@@ -3,16 +3,20 @@ import requests
 import json
 
 def enviar_datos_al_flask(datos):
-    url = 'http://127.0.0.1:5000/recibir_udp'
-    
-    # solicitud POST
-    headers = {'Content-Type': 'application/json'}
-    response_post = requests.post(url, json=json.loads(datos), headers=headers)
-    print("Respuesta POST:", response_post.text)
+    # Formatear los datos en un diccionario
+    latitud, longitud, altitud, timestamp = [line.split(': ')[1] for line in datos.split('\n') if line]
+    datos_formateados = {
+        'latitud': float(latitud),
+        'longitud': float(longitud),
+        'altitud': float(altitud),
+        'timestamp': timestamp
+    }
 
-    # solicitud GET
-    response_get = requests.get(url, params=json.loads(datos))
-    print("Respuesta GET:", response_get.text)
+    # Convertir a JSON y enviar
+    url = 'http://127.0.0.1:5000/recibir_udp'
+    headers = {'Content-Type': 'application/json'}
+    response_post = requests.post(url, json=datos_formateados, headers=headers)
+    print("Respuesta POST:", response_post.text)
 
 def main():
     host = ''
