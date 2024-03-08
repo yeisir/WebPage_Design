@@ -13,6 +13,8 @@ db = mysql.connector.connect(
     database="web_ser"
 )
 
+#hola
+
 @app.route('/')
 def index():
     return render_template('pag1.html')
