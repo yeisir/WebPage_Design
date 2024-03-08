@@ -7,10 +7,10 @@ socketio = SocketIO(app)
 
 # Base de datos 
 db = mysql.connector.connect(
-    host="localhost",
-    user="root",
+    host="database-1.c50sa4y2g28z.us-east-2.rds.amazonaws.com",
+    user="admin",
     password="10122022",
-    database="web_ser"
+    database="database"
 )
 
 #hola
