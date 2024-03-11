@@ -19,9 +19,10 @@
         .header-container {
             background-color: white; /* Fondo blanco */
             border-radius: 0; /* Bordes cuadrados */
-            border: 2px solid #cc3b62; /* Rosa oscuro */
             padding: 10px 20px; /* Menor espacio de relleno arriba y abajo, mayor espacio de relleno a los lados */
             margin-bottom: 20px;
+            border-top: 2px solid #cc3b62; /* Borde superior rosa oscuro */
+            border-bottom: 2px solid #cc3b62; /* Borde inferior rosa oscuro */
         }
         header {
             margin: 0; /* Eliminar el margen del encabezado */
@@ -82,18 +83,15 @@
     <!-- Incluye la última versión de la librería de Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
     <script>
         // Código JavaScript para inicializar el mapa Leaflet
-        var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
+        var mymap = L.map('map').setView([10.951775, -74.781660], 13);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
 
+        // Inicializa la polylinea para trazar la ruta
         var polyline = L.polyline([]).addTo(mymap);
-
-        // Inicialización de la conexión con el servidor WebSocket
-        const socket = io();
 
         // Código JavaScript para obtener y actualizar la ubicación del vehículo
         function actualizarUbicacion(data) {
@@ -102,6 +100,7 @@
             document.getElementById('altitud').innerText = data.altitud;
             document.getElementById('timestamp').innerText = data.timestamp;
 
+            // Agrega el marcador en la ubicación actual
             var marker = L.marker([data.latitud, data.longitud], {
                 icon: L.icon({
                     iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
@@ -116,9 +115,11 @@
 
             // Centra el mapa en la nueva posición
             mymap.panTo([data.latitud, data.longitud]);
-
         }
+
         // Conexión con el servidor WebSocket
+        const socket = io();
+        
         socket.on('connect', function() {
             console.log('Conexión establecida correctamente con el servidor WebSocket');
         });
@@ -130,3 +131,4 @@
     </script>
 </body>
 </html>
+
