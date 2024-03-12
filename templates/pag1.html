@@ -91,6 +91,14 @@
         }).addTo(mymap);
 
         var polyline = L.polyline([]).addTo(mymap);
+        var marker = L.marker([0, 0], {
+            icon: L.icon({
+                iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
+                iconSize: [25, 41], // Tamaño del icono
+                iconAnchor: [12, 41], // Punto de anclaje del icono
+                popupAnchor: [1, -34] // Punto de anclaje del popup
+            })
+        }).addTo(mymap);
 
         // Inicialización de la conexión con el servidor WebSocket
         const socket = io();
@@ -102,21 +110,14 @@
             document.getElementById('altitud').innerText = data.altitud;
             document.getElementById('timestamp').innerText = data.timestamp;
 
-            var marker = L.marker([data.latitud, data.longitud], {
-                icon: L.icon({
-                    iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-                    iconSize: [25, 41], // Tamaño del icono
-                    iconAnchor: [12, 41], // Punto de anclaje del icono
-                    popupAnchor: [1, -34] // Punto de anclaje del popup
-                })
-            }).addTo(mymap);
+            // Actualiza la posición del marcador en el mapa
+            marker.setLatLng([data.latitud, data.longitud]);
 
             // Agrega la posición a la polylinea para trazar la ruta
             polyline.addLatLng([data.latitud, data.longitud]);
 
             // Centra el mapa en la nueva posición
             mymap.panTo([data.latitud, data.longitud]);
-
         }
         // Conexión con el servidor WebSocket
         socket.on('connect', function() {
@@ -130,3 +131,4 @@
     </script>
 </body>
 </html>
+
