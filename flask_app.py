@@ -55,5 +55,5 @@ def recibir_udp():
     return 'Datos recibidos y procesados correctamente'
 
 if __name__ == '__main__':
-    socketio.run(app, debug=True, host= '0.0.0.0', port='80')
+    socketio.run(app, debug=True, host= '0.0.0.0', port='5000')
 
