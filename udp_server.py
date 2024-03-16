@@ -2,6 +2,8 @@ import socket
 import requests
 import json
 
+#cambios
+
 def enviar_datos_al_flask(datos):
     # Formatear los datos en un diccionario
     latitud, longitud, altitud, timestamp = [line.split(': ')[1] for line in datos.split('\n') if line]
