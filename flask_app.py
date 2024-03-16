@@ -1,16 +1,19 @@
 from flask import Flask, render_template, request
 from flask_socketio import SocketIO
 import mysql.connector
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 app = Flask(__name__)
 socketio = SocketIO(app)
 
-# Base de datos 
 db = mysql.connector.connect(
-    host="database-1.c50sa4y2g28z.us-east-2.rds.amazonaws.com",
-    user="admin",
-    password="10122022",
-    database="data"
+    host=os.environ.get("DB_HOST"),
+    user=os.environ.get("DB_USER"),
+    password=os.environ.get("DB_PASSWORD"),
+    database=os.environ.get("DB_NAME")
 )
 
 #hola
