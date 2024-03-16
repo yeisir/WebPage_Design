@@ -22,7 +22,7 @@ def enviar_datos_al_flask(datos):
 
 def main():
     host = ''
-    puerto = 9999
+    
 
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as servidor:
         servidor.bind((host, puerto))
