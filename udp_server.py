@@ -2,7 +2,7 @@ import socket
 import requests
 import json
 
-
+#prueba2
 
 def enviar_datos_al_flask(datos):
     # Formatear los datos en un diccionario
