@@ -2,7 +2,7 @@ import socket
 import requests
 import json
 
-#git pull
+#git pull request example
 
 def enviar_datos_al_flask(datos):
     # Formatear los datos en un diccionario
