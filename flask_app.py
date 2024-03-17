@@ -16,7 +16,6 @@ db = mysql.connector.connect(
     database=os.environ.get("DB_NAME")
 )
 
-#hola
 
 @app.route('/')
 def index():
