@@ -4,8 +4,6 @@ import mysql.connector
 import os
 from dotenv import load_dotenv
 
-#prueba_val
-
 #varprueba
 load_dotenv()
 
