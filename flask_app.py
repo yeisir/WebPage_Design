@@ -4,7 +4,7 @@ import mysql.connector
 import os
 from dotenv import load_dotenv
 
-#variables
+#var
 load_dotenv()
 
 app = Flask(__name__)
