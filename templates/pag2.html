@@ -6,7 +6,82 @@
     <title>Consulta Histórica</title>
     <!-- Estilos -->
     <style>
-        /* Estilos omitidos por brevedad */
+        body {
+            background-color: #ffecf2; /* Rosa claro */
+            color: #cc3b62; /* Rosa oscuro */
+            font-family: 'Arial Black', sans-serif; /* Fuente más atractiva */
+            padding: 20px;
+            margin: 0; /* Eliminar el margen predeterminado del cuerpo */
+        }
+        h1 {
+            display: none; /* Oculta el título "Consulta Histórica" */
+        }
+        .header-container {
+            background-color: white; /* Fondo blanco */
+            border-radius: 0; /* Bordes cuadrados */
+            border: 2px solid #cc3b62; /* Rosa oscuro */
+            padding: 10px 20px; /* Menor espacio de relleno arriba y abajo, mayor espacio de relleno a los lados */
+            margin-bottom: 20px;
+        }
+        header {
+            margin: 0; /* Eliminar el margen del encabezado */
+        }
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 20px; /* Dejar espacio debajo del encabezado */
+        }
+        #map-container {
+            width: 100%;
+            margin-top: 20px;
+        }
+        #map {
+            height: 400px;
+            border-radius: 10px;
+            border: 2px solid #cc3b62; /* Rosa oscuro */
+            margin-bottom: 20px;
+        }
+        /* Estilos del botón */
+        .btn-volver {
+            background-color: #cc3b62; /* Color de fondo rosa oscuro */
+            color: white; /* Color del texto blanco */
+            padding: 10px 20px; /* Espacio de relleno */
+            border: none; /* Sin borde */
+            border-radius: 5px; /* Bordes redondeados */
+            cursor: pointer; /* Cursor de puntero al pasar sobre él */
+            text-decoration: none; /* Eliminar subrayado del enlace */
+            display: inline-block; /* Para que el botón se comporte como un elemento en línea */
+            margin-top: 20px; /* Espacio superior */
+        }
+        /* Estilos para el formulario */
+        .consulta-form {
+            margin-bottom: 20px;
+        }
+        .consulta-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .consulta-form input[type="text"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
+        .btn-tiempo {
+            background-color: #cc3b62; /* Color de fondo rosa oscuro */
+            color: white; /* Color del texto blanco */
+            padding: 15px 30px; /* Espacio de relleno aumentado */
+            border: none; /* Sin borde */
+            border-radius: 10px; /* Bordes redondeados */
+            cursor: pointer; /* Cursor de puntero al pasar sobre él */
+            text-decoration: none; /* Eliminar subrayado del enlace */
+            display: inline-block; /* Para que el botón se comporte como un elemento en línea */
+            margin-top: 20px; /* Espacio superior */
+            font-size: 18px; /* Tamaño del texto aumentado */
+        }
     </style>
     <!-- Incluye jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
@@ -89,5 +164,4 @@
     </script>
 </body>
 </html>
-
 
