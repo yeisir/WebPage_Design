@@ -143,31 +143,23 @@
             return false;
         }
 
-        // Conexión con el servidor WebSocket
-        socket.on('connect', function() {
-            console.log('Conexión establecida correctamente con el servidor WebSocket');
-        });
 
-    
         // Escuchar el evento 'update_historical_coords' del servidor y trazar la ruta en el mapa
         socket.on('update_historical_coords', function(data) {
-        var coordenadas = data.coordenadas;
-        var historialCoords = [];
-        for (var i = 0; i < coordenadas.length; i++) {
-            var latitud = parseFloat(coordenadas[i].latitud);
-            var longitud = parseFloat(coordenadas[i].longitud);
-            historialCoords.push([latitud, longitud]);
-        }
-        
-        // Trazar ruta en el mapa
-        var ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
+            var coordenadas = data.map(function(coord) {
+                return [parseFloat(coord.latitud), parseFloat(coord.longitud)];
+            });
+            
+            // Trazar ruta en el mapa
+            var ruta = L.polyline(coordenadas, {color: 'red'}).addTo(mymap);
 
-        // Crear objeto LatLngBounds
-        var bounds = new L.LatLngBounds(historialCoords);
+            // Crear objeto LatLngBounds
+            var bounds = new L.LatLngBounds(coordenadas);
 
-        // Ajustar el mapa para mostrar la ruta
-        mymap.fitBounds(bounds);
-    });
+            // Ajustar el mapa para mostrar la ruta
+            mymap.fitBounds(bounds);
+        });
+
 
     </script>
 </body>
