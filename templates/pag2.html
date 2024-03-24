@@ -18,6 +18,17 @@
     <!-- Mapa -->
     <div id="map"></div>
 
+    <!-- Formulario de consulta histórica -->
+    <form onsubmit="return obtenerYDibujarCoordenadasHistoricas()">
+        <label for="inicio">Inicio:</label>
+        <input type="text" id="inicio" name="inicio">
+
+        <label for="fin">Fin:</label>
+        <input type="text" id="fin" name="fin">
+
+        <button type="submit">Consultar Historial</button>
+    </form>
+
     <!-- Incluye jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Incluye la última versión de la librería de Leaflet -->
@@ -68,4 +79,3 @@
     </script>
 </body>
 </html>
-
