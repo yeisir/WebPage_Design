@@ -52,28 +52,24 @@ def recibir_udp():
     return 'Datos recibidos y procesados correctamente'
 
 @app.route('/consulta_historica', methods=['POST'])
-def consulta_historica():
-    inicio = request.form.get('inicio')
-    fin = request.form.get('fin')
+def consultar_historial():
+    inicio = request.form['inicio']
+    fin = request.form['fin']
+    
+    # Realiza la conexión con la base de datos y ejecuta la consulta SQL
+    conexion = mysql.connector.connect(**db)
+    cursor = conexion.cursor()
+    consulta = ("SELECT Latitud, Longitud FROM coordenadas "
+                "WHERE timestamp >= %s AND timestamp <= %s")
+    cursor.execute(consulta, (inicio, fin))
+    coordenadas = cursor.fetchall()
+    conexion.close()
+    
+    # Prepara las coordenadas para enviarlas al frontend
+    coordenadas_json = [{'latitud': lat, 'longitud': lon} for lat, lon in coordenadas]
+    
+    return jsonify(coordenadas_json)
 
-    print("Datos recibidos en el servidor:", inicio, fin)  # Imprimir los datos recibidos en el servidor
-
-    if inicio and fin:
-        # Función para obtener coordenadas históricas desde la base de datos en un rango de fechas
-        cursor = db.cursor()
-        select_query = "SELECT latitud, longitud, altitud FROM coordenadas WHERE timestamp BETWEEN %s AND %s"
-        cursor.execute(select_query, (inicio, fin))
-        coordenadas_historicas = [{'latitud': latitud, 'longitud': longitud, 'altitud': altitud} for (latitud, longitud, altitud) in cursor.fetchall()]
-        cursor.close()
-        print("Coordenadas históricas obtenidas:", coordenadas_historicas)
-
-        # Emitir los datos de coordenadas históricas al cliente WebSocket
-        socketio.emit('update_historical_coords', {'coordenadas': coordenadas_historicas})
-
-        return jsonify({'coordenadas': coordenadas_historicas})  # Devuelve las coordenadas como JSON
-    else:
-        print("Error: No se proporcionaron valores de inicio y fin.")  # Imprimir el error en el servidor
-        return render_template('pag2.html')
 
 
 
