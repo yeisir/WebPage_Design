@@ -23,14 +23,11 @@ db = mysql.connector.connect(
 def obtener_coordenadas_historicas(inicio, fin):
     cursor = db.cursor()
     select_query = "SELECT latitud, longitud, altitud FROM coordenadas WHERE timestamp BETWEEN %s AND %s"
-    inicio_datetime = datetime.strptime(inicio, "%Y-%m-%d %H:%M:%S")
-    fin_datetime = datetime.strptime(fin, "%Y-%m-%d %H:%M:%S")
-    cursor.execute(select_query, (inicio_datetime, fin_datetime))
-    coordenadas_historicas = []
-    for (latitud, longitud, altitud) in cursor.fetchall():
-        coordenadas_historicas.append({'latitud': latitud, 'longitud': longitud, 'altitud': altitud})
+    cursor.execute(select_query, (inicio, fin))
+    coordenadas_historicas = [{'latitud': latitud, 'longitud': longitud, 'altitud': altitud} for (latitud, longitud, altitud) in cursor.fetchall()]
     cursor.close()
     return coordenadas_historicas
+
 
 
 @app.route('/tiempo_real', methods=['GET', 'POST'])
