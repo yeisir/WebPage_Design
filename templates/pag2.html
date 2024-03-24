@@ -124,21 +124,16 @@
     <!-- Incluye la biblioteca de Socket.IO -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
     <script>
-        // Código JavaScript para inicializar el mapa Leaflet
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
     
-        // Conexión con el servidor Flask usando Socket.IO
         const socket = io();
 
-        // Función para obtener coordenadas históricas
         function obtenerCoordenadasHistoricas() {
             var inicio = $("#inicio").val();
             var fin = $("#fin").val();
-            
-            // Emitir un evento al servidor con los valores de inicio y fin
             socket.emit('consulta_historica', { inicio: inicio, fin: fin });
             return false;
         }
@@ -147,7 +142,6 @@
             console.log('Conexión establecida correctamente con el servidor WebSocket');
         });
 
-        // Escuchar el evento 'update_historical_coords' del servidor y trazar la ruta en el mapa
         socket.on('update_historical_coords', function(data) {
             var coordenadas = data.coordenadas;
             var historialCoords = [];
@@ -156,9 +150,7 @@
                 var longitud = coordenadas[i].longitud;
                 historialCoords.push([latitud, longitud]);
             }
-            // Trazar ruta en el mapa
             var ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
-            // Ajustar el mapa para mostrar la ruta
             if (historialCoords.length > 0) {
                 mymap.fitBounds(ruta.getBounds());
             }
