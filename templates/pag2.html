@@ -114,13 +114,9 @@
         <div id="map" style="height: 400px;"></div>
     </div>
 
-    <!-- Scripts -->
-    <!-- Incluye jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Incluye Flatpickr -->
-    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-    <!-- Incluye la última versión de la librería de Leaflet -->
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <form action="/tiempo_real" method="post">
+        <button type="submit" class="btn-volver">Ir a tiempo real</button>
+    </form>
 
     <script>
         // Código JavaScript para inicializar el mapa Leaflet
@@ -141,48 +137,54 @@
             dateFormat: "Y-m-d H:i:S",
         });
 
+        var ruta;
+
+        // Función para obtener coordenadas históricas
+        function obtenerCoordenadasHistoricas() {
+        var inicio = $("#inicio").val();
+        var fin = $("#fin").val();
+
+        // Enviar solicitud AJAX al servidor Flask
+        $.ajax({
+            url: '/consulta_historica',
+            type: 'POST',
+            data: {inicio: inicio, fin: fin},
+            success: function(data) {
+                // Tratar la respuesta del servidor y trazar la polilínea en el mapa
+                var coordenadas = data.coordenadas;
+                var historialCoords = [];
+                for (var i = 0; i < coordenadas.length; i++) {
+                    var latitud = parseFloat(coordenadas[i].latitud);
+                    var longitud = parseFloat(coordenadas[i].longitud);
+                    historialCoords.push([latitud, longitud]);
+                }
+                // Trazar ruta en el mapa y mostrarla
+                if (ruta) {
+                        mymap.removeLayer(ruta); // Eliminar la polilínea anterior si existe
+                    }
+                    ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
+
+                    // Obtener los límites de la polilínea
+                    var bounds = ruta.getBounds();
+
+                    // Ajustar el zoom del mapa a los límites de la polilínea
+                    mymap.fitBounds(bounds);
+
+                    // Agregar un marcador en el final de la ruta
+                    var ultimoPunto = historialCoords[historialCoords.length - 1];
+                    L.marker(ultimoPunto).addTo(mymap);
+                },
+            });
+        }
+
+
         // Evento click del botón para consultar históricos
         $('#consultar-historicos-btn').click(function() {
             obtenerCoordenadasHistoricas();
         });
-
-        // Función para obtener coordenadas históricas
-        function obtenerCoordenadasHistoricas() {
-            var inicio = $("#inicio").val();
-            var fin = $("#fin").val();
-            
-            // Enviar solicitud AJAX al servidor Flask
-            $.ajax({
-                url: '/consulta_historica',
-                type: 'POST',
-                data: {inicio: inicio, fin: fin},
-                success: function(data) {
-                    // Tratar la respuesta del servidor y trazar la polilínea en el mapa
-                    var coordenadas = data.coordenadas;
-                    var historialCoords = [];
-                    for (var i = 0; i < coordenadas.length; i++) {
-                        var latitud = parseFloat(coordenadas[i].latitud);
-                        var longitud = parseFloat(coordenadas[i].longitud);
-                        historialCoords.push([latitud, longitud]);
-                    }
-                    // Trazar ruta en el mapa y mostrarla
-                    if (ruta) {
-                        mymap.removeLayer(ruta); // Eliminar la polilínea anterior si existe
-                    }
-                    ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
-                    mymap.fitBounds(ruta.getBounds()); // Ajustar el zoom al trazar la ruta
-
-                    // Agregar marcador al final de la ruta
-                    var finalRuta = historialCoords[historialCoords.length - 1];
-                    L.marker(finalRuta).addTo(mymap);
-                },
-                error: function(error) {
-                    console.error('Error:', error);
-                }
-            });
-        }
     </script>
 </body>
 </html>
+
 
 
