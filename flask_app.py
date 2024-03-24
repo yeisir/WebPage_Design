@@ -33,9 +33,12 @@ def obtener_coordenadas_historicas(inicio, fin):
     return coordenadas_historicas
 
 
-@app.route('/tiempo_real')
+@app.route('/tiempo_real', methods=['GET', 'POST'])
 def index():
-    return render_template('pag1.html')
+    if request.method == 'POST':
+        return render_template('pag1.html')
+    else:
+        return render_template('pag1.html')
 
 @app.route('/recibir_udp', methods=['POST'])
 def recibir_udp():
