@@ -71,8 +71,10 @@ def consulta_historica():
     
     if inicio and fin:
         coordenadas_historicas = obtener_coordenadas_historicas(inicio, fin)
+        print("Coordenadas históricas enviadas al cliente:", coordenadas_historicas)  # Imprimir los datos en el servidor
         return jsonify({'coordenadas': coordenadas_historicas})  # Devuelve las coordenadas como JSON
     else:
+        print("Error: No se proporcionaron valores de inicio y fin.")  # Imprimir el error en el servidor
         return render_template('pag2.html')
 
 if __name__ == '__main__':
