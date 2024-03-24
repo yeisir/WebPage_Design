@@ -1,3 +1,6 @@
+Aquí tienes el código completo en un solo mensaje:
+
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -71,6 +74,32 @@
             box-sizing: border-box;
         }
     </style>
+    <!-- Incluye jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Incluye jQuery UI -->
+    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Script para inicializar el Datepicker -->
+    <script>
+        $(function() {
+            // Configura el Datepicker para el campo de inicio
+            $("#inicio").datepicker({
+                dateFormat: "yy-mm-dd", // Formato de fecha esperado
+                showTimepicker: true, // Permite seleccionar la hora
+                timeFormat: "HH:mm:ss", // Formato de hora esperado
+                controlType: 'select', // Usa selectores para la hora
+                showButtonPanel: true // Muestra un panel de botones
+            });
+            // Configura el Datepicker para el campo de fin
+            $("#fin").datepicker({
+                dateFormat: "yy-mm-dd", // Formato de fecha esperado
+                showTimepicker: true, // Permite seleccionar la hora
+                timeFormat: "HH:mm:ss", // Formato de hora esperado
+                controlType: 'select', // Usa selectores para la hora
+                showButtonPanel: true // Muestra un panel de botones
+            });
+        });
+    </script>
 </head>
 <body>
     <!-- Encabezado dentro de un cuadro con bordes cuadrados -->
@@ -84,12 +113,10 @@
     <!-- Formulario de consulta histórica -->
     <form class="consulta-form" action="/consulta_historica" method="post">
         <label for="inicio">Inicio:</label>
-        <!-- Usar un campo de texto con un placeholder que muestra el formato esperado -->
-        <input type="text" id="inicio" name="inicio" placeholder="YYYY-MM-DD HH:MM:SS">
+        <input type="text" id="inicio" name="inicio">
 
         <label for="fin">Fin:</label>
-        <!-- Usar un campo de texto con un placeholder que muestra el formato esperado -->
-        <input type="text" id="fin" name="fin" placeholder="YYYY-MM-DD HH:MM:SS">
+        <input type="text" id="fin" name="fin">
 
         <button type="submit">Consultar Historial</button>
     </form>
