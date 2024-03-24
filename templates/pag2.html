@@ -131,7 +131,7 @@
         }).addTo(mymap);
     
         // Conexión con el servidor Flask usando Socket.IO
-        var socket = io.connect('http://' + document.domain + ':' + location.port);
+        const socket = io();
 
         // Función para obtener coordenadas históricas
         function obtenerCoordenadasHistoricas() {
@@ -140,10 +140,11 @@
             
             // Emitir un evento al servidor con los valores de inicio y fin
             socket.emit('consulta_historica', { inicio: inicio, fin: fin });
-
-            // Devolver false para evitar que el formulario se envíe y la página se recargue
-            return false;
         }
+
+        socket.on('connect', function() {
+            console.log('Conexión establecida correctamente con el servidor WebSocket');
+        });
 
         // Escuchar el evento 'update_historical_coords' del servidor y trazar la ruta en el mapa
         socket.on('update_historical_coords', function(data) {
