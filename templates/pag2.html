@@ -129,7 +129,7 @@
             var fin = $("#fin").val();
             
             // Emitir un evento al servidor con los valores de inicio y fin
-            socket.emit('/consulta_historica', { inicio: inicio, fin: fin });
+            socket.emit('consulta_historica', { inicio: inicio, fin: fin });
             return false;
         }
 
