@@ -78,8 +78,8 @@ def consultar_historial():
         # Prepara las coordenadas para enviarlas al frontend
         coordenadas_json = [{'latitud': str(lat), 'longitud': str(lon)} for lat, lon in coordenadas]
         
-        # Devolver las coordenadas en formato JSON
-        return jsonify(coordenadas_json)
+        # Emitir las coordenadas al cliente WebSocket
+        socketio.emit('update_historical_coords', {'coordenadas': coordenadas_json})
     
     # Si no hay valores para inicio y fin, solo muestra la página pag2.html
     return render_template('pag2.html')
