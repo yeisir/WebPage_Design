@@ -84,9 +84,6 @@ def consultar_historial():
     # Si no hay valores para inicio y fin, solo muestra la página index.html
     return render_template('pag2.html')
 
-    
-    # Si no hay valores para inicio y fin, solo muestra la página pag2.html
-    return render_template('pag2.html')
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)

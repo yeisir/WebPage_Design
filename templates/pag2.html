@@ -102,7 +102,7 @@
     </div>
 
         <!-- Formulario para consultar históricos -->
-    <form class="consulta-form" onsubmit="return obtenerCoordenadasHistoricas()">
+    <form class="consulta-form">
         <label for="inicio">Inicio:</label>
         <input type="text" id="inicio" name="inicio">
         
@@ -110,7 +110,7 @@
         <input type="text" id="fin" name="fin">
         
         <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
-        <button type="submit" id="consultar-historicos-btn" class="btn-form">Consultar historial</button>
+        <button type="button" id="consultar-historicos-btn" class="btn-form">Consultar historial</button>
     </form>
 
     <!-- Contenedor del mapa -->
@@ -118,9 +118,7 @@
         <div id="map" style="height: 400px;"></div>
     </div>
 
-
     <script>
-
         // Código JavaScript para inicializar el mapa Leaflet
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
 
