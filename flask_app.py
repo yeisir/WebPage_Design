@@ -10,6 +10,7 @@ load_dotenv()
 app = Flask(__name__)
 socketio = SocketIO(app)
 
+# Conexión a la base de datos MySQL
 db = mysql.connector.connect(
     host=os.environ.get("DB_HOST"),
     user=os.environ.get("DB_USER"),
@@ -56,10 +57,32 @@ def recibir_udp():
     print("Datos enviados al cliente WebSocket:", {'latitud': latitud, 'longitud': longitud, 'altitud': altitud, 'timestamp': timestamp})
     return 'Datos recibidos y procesados correctamente'
 
-@app.route('/consulta_historica')
+@app.route('/consulta_historica', methods=['GET', 'POST'])
 def consulta_historica():
+    if request.method == 'POST':
+        inicio = request.form.get('inicio')
+        fin = request.form.get('fin')
+        
+        # Verificar si se han proporcionado valores de inicio y fin
+        if inicio and fin:
+            # Realizar la consulta a la base de datos para obtener las coordenadas históricas
+            cursor = db.cursor()
+            select_query = "SELECT latitud, longitud, altitud, timestamp FROM coordenadas WHERE timestamp BETWEEN %s AND %s"
+            cursor.execute(select_query, (inicio, fin))
+            coordenadas_historicas = cursor.fetchall()
+            cursor.close()
+            
+            # Pasar los resultados a la plantilla HTML para mostrarlos al usuario
+            return render_template('pag2.html', coordenadas_historicas=coordenadas_historicas)
+        else:
+            # Si no se proporcionaron valores de inicio y fin, mostrar un mensaje de error al usuario
+            error_message = "Por favor, proporcione valores de inicio y fin."
+            return render_template('pag2.html', error_message=error_message)
+    
+    # Si la solicitud es GET o no se proporcionaron valores de inicio y fin, simplemente renderizar la plantilla
     return render_template('pag2.html')
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)
+
 
