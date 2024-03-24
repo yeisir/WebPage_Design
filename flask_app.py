@@ -67,15 +67,18 @@ def consulta_historica():
     inicio = request.form.get('inicio')
     fin = request.form.get('fin')
     
+    print("Datos recibidos en el servidor:", inicio, fin)  # Imprimir los datos recibidos en el servidor
+
     if inicio and fin:
         coordenadas_historicas = obtener_coordenadas_historicas(inicio, fin)
-        print("Coordenadas históricas enviadas al cliente:", coordenadas_historicas)  # Imprimir los datos en el servidor
+        print("Coordenadas históricas obtenidas:", coordenadas_historicas)  # Imprimir las coordenadas históricas obtenidas
         # Emitir los datos de coordenadas históricas al cliente WebSocket
         socketio.emit('update_historical_coords', {'coordenadas': coordenadas_historicas})
         return jsonify({'coordenadas': coordenadas_historicas})  # Devuelve las coordenadas como JSON
     else:
         print("Error: No se proporcionaron valores de inicio y fin.")  # Imprimir el error en el servidor
         return render_template('pag2.html')
+
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)
