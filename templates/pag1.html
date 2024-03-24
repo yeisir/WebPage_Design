@@ -64,6 +64,7 @@
             border-radius: 5px; /* Bordes redondeados */
             cursor: pointer; /* Cursor de puntero al pasar sobre él */
             text-decoration: none; /* Eliminar subrayado del enlace */
+            display: inline-block; /* Para que el botón se comporte como un elemento en línea */
         }
     </style>
 </head>
@@ -90,10 +91,7 @@
     </div>
 
     <!-- Enlace para cargar la página de consulta histórica -->
-    <a href="#" class="btn-consulta" onclick="cargarConsultaHistorica()">Consultar históricos</a>
-
-    <!-- Contenedor donde se cargará la página de consulta histórica -->
-    <div id="consulta-historica-container"></div>
+    <a href="/consulta_historica" class="btn-consulta">Consultar históricos</a>
 
     <!-- Incluye la última versión de la librería de Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -102,6 +100,11 @@
     <script>
         // Código JavaScript para inicializar el mapa Leaflet
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo
+                // Código JavaScript para inicializar el mapa Leaflet
+                var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
@@ -140,27 +143,14 @@
             console.log('Conexión establecida correctamente con el servidor WebSocket');
         });
 
-                // Escucha el evento 'update_coords' del servidor WebSocket
-                socket.on('update_coords', function(data) {
+        // Escucha el evento 'update_coords' del servidor WebSocket
+        socket.on('update_coords', function(data) {
             actualizarUbicacion(data);
         });
-
-        // Función para cargar la página de consulta histórica mediante Ajax
-        function cargarConsultaHistorica() {
-            // Realizar una solicitud Ajax para obtener el contenido de la página de consulta histórica
-            var xhr = new XMLHttpRequest();
-            xhr.onreadystatechange = function() {
-                if (this.readyState == 4 && this.status == 200) {
-                    // Cuando la solicitud sea exitosa, colocar el contenido dentro del contenedor
-                    document.getElementById("consulta-historica-container").innerHTML = this.responseText;
-                }
-            };
-            xhr.open("GET", "/consulta_historica", true);
-            xhr.send();
-        }
     </script>
 </body>
 </html>
+
 
 
 
