@@ -23,7 +23,11 @@ db = mysql.connector.connect(
 def obtener_coordenadas_historicas(inicio, fin):
     cursor = db.cursor()
     select_query = "SELECT latitud, longitud FROM coordenadas WHERE timestamp BETWEEN %s AND %s"
-    cursor.execute(select_query, (inicio, fin))
+    # Convertir las cadenas de fecha y hora a objetos datetime
+    inicio_datetime = datetime.strptime(inicio, "%Y-%m-%d %H:%M:%S")
+    fin_datetime = datetime.strptime(fin, "%Y-%m-%d %H:%M:%S")
+    # Ejecutar la consulta SQL utilizando los objetos datetime
+    cursor.execute(select_query, (inicio_datetime, fin_datetime))
     coordenadas_historicas = cursor.fetchall()
     cursor.close()
     return coordenadas_historicas
@@ -61,12 +65,8 @@ def consulta_historica():
     inicio = request.form.get('inicio')
     fin = request.form.get('fin')
     
-    # Validar que los valores de inicio y fin no sean None
-    if inicio is not None and fin is not None:
-        # Convertir los valores de inicio y fin al formato de fecha y hora adecuado
-        inicio = datetime.strptime(inicio, "%Y-%m-%dT%H:%M")
-        fin = datetime.strptime(fin, "%Y-%m-%dT%H:%M")
-
+    # Verificar si se han proporcionado valores de inicio y fin
+    if inicio and fin:
         # Obtener las coordenadas históricas desde la base de datos
         coordenadas_historicas = obtener_coordenadas_historicas(inicio, fin)
         
@@ -79,5 +79,6 @@ def consulta_historica():
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)
+
 
 
