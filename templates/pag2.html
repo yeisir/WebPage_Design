@@ -146,13 +146,12 @@
         });
 
         var ruta;
+        var marcador;
 
-        // Función para obtener coordenadas históricas
         function obtenerCoordenadasHistoricas() {
             var inicio = $("#inicio").val();
             var fin = $("#fin").val();
 
-            // Enviar solicitud AJAX al servidor Flask
             $.ajax({
                 url: '/consulta_historica',
                 type: 'POST',
@@ -167,32 +166,35 @@
                         historialCoords.push([latitud, longitud]);
                     }
 
-                    // Trazar ruta en el mapa y mostrarla
+                    // Borrar polilínea y marcador existentes
                     if (ruta) {
-                            mymap.removeLayer(ruta); // Eliminar la polilínea anterior si existe
-                        }
-                        ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
+                        mymap.removeLayer(ruta); // Eliminar la polilínea anterior si existe
+                    }
+                    if (marcador) {
+                        mymap.removeLayer(marcador); // Eliminar el marcador anterior si existe
+                    }
 
-                        // Obtener los límites de la polilínea
-                        var bounds = ruta.getBounds();
+                    // Trazar nueva ruta en el mapa
+                    ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
 
-                        // Ajustar el zoom del mapa a los límites de la polilínea
-                        mymap.fitBounds(bounds);
+                    // Obtener los límites de la polilínea
+                    var bounds = ruta.getBounds();
 
-                        if (marcador) {
-                            mymap.removeLayer(marcador);
-                        }
+                    // Ajustar el zoom del mapa a los límites de la polilínea
+                    mymap.fitBounds(bounds);
 
-                        // Agregar un marcador en el final de la ruta
-                        var ultimoPunto = historialCoords[historialCoords.length - 1];
-                        L.marker(ultimoPunto).addTo(mymap);
-                    },
-                });
-            }
-            // Evento click del botón para consultar históricos
-            $('#consultar-historicos-btn').click(function() {
-                obtenerCoordenadasHistoricas();
+                    // Agregar un marcador en el final de la ruta
+                    var ultimoPunto = historialCoords[historialCoords.length - 1];
+                    marcador = L.marker(ultimoPunto).addTo(mymap);
+                }
             });
+        }
+
+        // Evento click del botón para consultar históricos
+        $('#consultar-historicos-btn').click(function() {
+            obtenerCoordenadasHistoricas();
+        });
+
     </script>
 </body>
 </html>
