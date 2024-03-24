@@ -53,7 +53,7 @@ def recibir_udp():
 
     # Emitir los datos al cliente WebSocket
     socketio.emit('update_coords', {'latitud': latitud, 'longitud': longitud, 'altitud': altitud, 'timestamp': timestamp})
-    print("Datos enviados al cliente WebSocket:", {'latitud': latitud, 'longitud': longitud, 'altitud': altitud, 'timestamp':timestamp})
+    print("Datos enviados al cliente WebSocket:", {'latitud': latitud, 'longitud': longitud, 'altitud': altitud, 'timestamp': timestamp})
     return 'Datos recibidos y procesados correctamente'
 
 @app.route('/consulta_historica')
@@ -62,3 +62,4 @@ def consulta_historica():
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)
+
