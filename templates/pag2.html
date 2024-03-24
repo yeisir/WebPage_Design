@@ -83,14 +83,8 @@
         }
         
     </style>
-    <!-- Incluye jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Incluye la biblioteca de Socket.IO -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
-    <!-- Incluye la última versión de la librería de Leaflet -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    
+    <!-- Incluye Flatpickr para selección de fecha y hora -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
     <!-- Encabezado dentro de un cuadro con bordes cuadrados -->
@@ -101,14 +95,16 @@
         </header>
     </div>
 
-        <!-- Formulario para consultar históricos -->
+    <!-- Formulario para consultar históricos -->
     <form class="consulta-form">
-        <label for="inicio">Inicio:</label>
-        <input type="text" id="inicio" name="inicio">
-        
-        <label for="fin">Fin:</label>
-        <input type="text" id="fin" name="fin">
-        
+        <!-- Campo de entrada para la fecha de inicio -->
+        <label for="inicio">Fecha y hora de inicio:</label>
+        <input type="text" id="inicio" name="inicio" data-input>
+
+        <!-- Campo de entrada para la fecha de fin -->
+        <label for="fin">Fecha y hora de fin:</label>
+        <input type="text" id="fin" name="fin" data-input>
+
         <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
         <button type="button" id="consultar-historicos-btn" class="btn-form">Consultar historial</button>
     </form>
@@ -118,9 +114,13 @@
         <div id="map" style="height: 400px;"></div>
     </div>
 
-    <form action="/tiempo_real" method="post">
-        <button type="submit" class="btn-volver">Ir a tiempo real</button>
-    </form>
+    <!-- Scripts -->
+    <!-- Incluye jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Incluye Flatpickr -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <!-- Incluye la última versión de la librería de Leaflet -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
 
     <script>
         // Código JavaScript para inicializar el mapa Leaflet
@@ -131,7 +131,20 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
 
-        var ruta;
+        // Configuración de Flatpickr para los campos de fecha y hora
+        flatpickr("#inicio", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i:S",
+        });
+        flatpickr("#fin", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i:S",
+        });
+
+        // Evento click del botón para consultar históricos
+        $('#consultar-historicos-btn').click(function() {
+            obtenerCoordenadasHistoricas();
+        });
 
         // Función para obtener coordenadas históricas
         function obtenerCoordenadasHistoricas() {
@@ -157,24 +170,19 @@
                         mymap.removeLayer(ruta); // Eliminar la polilínea anterior si existe
                     }
                     ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
+                    mymap.fitBounds(ruta.getBounds()); // Ajustar el zoom al trazar la ruta
 
-                    // Obtener los límites de la polilínea
-                    var bounds = ruta.getBounds();
-
-                    // Ajustar el zoom del mapa a los límites de la polilínea
-                    mymap.fitBounds(bounds);
-
-                    // Agregar un marcador en el final de la ruta
-                    var ultimoPunto = historialCoords[historialCoords.length - 1];
-                    L.marker(ultimoPunto).addTo(mymap);
+                    // Agregar marcador al final de la ruta
+                    var finalRuta = historialCoords[historialCoords.length - 1];
+                    L.marker(finalRuta).addTo(mymap);
                 },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
             });
         }
-
-        // Evento click del botón para consultar históricos
-        $('#consultar-historicos-btn').click(function() {
-            obtenerCoordenadasHistoricas();
-        });
     </script>
 </body>
 </html>
+
+
