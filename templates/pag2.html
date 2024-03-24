@@ -101,6 +101,7 @@
         </header>
     </div>
 
+        <!-- Formulario para consultar históricos -->
     <form class="consulta-form" onsubmit="return obtenerCoordenadasHistoricas()">
         <label for="inicio">Inicio:</label>
         <input type="text" id="inicio" name="inicio">
@@ -108,59 +109,55 @@
         <label for="fin">Fin:</label>
         <input type="text" id="fin" name="fin">
         
-        <button type="submit" class="btn-form">Consultar historial</button>
+        <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
+        <button type="submit" id="consultar-historicos-btn" class="btn-form">Consultar historial</button>
     </form>
 
-    
-
-    <!-- Mapa -->
+    <!-- Contenedor del mapa -->
     <div id="map-container">
-        <div id="map"></div>
+        <div id="map" style="height: 400px;"></div>
     </div>
 
-    <form action="/tiempo_real" method="post">
-        <button type="submit" class="btn-volver">Ir a Tiempo real</button>
-    </form>
-
-    <!-- Script de JavaScript -->
     <script>
-        // Código JavaScript para inicializar el mapa Leaflet
-        var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(mymap);
-    
-        // Conexión con el servidor Flask usando Socket.IO
-        const socket = io();
-
         // Función para obtener coordenadas históricas
         function obtenerCoordenadasHistoricas() {
             var inicio = $("#inicio").val();
             var fin = $("#fin").val();
             
-            // Emitir un evento al servidor con los valores de inicio y fin
-            socket.emit('consulta_historica', { inicio: inicio, fin: fin });
-            return false;
+            // Enviar solicitud AJAX al servidor Flask
+            $.ajax({
+                url: '/consulta_historica',
+                type: 'POST',
+                data: {inicio: inicio, fin: fin},
+                success: function(data) {
+                    // Tratar la respuesta del servidor y trazar la polilínea en el mapa
+                    var coordenadas = data.coordenadas;
+                    var historialCoords = [];
+                    for (var i = 0; i < coordenadas.length; i++) {
+                        var latitud = parseFloat(coordenadas[i].latitud);
+                        var longitud = parseFloat(coordenadas[i].longitud);
+                        historialCoords.push([latitud, longitud]);
+                    }
+                    // Trazar ruta en el mapa y mostrarla
+                    if (ruta) {
+                        mymap.removeLayer(ruta); // Eliminar la polilínea anterior si existe
+                    }
+                    ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
+                    var bounds = new L.LatLngBounds(historialCoords);
+                    mymap.fitBounds(bounds);
+                },
+                error: function(error) {
+                    console.error('Error:', error);
+                }
+            });
+
+            return false; // Evitar el envío del formulario
         }
 
-
-        // Escuchar el evento 'update_historical_coords' del servidor y trazar la ruta en el mapa
-        socket.on('update_historical_coords', function(data) {
-            var coordenadas = data.map(function(coord) {
-                return [parseFloat(coord.latitud), parseFloat(coord.longitud)];
-            });
-            
-            // Trazar ruta en el mapa
-            var ruta = L.polyline(coordenadas, {color: 'red'}).addTo(mymap);
-
-            // Crear objeto LatLngBounds
-            var bounds = new L.LatLngBounds(coordenadas);
-
-            // Ajustar el mapa para mostrar la ruta
-            mymap.fitBounds(bounds);
+        // Evento click del botón para consultar históricos
+        $('#consultar-historicos-btn').click(function() {
+            obtenerCoordenadasHistoricas();
         });
-
-
     </script>
 </body>
 </html>
