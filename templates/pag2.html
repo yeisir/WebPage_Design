@@ -170,7 +170,6 @@
                     // Trazar ruta en el mapa y mostrarla
                     if (ruta) {
                             mymap.removeLayer(ruta); // Eliminar la polilínea anterior si existe
-                            mymap.removeLayer(marcador);
                         }
                         ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
 
@@ -179,6 +178,10 @@
 
                         // Ajustar el zoom del mapa a los límites de la polilínea
                         mymap.fitBounds(bounds);
+
+                        if (marcador) {
+                            mymap.removeLayer(marcador);
+                        }
 
                         // Agregar un marcador en el final de la ruta
                         var ultimoPunto = historialCoords[historialCoords.length - 1];
