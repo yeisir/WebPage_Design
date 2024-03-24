@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -32,18 +33,6 @@
             justify-content: space-between;
             align-items: flex-start;
             margin-top: 20px; /* Dejar espacio debajo del encabezado */
-        }
-        .coord-data {
-            font-family: 'Arial Rounded MT Bold', sans-serif; /* Fuente más atractiva */
-            font-size: 14px; /* Tamaño de la letra */
-            border-radius: 10px;
-            border: 2px solid #cc3b62; /* Rosa oscuro */
-            padding: 8px;
-            margin-bottom: 8px;
-            width: calc(25% - 15px); /* Ancho de los cuadros */
-            margin-right: 15px; /* Espacio entre los cuadros */
-            box-sizing: border-box; /* Incluye el borde en el cálculo del ancho */
-            background-color: white; /* Fondo blanco */
         }
         #map-container {
             width: 100%;
@@ -104,14 +93,6 @@
         <button type="submit">Consultar Historial</button>
     </form>
 
-    <!-- Contenedor de coordenadas -->
-    <div class="container">
-        <div class="coord-data">Latitud: <span id="latitud"></span></div>
-        <div class="coord-data">Longitud: <span id="longitud"></span></div>
-        <div class="coord-data">Altitud: <span id="altitud"></span></div>
-        <div class="coord-data">Timestamp: <span id="timestamp"></span></div>
-    </div>
-
     <!-- Mapa -->
     <div id="map-container">
         <div id="map"></div>
@@ -131,39 +112,49 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
 
-        var polyline = L.polyline([]).addTo(mymap);
-        var marker = L.marker([0, 0], {
-            icon: L.icon({
-                iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-                iconSize: [25, 41], // Tamaño del icono
-                iconAnchor: [12, 41], // Punto de anclaje del icono
-                popupAnchor: [1, -34] // Punto de anclaje del popup
-            })
-        }).addTo(mymap);
+        // Array para almacenar las coordenadas históricas
+        var historialCoords = [];
+
+        // Función para centrar el mapa en el recorrido
+        function centrarMapaEnRecorrido() {
+            if (historialCoords.length > 0) {
+                mymap.fitBounds(historialCoords);
+            }
+        }
+
+        // Polilínea para representar el recorrido histórico
+        var polyline;
+
+        // Marcador para la última posición del historial
+        var marker;
+
+        // Código JavaScript para actualizar la ubicación del vehículo
+        function actualizarUbicacion(data) {
+            // Si el marcador ya existe, actualiza su ubicación
+            if (marker) {
+                marker.setLatLng([data.latitud, data.longitud]);
+            } else {
+                // Si no existe, crea un nuevo marcador en la ubicación actual
+                marker = L.marker([data.latitud, data.longitud]).addTo(mymap);
+            }
+
+            // Añade la posición actual al array de coordenadas históricas
+            historialCoords.push([data.latitud, data.longitud]);
+
+            // Si la polilínea ya existe, agrégale la nueva coordenada
+            if (polyline) {
+                polyline.addLatLng([data.latitud, data.longitud]);
+            } else {
+                // Si no existe, crea una nueva polilínea con las coordenadas históricas
+                polyline = L.polyline(historialCoords, { color: 'red' }).addTo(mymap);
+            }
+
+            // Centra el mapa en el recorrido
+            centrarMapaEnRecorrido();
+        }
 
         // Inicialización de la conexión con el servidor WebSocket
         const socket = io();
-
-        // Código JavaScript para obtener y actualizar la ubicación del vehículo
-        function actualizarUbicacion(data) {
-            document.getElementById('longitud').innerText = data.longitud;
-            document.getElementById('latitud').innerText = data.latitud;
-            document.getElementById('altitud').innerText = data.altitud;
-            document.getElementById('timestamp').innerText = data.timestamp;
-
-            // Actualiza la posición del marcador en el mapa
-            marker.setLatLng([data.latitud, data.longitud]);
-
-            // Agrega la posición a la polylinea para trazar la ruta
-            polyline.addLatLng([data.latitud, data.longitud]);
-
-            // Centra el mapa en la nueva posición
-            mymap.panTo([data.latitud, data.longitud]);
-        }
-        // Conexión con el servidor WebSocket
-        socket.on('connect', function() {
-            console.log('Conexión establecida correctamente con el servidor WebSocket');
-        });
 
         // Escucha el evento 'update_coords' del servidor WebSocket
         socket.on('update_coords', function(data) {
@@ -172,5 +163,3 @@
     </script>
 </body>
 </html>
-
-    
