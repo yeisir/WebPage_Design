@@ -99,14 +99,14 @@
     </div>
 
     <!-- Formulario de consulta histórica -->
-    <form class="consulta-form" method="POST">
+    <form class="consulta-form" method="POST" action="/consulta_historica">
         <label for="inicio">Inicio:</label>
         <input type="text" id="inicio" name="inicio">
-    
+        
         <label for="fin">Fin:</label>
         <input type="text" id="fin" name="fin">
         
-        <button type="button" class="btn-form" onclick="obtenerCoordenadasHistoricas()">Consultar historial</button>
+        <button type="submit" class="btn-form">Consultar historial</button>
     </form>
 
 
