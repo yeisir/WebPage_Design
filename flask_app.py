@@ -27,7 +27,6 @@ db_config = {
 }
 
 
-
 @app.route('/tiempo_real', methods=['GET', 'POST'])
 def index():
     if request.method == 'POST':
@@ -81,7 +80,7 @@ def consultar_historial():
         # Devolver las coordenadas en formato JSON
         return jsonify({'coordenadas': coordenadas_json})
     
-    # Si no hay valores para inicio y fin, solo muestra la página index.html
+    # Si no hay valores para inicio y fin, solo muestra la página
     return render_template('pag2.html')
 
 
