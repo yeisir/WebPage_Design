@@ -1,6 +1,3 @@
-Aquí tienes el código completo en un solo mensaje:
-
-```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -83,20 +80,18 @@ Aquí tienes el código completo en un solo mensaje:
     <script>
         $(function() {
             // Configura el Datepicker para el campo de inicio
-            $("#inicio").datepicker({
-                dateFormat: "yy-mm-dd", // Formato de fecha esperado
-                showTimepicker: true, // Permite seleccionar la hora
-                timeFormat: "HH:mm:ss", // Formato de hora esperado
-                controlType: 'select', // Usa selectores para la hora
-                showButtonPanel: true // Muestra un panel de botones
+            $("#inicio").datetimepicker({
+                dateFormat: "yy-mm-dd",
+                timeFormat: "HH:mm:ss",
+                controlType: 'select',
+                showButtonPanel: true
             });
             // Configura el Datepicker para el campo de fin
-            $("#fin").datepicker({
-                dateFormat: "yy-mm-dd", // Formato de fecha esperado
-                showTimepicker: true, // Permite seleccionar la hora
-                timeFormat: "HH:mm:ss", // Formato de hora esperado
-                controlType: 'select', // Usa selectores para la hora
-                showButtonPanel: true // Muestra un panel de botones
+            $("#fin").datetimepicker({
+                dateFormat: "yy-mm-dd",
+                timeFormat: "HH:mm:ss",
+                controlType: 'select',
+                showButtonPanel: true
             });
         });
     </script>
