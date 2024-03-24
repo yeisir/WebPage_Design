@@ -143,6 +143,12 @@
             return false;
         }
 
+        // Conexión con el servidor WebSocket
+        socket.on('connect', function() {
+            console.log('Conexión establecida correctamente con el servidor WebSocket');
+        });
+
+    
         // Escuchar el evento 'update_historical_coords' del servidor y trazar la ruta en el mapa
         socket.on('update_historical_coords', function(data) {
         var coordenadas = data.coordenadas;
