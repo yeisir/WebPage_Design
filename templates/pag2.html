@@ -76,25 +76,6 @@
     <!-- Incluye jQuery UI -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-    <!-- Script para inicializar el Datepicker -->
-    <script>
-        $(function() {
-            // Configura el Datepicker para el campo de inicio
-            $("#inicio").datetimepicker({
-                dateFormat: "yy-mm-dd",
-                timeFormat: "HH:mm:ss",
-                controlType: 'select',
-                showButtonPanel: true
-            });
-            // Configura el Datepicker para el campo de fin
-            $("#fin").datetimepicker({
-                dateFormat: "yy-mm-dd",
-                timeFormat: "HH:mm:ss",
-                controlType: 'select',
-                showButtonPanel: true
-            });
-        });
-    </script>
 </head>
 <body>
     <!-- Encabezado dentro de un cuadro con bordes cuadrados -->
@@ -106,7 +87,7 @@
     </div>
 
     <!-- Formulario de consulta histórica -->
-    <form class="consulta-form" action="/consulta_historica" method="post">
+    <form class="consulta-form" onsubmit="return obtenerCoordenadasHistoricas()">
         <label for="inicio">Inicio:</label>
         <input type="text" id="inicio" name="inicio">
 
@@ -121,13 +102,9 @@
         <div id="map"></div>
     </div>
 
-    <!-- Botón para volver a la visualización en tiempo real -->
-    <a href="/tiempo_real" class="btn-volver">Volver a Tiempo Real</a>
-
     <!-- Incluye la última versión de la librería de Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
     <script>
         // Código JavaScript para inicializar el mapa Leaflet
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
@@ -135,54 +112,40 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
 
-        // Array para almacenar las coordenadas históricas
-        var historialCoords = [];
+        // Función para obtener coordenadas históricas
+        function obtenerCoordenadasHistoricas() {
+            var inicio = $("#inicio").val();
+            var fin = $("#fin").val();
+            
+            // Realizar la consulta AJAX al servidor
+            $.ajax({
+                url: '/consulta_historica',
+                type: 'POST',
+                data: {inicio: inicio, fin: fin},
+                success: function(data) {
+                    // Procesar las coordenadas recibidas y trazarlas en el mapa
+                    var coordenadas = data.coordenadas;
+                    var historialCoords = [];
+                    for (var i = 0; i < coordenadas.length; i++) {
+                        var latitud = coordenadas[i].latitud;
+                        var longitud = coordenadas[i].longitud;
+                        historialCoords.push([latitud, longitud]);
+                        L.marker([latitud, longitud]).addTo(mymap);
+                    }
+                    // Ajustar el mapa para mostrar todas las coordenadas
+                    if (historialCoords.length > 0) {
+                        mymap.fitBounds(historialCoords);
+                    }
+                },
+                error: function(error) {
+                    alert("Hubo un error al obtener las coordenadas históricas.");
+                    console.error(error);
+                }
+            });
 
-        // Función para centrar el mapa en el recorrido
-        function centrarMapaEnRecorrido() {
-            if (historialCoords.length > 0) {
-                mymap.fitBounds(historialCoords);
-            }
+            // Devolver false para evitar que el formulario se envíe y la página se recargue
+            return false;
         }
-
-        // Polilínea para representar el recorrido histórico
-        var polyline;
-
-        // Marcador para la última posición del historial
-        var marker;
-
-        // Código JavaScript para actualizar la ubicación del vehículo
-        function actualizarUbicacion(data) {
-            // Si el marcador ya existe, actualiza su ubicación
-            if (marker) {
-                marker.setLatLng([data.latitud, data.longitud]);
-            } else {
-                // Si no existe, crea un nuevo marcador en la ubicación actual
-                marker = L.marker([data.latitud, data.longitud]).addTo(mymap);
-            }
-
-            // Añade la posición actual al array de coordenadas históricas
-            historialCoords.push([data.latitud, data.longitud]);
-
-            // Si la polilínea ya existe, agrégale la nueva coordenada
-            if (polyline) {
-                polyline.addLatLng([data.latitud, data.longitud]);
-            } else {
-                // Si no existe, crea una nueva polilínea con las coordenadas históricas
-                polyline = L.polyline(historialCoords, { color: 'red' }).addTo(mymap);
-            }
-
-            // Centra el mapa en el recorrido
-            centrarMapaEnRecorrido();
-        }
-
-        // Inicialización de la conexión con el servidor WebSocket
-        const socket = io();
-
-        // Escucha el evento 'update_coords' del servidor WebSocket
-        socket.on('update_coords', function(data) {
-            actualizarUbicacion(data);
-        });
     </script>
 </body>
 </html>
