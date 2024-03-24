@@ -55,17 +55,6 @@
             border: 2px solid #cc3b62; /* Rosa oscuro */
             margin-bottom: 20px;
         }
-        /* Estilos del botón */
-        .btn-consulta {
-            background-color: #cc3b62; /* Color de fondo rosa oscuro */
-            color: white; /* Color del texto blanco */
-            padding: 10px 20px; /* Espacio de relleno */
-            border: none; /* Sin borde */
-            border-radius: 5px; /* Bordes redondeados */
-            cursor: pointer; /* Cursor de puntero al pasar sobre él */
-            text-decoration: none; /* Eliminar subrayado del enlace */
-            display: inline-block; /* Para que el botón se comporte como un elemento en línea */
-        }
     </style>
 </head>
 <body>
@@ -90,9 +79,6 @@
         <div id="map"></div>
     </div>
 
-    <!-- Enlace para cargar la página de consulta histórica -->
-    <a href="/consulta_historica" class="btn-consulta">Consultar históricos</a>
-
     <!-- Incluye la última versión de la librería de Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -100,11 +86,6 @@
     <script>
         // Código JavaScript para inicializar el mapa Leaflet
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo
-                // Código JavaScript para inicializar el mapa Leaflet
-                var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
@@ -150,6 +131,7 @@
     </script>
 </body>
 </html>
+
 
 
 
