@@ -76,41 +76,50 @@
     <!-- Incluye jQuery UI -->
     <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
-</head>
-<body>
-    <!-- Encabezado dentro de un cuadro con bordes cuadrados -->
-    <div class="header-container">
-        <header>
-            <h1>Consulta Histórica</h1>
-            <p>Visualización de coordenadas históricas del vehículo.</p>
-        </header>
-    </div>
-
-    <!-- Formulario de consulta histórica -->
-    <form class="consulta-form" onsubmit="return obtenerCoordenadasHistoricas()">
-        <label for="inicio">Inicio:</label>
-        <input type="text" id="inicio" name="inicio">
-
-        <label for="fin">Fin:</label>
-        <input type="text" id="fin" name="fin">
-
-        <button type="submit">Consultar Historial</button>
-    </form>
-
-    <!-- Mapa -->
-    <div id="map-container">
-        <div id="map"></div>
-    </div>
-
     <!-- Incluye la última versión de la librería de Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- Inicialización de la conexión con el servidor WebSocket -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.2.0/socket.io.js"></script>
+    <!-- Script para inicializar el Datepicker y gestionar las coordenadas históricas -->
     <script>
         // Código JavaScript para inicializar el mapa Leaflet
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
+
+        // Función para dibujar la polilínea con las coordenadas históricas
+        function dibujarRecorrido(coordenadas) {
+            var historialCoords = coordenadas.map(coord => [coord.latitud, coord.longitud]);
+            var polyline = L.polyline(historialCoords, { color: 'blue' }).addTo(mymap);
+            mymap.fitBounds(polyline.getBounds());
+        }
+
+        // Inicialización de la conexión con el servidor WebSocket
+        const socket = io();
+
+        // Escucha el evento 'update_historical_coords' del servidor WebSocket
+        socket.on('update_historical_coords', function(data) {
+            dibujarRecorrido(data.coordenadas);
+        });
+
+        $(function() {
+            // Configura el Datepicker para el campo de inicio
+            $("#inicio").datetimepicker({
+                dateFormat: "yy-mm-dd",
+                timeFormat: "HH:mm:ss",
+                controlType: 'select',
+                showButtonPanel: true
+            });
+            // Configura el Datepicker para el campo de fin
+            $("#fin").datetimepicker({
+                dateFormat: "yy-mm-dd",
+                timeFormat: "HH:mm:ss",
+                controlType: 'select',
+                showButtonPanel: true
+            });
+        });
 
         // Función para obtener coordenadas históricas
         function obtenerCoordenadasHistoricas() {
@@ -125,17 +134,7 @@
                 success: function(data) {
                     // Procesar las coordenadas recibidas y trazarlas en el mapa
                     var coordenadas = data.coordenadas;
-                    var historialCoords = [];
-                    for (var i = 0; i < coordenadas.length; i++) {
-                        var latitud = coordenadas[i].latitud;
-                        var longitud = coordenadas[i].longitud;
-                        historialCoords.push([latitud, longitud]);
-                        L.marker([latitud, longitud]).addTo(mymap);
-                    }
-                    // Ajustar el mapa para mostrar todas las coordenadas
-                    if (historialCoords.length > 0) {
-                        mymap.fitBounds(historialCoords);
-                    }
+                    dibujarRecorrido(coordenadas);
                 },
                 error: function(error) {
                     alert("Hubo un error al obtener las coordenadas históricas.");
@@ -147,5 +146,5 @@
             return false;
         }
     </script>
-</body>
+<body>
 </html>
