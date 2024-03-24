@@ -99,7 +99,7 @@
     </div>
 
     <!-- Formulario de consulta histórica -->
-    <form id="historial-form" class="consulta-form">
+    <form class="consulta-form" method="POST" onsubmit="return obtenerCoordenadasHistoricas()">
         <label for="inicio">Inicio:</label>
         <input type="text" id="inicio" name="inicio">
         
@@ -108,40 +108,38 @@
         
         <button type="submit" class="btn-form">Consultar historial</button>
     </form>
-    
+
     <!-- Mapa -->
     <div id="map-container">
         <div id="map"></div>
     </div>
 
-    <form action="/tiempo_real">
-        <button type="submit" class="btn-volver">Ir a Tiempo real</button>
-    </form>
-
-    <!-- Incluye la última versión de la librería de Leaflet -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
-    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
-    <!-- Incluye la biblioteca de Socket.IO -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
+    <!-- Incluye el script JavaScript -->
     <script>
+        // Código JavaScript para inicializar el mapa Leaflet
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
     
+        // Conexión con el servidor Flask usando Socket.IO
         const socket = io();
 
+        // Función para obtener coordenadas históricas
         function obtenerCoordenadasHistoricas() {
             var inicio = $("#inicio").val();
             var fin = $("#fin").val();
+            
+            // Emitir un evento al servidor con los valores de inicio y fin
             socket.emit('consulta_historica', { inicio: inicio, fin: fin });
-            return false;
+            return false; // Evita que el formulario se envíe
         }
 
         socket.on('connect', function() {
             console.log('Conexión establecida correctamente con el servidor WebSocket');
         });
 
+        // Escuchar el evento 'update_historical_coords' del servidor y trazar la ruta en el mapa
         socket.on('update_historical_coords', function(data) {
             var coordenadas = data.coordenadas;
             var historialCoords = [];
@@ -150,7 +148,9 @@
                 var longitud = coordenadas[i].longitud;
                 historialCoords.push([latitud, longitud]);
             }
+            // Trazar ruta en el mapa
             var ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
+            // Ajustar el mapa para mostrar la ruta
             if (historialCoords.length > 0) {
                 mymap.fitBounds(ruta.getBounds());
             }
