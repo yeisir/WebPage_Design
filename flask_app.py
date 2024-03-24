@@ -73,8 +73,7 @@ def consulta_historica():
         coordenadas_historicas = obtener_coordenadas_historicas(inicio, fin)
         return jsonify({'coordenadas': coordenadas_historicas})  # Devuelve las coordenadas como JSON
     else:
-        error_message = "Por favor, proporcione valores de inicio y fin."
-        return jsonify({'error': error_message})  # Devuelve un mensaje de error como JSON
+        return render_template('pag2.html')
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)

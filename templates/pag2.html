@@ -137,11 +137,6 @@
         function obtenerCoordenadasHistoricas() {
             var inicio = $("#inicio").val();
             var fin = $("#fin").val();
-
-            // Verificar si los campos de inicio y fin están vacíos
-            if (inicio === '' || fin === '') {
-            return false; // Evitar el envío del formulario si falta algún valor
-            }
             
             // Emitir un evento al servidor con los valores de inicio y fin
             socket.emit('consulta_historica', { inicio: inicio, fin: fin });
