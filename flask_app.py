@@ -27,6 +27,10 @@ def obtener_coordenadas_historicas(inicio, fin):
     cursor.close()
     return coordenadas_historicas
 
+@app.route('/tiempo_real')
+def tiempo_real():
+    return render_template('pag1.html')
+
 @app.route('/consulta_historica', methods=['GET', 'POST'])
 def consulta_historica():
     if request.method == 'POST':
@@ -50,3 +54,4 @@ def consulta_historica():
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)
+
