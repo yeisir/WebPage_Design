@@ -92,15 +92,15 @@
     </div>
 
     <!-- Botón para volver a la visualización en tiempo real -->
-    <a href="/pag1.html" class="btn-volver">Volver a Tiempo Real</a>
+    <a href="pag1.html" class="btn-volver">Volver a Tiempo Real</a>
 
     <!-- Incluye la última versión de la librería de Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
     <script>
-                // Código JavaScript para inicializar el mapa Leaflet
-                var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
+        // Código JavaScript para inicializar el mapa Leaflet
+        var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
