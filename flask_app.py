@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 from flask_socketio import SocketIO
 import mysql.connector
 import os
@@ -69,17 +69,12 @@ def consulta_historica():
     inicio = request.form.get('inicio')
     fin = request.form.get('fin')
     
-    # Verificar si se han proporcionado valores de inicio y fin
     if inicio and fin:
-        # Obtener las coordenadas históricas desde la base de datos
         coordenadas_historicas = obtener_coordenadas_historicas(inicio, fin)
-        
-        # Emitir los datos al cliente WebSocket para que se dibuje el recorrido en tiempo real
-        socketio.emit('update_historical_coords', {'coordenadas': coordenadas_historicas})
-        
-        # Pasar los resultados a la plantilla HTML para mostrarlos al usuario (opcional)
-        return render_template('pag2.html', coordenadas_historicas=coordenadas_historicas, inicio=inicio, fin=fin)
-
+        return jsonify({'coordenadas': coordenadas_historicas})  # Devuelve las coordenadas como JSON
+    else:
+        error_message = "Por favor, proporcione valores de inicio y fin."
+        return jsonify({'error': error_message})  # Devuelve un mensaje de error como JSON
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)
