@@ -77,7 +77,8 @@ def consultar_historial():
         
         # Prepara las coordenadas para enviarlas al frontend
         coordenadas_json = [{'latitud': str(lat), 'longitud': str(lon)} for lat, lon in coordenadas]
-        app.logger.info('Coordenadas enviadas al cliente WebSocket: %s', coordenadas_json)
+        
+        print("Coordenadas consultadas:", coordenadas_json)
         # Emitir las coordenadas al cliente WebSocket
         socketio.emit('update_historical_coords', {'coordenadas': coordenadas_json})
 
