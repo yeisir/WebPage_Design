@@ -79,10 +79,6 @@ def consulta_historica():
         
         # Pasar los resultados a la plantilla HTML para mostrarlos al usuario (opcional)
         return render_template('pag2.html', coordenadas_historicas=coordenadas_historicas, inicio=inicio, fin=fin)
-    else:
-        # Si no se proporcionaron valores de inicio y fin, mostrar un mensaje de error al usuario
-        error_message = "Por favor, proporcione valores de inicio y fin."
-        return render_template('pag2.html', error_message=error_message)
 
 
 if __name__ == '__main__':
