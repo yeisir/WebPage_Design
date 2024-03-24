@@ -22,15 +22,16 @@ db = mysql.connector.connect(
 # Función para obtener coordenadas históricas desde la base de datos en un rango de fechas
 def obtener_coordenadas_historicas(inicio, fin):
     cursor = db.cursor()
-    select_query = "SELECT latitud, longitud FROM coordenadas WHERE timestamp BETWEEN %s AND %s"
-    # Convertir las cadenas de fecha y hora a objetos datetime
+    select_query = "SELECT latitud, longitud, altitud FROM coordenadas WHERE timestamp BETWEEN %s AND %s"
     inicio_datetime = datetime.strptime(inicio, "%Y-%m-%d %H:%M:%S")
     fin_datetime = datetime.strptime(fin, "%Y-%m-%d %H:%M:%S")
-    # Ejecutar la consulta SQL utilizando los objetos datetime
     cursor.execute(select_query, (inicio_datetime, fin_datetime))
-    coordenadas_historicas = cursor.fetchall()
+    coordenadas_historicas = []
+    for (latitud, longitud, altitud) in cursor.fetchall():
+        coordenadas_historicas.append({'latitud': latitud, 'longitud': longitud, 'altitud': altitud})
     cursor.close()
     return coordenadas_historicas
+
 
 @app.route('/tiempo_real')
 def index():
@@ -70,12 +71,16 @@ def consulta_historica():
         # Obtener las coordenadas históricas desde la base de datos
         coordenadas_historicas = obtener_coordenadas_historicas(inicio, fin)
         
-        # Pasar los resultados a la plantilla HTML para mostrarlos al usuario
+        # Emitir los datos al cliente WebSocket para que se dibuje el recorrido en tiempo real
+        socketio.emit('update_historical_coords', {'coordenadas': coordenadas_historicas})
+        
+        # Pasar los resultados a la plantilla HTML para mostrarlos al usuario (opcional)
         return render_template('pag2.html', coordenadas_historicas=coordenadas_historicas, inicio=inicio, fin=fin)
     else:
         # Si no se proporcionaron valores de inicio y fin, mostrar un mensaje de error al usuario
         error_message = "Por favor, proporcione valores de inicio y fin."
         return render_template('pag2.html', error_message=error_message)
+
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)
