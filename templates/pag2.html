@@ -100,10 +100,6 @@
         </header>
     </div>
 
-    <form action="/tiempo_real" method="post">
-        <button type="submit" class="btn-volver">Ir a Tiempo real</button>
-    </form>
-
     <form class="consulta-form" onsubmit="return obtenerCoordenadasHistoricas()">
         <label for="inicio">Inicio:</label>
         <input type="text" id="inicio" name="inicio">
@@ -112,6 +108,10 @@
         <input type="text" id="fin" name="fin">
         
         <button type="submit" class="btn-form">Consultar historial</button>
+    </form>
+
+    <form action="/tiempo_real" method="post">
+        <button type="submit" class="btn-volver">Ir a Tiempo real</button>
     </form>
 
     <!-- Mapa -->
