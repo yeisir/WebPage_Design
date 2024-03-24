@@ -19,7 +19,8 @@ db = mysql.connector.connect(
     database=os.environ.get("DB_NAME")
 )
 
-db_config=db
+db_config = db
+
 
 @app.route('/tiempo_real', methods=['GET', 'POST'])
 def index():
