@@ -127,7 +127,7 @@
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
-
+    
         // Función para obtener coordenadas históricas
         function obtenerCoordenadasHistoricas() {
             var inicio = $("#inicio").val();
@@ -146,19 +146,16 @@
                         var latitud = coordenadas[i].latitud;
                         var longitud = coordenadas[i].longitud;
                         historialCoords.push([latitud, longitud]);
-                        L.marker([latitud, longitud]).addTo(mymap);
                     }
-                    // Ajustar el mapa para mostrar todas las coordenadas
+                    // Trazar ruta en el mapa
+                    var ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
+                    // Ajustar el mapa para mostrar la ruta
                     if (historialCoords.length > 0) {
-                        mymap.fitBounds(historialCoords);
+                        mymap.fitBounds(ruta.getBounds());
                     }
-                },
-                error: function(error) {
-                    alert("Hubo un error al obtener las coordenadas históricas.");
-                    console.error(error);
                 }
             });
-
+    
             // Devolver false para evitar que el formulario se envíe y la página se recargue
             return false;
         }
