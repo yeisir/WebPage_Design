@@ -26,6 +26,7 @@ def obtener_coordenadas_historicas(inicio, fin):
     cursor.execute(select_query, (inicio, fin))
     coordenadas_historicas = [{'latitud': latitud, 'longitud': longitud, 'altitud': altitud} for (latitud, longitud, altitud) in cursor.fetchall()]
     cursor.close()
+    print("Coordenadas históricas obtenidas:", coordenadas_historicas)
     return coordenadas_historicas
 
 
