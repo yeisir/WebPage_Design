@@ -67,6 +67,21 @@
             display: inline-block; /* Para que el botón se comporte como un elemento en línea */
             margin-top: 20px; /* Espacio superior */
         }
+        /* Estilos para el formulario */
+        .consulta-form {
+            margin-bottom: 20px;
+        }
+        .consulta-form label {
+            display: block;
+            margin-bottom: 5px;
+        }
+        .consulta-form input[type="datetime-local"] {
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            box-sizing: border-box;
+        }
     </style>
 </head>
 <body>
@@ -77,6 +92,17 @@
             <p>Visualización de coordenadas históricas del vehículo.</p>
         </header>
     </div>
+
+    <!-- Formulario de consulta histórica -->
+    <form class="consulta-form" action="/consulta_historica" method="post">
+        <label for="inicio">Inicio:</label>
+        <input type="datetime-local" id="inicio" name="inicio">
+
+        <label for="fin">Fin:</label>
+        <input type="datetime-local" id="fin" name="fin">
+
+        <button type="submit">Consultar Historial</button>
+    </form>
 
     <!-- Contenedor de coordenadas -->
     <div class="container">
