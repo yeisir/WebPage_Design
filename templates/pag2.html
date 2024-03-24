@@ -70,6 +70,17 @@
             border: 1px solid #ccc;
             box-sizing: border-box;
         }
+        .btn-form {
+            background-color: #cc3b62; /* Color de fondo rosa oscuro */
+            color: white; /* Color del texto blanco */
+            padding: 5px 10px; /* Espacio de relleno */
+            border: none; /* Sin borde */
+            border-radius: 5px; /* Bordes redondeados */
+            cursor: pointer; /* Cursor de puntero al pasar sobre él */
+            text-decoration: none; /* Eliminar subrayado del enlace */
+            display: inline-block; /* Para que el botón se comporte como un elemento en línea */
+            margin-top: 20px; /* Espacio superior */
+        }
         
     </style>
     <!-- Incluye jQuery -->
@@ -94,8 +105,10 @@
 
         <label for="fin">Fin:</label>
         <input type="text" id="fin" name="fin">
+    </form>
 
-        <button type="submit">Consultar Historial</button>
+    <form action="/consulta_historica">
+        <button type="submit" class="btn-form">Consultar historial</button>
     </form>
 
 
