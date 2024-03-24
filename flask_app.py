@@ -19,17 +19,6 @@ db = mysql.connector.connect(
     database=os.environ.get("DB_NAME")
 )
 
-# Función para obtener coordenadas históricas desde la base de datos en un rango de fechas
-def obtener_coordenadas_historicas(inicio, fin):
-    cursor = db.cursor()
-    select_query = "SELECT latitud, longitud, altitud FROM coordenadas WHERE timestamp BETWEEN %s AND %s"
-    cursor.execute(select_query, (inicio, fin))
-    coordenadas_historicas = [{'latitud': latitud, 'longitud': longitud, 'altitud': altitud} for (latitud, longitud, altitud) in cursor.fetchall()]
-    cursor.close()
-    print("Coordenadas históricas obtenidas:", coordenadas_historicas)
-    return coordenadas_historicas
-
-
 
 @app.route('/tiempo_real', methods=['GET', 'POST'])
 def index():
@@ -66,18 +55,26 @@ def recibir_udp():
 def consulta_historica():
     inicio = request.form.get('inicio')
     fin = request.form.get('fin')
-    
+
     print("Datos recibidos en el servidor:", inicio, fin)  # Imprimir los datos recibidos en el servidor
 
     if inicio and fin:
-        coordenadas_historicas = obtener_coordenadas_historicas(inicio, fin)
-        print("Coordenadas históricas obtenidas:", coordenadas_historicas)  # Imprimir las coordenadas históricas obtenidas
+        # Función para obtener coordenadas históricas desde la base de datos en un rango de fechas
+        cursor = db.cursor()
+        select_query = "SELECT latitud, longitud, altitud FROM coordenadas WHERE timestamp BETWEEN %s AND %s"
+        cursor.execute(select_query, (inicio, fin))
+        coordenadas_historicas = [{'latitud': latitud, 'longitud': longitud, 'altitud': altitud} for (latitud, longitud, altitud) in cursor.fetchall()]
+        cursor.close()
+        print("Coordenadas históricas obtenidas:", coordenadas_historicas)
+
         # Emitir los datos de coordenadas históricas al cliente WebSocket
         socketio.emit('update_historical_coords', {'coordenadas': coordenadas_historicas})
+
         return jsonify({'coordenadas': coordenadas_historicas})  # Devuelve las coordenadas como JSON
     else:
         print("Error: No se proporcionaron valores de inicio y fin.")  # Imprimir el error en el servidor
         return render_template('pag2.html')
+
 
 
 if __name__ == '__main__':
