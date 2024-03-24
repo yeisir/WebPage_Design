@@ -19,6 +19,7 @@ db = mysql.connector.connect(
     database=os.environ.get("DB_NAME")
 )
 
+db_config=db
 
 @app.route('/tiempo_real', methods=['GET', 'POST'])
 def index():
@@ -59,7 +60,7 @@ def consultar_historial():
     # Verifica si hay valores para inicio y fin
     if inicio is not None and fin is not None:
         # Realiza la conexión con la base de datos y ejecuta la consulta SQL
-        conexion = mysql.connector.connect(**db)
+        conexion = mysql.connector.connect(**db_config)
         cursor = conexion.cursor()
         consulta = ("SELECT Latitud, Longitud FROM coordenadas "
                     "WHERE timestamp >= %s AND timestamp <= %s")
@@ -74,10 +75,6 @@ def consultar_historial():
     
     # Si no hay valores para inicio y fin, solo muestra la página pag2.html
     return render_template('pag2.html')
-
-
-
-
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)
