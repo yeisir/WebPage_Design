@@ -6,88 +6,17 @@
     <title>Consulta Histórica</title>
     <!-- Estilos -->
     <style>
-        body {
-            background-color: #ffecf2; /* Rosa claro */
-            color: #cc3b62; /* Rosa oscuro */
-            font-family: 'Arial Black', sans-serif; /* Fuente más atractiva */
-            padding: 20px;
-            margin: 0; /* Eliminar el margen predeterminado del cuerpo */
-        }
-        h1 {
-            display: none; /* Oculta el título "Consulta Histórica" */
-        }
-        .header-container {
-            background-color: white; /* Fondo blanco */
-            border-radius: 0; /* Bordes cuadrados */
-            border: 2px solid #cc3b62; /* Rosa oscuro */
-            padding: 10px 20px; /* Menor espacio de relleno arriba y abajo, mayor espacio de relleno a los lados */
-            margin-bottom: 20px;
-        }
-        header {
-            margin: 0; /* Eliminar el margen del encabezado */
-        }
-        .container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: space-between;
-            align-items: flex-start;
-            margin-top: 20px; /* Dejar espacio debajo del encabezado */
-        }
-        #map-container {
-            width: 100%;
-            margin-top: 20px;
-        }
         #map {
             height: 400px;
-            border-radius: 10px;
-            border: 2px solid #cc3b62; /* Rosa oscuro */
-            margin-bottom: 20px;
-        }
-        /* Estilos del botón */
-        .btn-volver {
-            background-color: #cc3b62; /* Color de fondo rosa oscuro */
-            color: white; /* Color del texto blanco */
-            padding: 10px 20px; /* Espacio de relleno */
-            border: none; /* Sin borde */
-            border-radius: 5px; /* Bordes redondeados */
-            cursor: pointer; /* Cursor de puntero al pasar sobre él */
-            text-decoration: none; /* Eliminar subrayado del enlace */
-            display: inline-block; /* Para que el botón se comporte como un elemento en línea */
-            margin-top: 20px; /* Espacio superior */
-        }
-        /* Estilos para el formulario */
-        .consulta-form {
-            margin-bottom: 20px;
-        }
-        .consulta-form label {
-            display: block;
-            margin-bottom: 5px;
-        }
-        .consulta-form input[type="text"] {
             width: 100%;
-            padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-            box-sizing: border-box;
         }
     </style>
-    <!-- Incluye jQuery -->
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Incluye jQuery UI -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Incluye la última versión de la librería de Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
 </head>
 <body>
-    <!-- Encabezado dentro de un cuadro con bordes cuadrados -->
-    <div class="header-container">
-        <header>
-            <h1>Consulta Histórica</h1>
-            <p>Visualización de coordenadas históricas del vehículo.</p>
-        </header>
-    </div>
-
     <!-- Formulario de consulta histórica -->
-    <form class="consulta-form" onsubmit="return obtenerCoordenadasHistoricas()">
+    <form onsubmit="return obtenerYDibujarCoordenadasHistoricas()">
         <label for="inicio">Inicio:</label>
         <input type="text" id="inicio" name="inicio">
 
@@ -98,12 +27,11 @@
     </form>
 
     <!-- Mapa -->
-    <div id="map-container">
-        <div id="map"></div>
-    </div>
+    <div id="map"></div>
 
+    <!-- Incluye jQuery -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <!-- Incluye la última versión de la librería de Leaflet -->
-    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script>
         // Código JavaScript para inicializar el mapa Leaflet
@@ -112,8 +40,8 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
 
-        // Función para obtener coordenadas históricas
-        function obtenerCoordenadasHistoricas() {
+        // Función para obtener y trazar coordenadas históricas
+        function obtenerYDibujarCoordenadasHistoricas() {
             var inicio = $("#inicio").val();
             var fin = $("#fin").val();
             
@@ -132,10 +60,10 @@
                         historialCoords.push([latitud, longitud]);
                         L.marker([latitud, longitud]).addTo(mymap);
                     }
+                    // Trazar ruta en el mapa
+                    var polyline = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
                     // Ajustar el mapa para mostrar todas las coordenadas
-                    if (historialCoords.length > 0) {
-                        mymap.fitBounds(historialCoords);
-                    }
+                    mymap.fitBounds(polyline.getBounds());
                 },
                 error: function(error) {
                     alert("Hubo un error al obtener las coordenadas históricas.");
