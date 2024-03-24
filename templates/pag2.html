@@ -118,7 +118,17 @@
         <div id="map" style="height: 400px;"></div>
     </div>
 
+
     <script>
+
+        // Código JavaScript para inicializar el mapa Leaflet
+        var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
+
+        // Añadir capa de OpenStreetMap al mapa
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(mymap);
+
         // Función para obtener coordenadas históricas
         function obtenerCoordenadasHistoricas() {
             var inicio = $("#inicio").val();
