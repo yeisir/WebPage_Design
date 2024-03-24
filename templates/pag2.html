@@ -85,9 +85,11 @@
     </style>
     <!-- Incluye jQuery -->
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <!-- Incluye jQuery UI -->
-    <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <!-- Incluye la última versión de la librería de Leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- Incluye la biblioteca de Socket.IO -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
 </head>
 <body>
     <!-- Encabezado dentro de un cuadro con bordes cuadrados -->
@@ -98,8 +100,7 @@
         </header>
     </div>
 
-    <!-- Formulario de consulta histórica -->
-    <form class="consulta-form" method="POST" onsubmit="return obtenerCoordenadasHistoricas()">
+    <form class="consulta-form" onsubmit="return obtenerCoordenadasHistoricas()">
         <label for="inicio">Inicio:</label>
         <input type="text" id="inicio" name="inicio">
         
@@ -114,7 +115,7 @@
         <div id="map"></div>
     </div>
 
-    <!-- Incluye el script JavaScript -->
+    <!-- Script de JavaScript -->
     <script>
         // Código JavaScript para inicializar el mapa Leaflet
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
@@ -132,20 +133,16 @@
             
             // Emitir un evento al servidor con los valores de inicio y fin
             socket.emit('consulta_historica', { inicio: inicio, fin: fin });
-            return false; // Evita que el formulario se envíe
+            return false;
         }
-
-        socket.on('connect', function() {
-            console.log('Conexión establecida correctamente con el servidor WebSocket');
-        });
 
         // Escuchar el evento 'update_historical_coords' del servidor y trazar la ruta en el mapa
         socket.on('update_historical_coords', function(data) {
             var coordenadas = data.coordenadas;
             var historialCoords = [];
             for (var i = 0; i < coordenadas.length; i++) {
-                var latitud = coordenadas[i].latitud;
-                var longitud = coordenadas[i].longitud;
+                var latitud = parseFloat(coordenadas[i].latitud);
+                var longitud = parseFloat(coordenadas[i].longitud);
                 historialCoords.push([latitud, longitud]);
             }
             // Trazar ruta en el mapa
@@ -158,4 +155,3 @@
     </script>
 </body>
 </html>
-
