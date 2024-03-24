@@ -157,7 +157,16 @@
                         mymap.removeLayer(ruta); // Eliminar la polilínea anterior si existe
                     }
                     ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
+
+                    // Obtener los límites de la polilínea
+                    var bounds = ruta.getBounds();
+
+                    // Ajustar el zoom del mapa a los límites de la polilínea
                     mymap.fitBounds(bounds);
+
+                    // Agregar un marcador en el final de la ruta
+                    var ultimoPunto = historialCoords[historialCoords.length - 1];
+                    L.marker(ultimoPunto).addTo(mymap);
                 },
             });
         }
