@@ -3,6 +3,7 @@ from flask_socketio import SocketIO
 import mysql.connector
 import os
 from dotenv import load_dotenv
+from datetime import datetime
 
 # Variable de entorno
 load_dotenv()
@@ -60,6 +61,14 @@ def consulta_historica():
     inicio = request.form.get('inicio')
     fin = request.form.get('fin')
     
+    # Imprimir los valores de inicio y fin para verificar
+    print("Inicio:", inicio)
+    print("Fin:", fin)
+
+    # Convertir los valores de inicio y fin al formato de fecha y hora adecuado
+    inicio = datetime.strptime(inicio, "%Y-%m-%dT%H:%M")
+    fin = datetime.strptime(fin, "%Y-%m-%dT%H:%M")
+
     # Verificar si se han proporcionado valores de inicio y fin
     if inicio and fin:
         # Obtener las coordenadas históricas desde la base de datos
@@ -74,4 +83,5 @@ def consulta_historica():
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)
+
 
