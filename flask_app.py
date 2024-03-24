@@ -53,22 +53,28 @@ def recibir_udp():
 
 @app.route('/consulta_historica', methods=['POST'])
 def consultar_historial():
-    inicio = request.form['inicio']
-    fin = request.form['fin']
+    inicio = request.form.get('inicio')
+    fin = request.form.get('fin')
     
-    # Realiza la conexión con la base de datos y ejecuta la consulta SQL
-    conexion = mysql.connector.connect(**db)
-    cursor = conexion.cursor()
-    consulta = ("SELECT Latitud, Longitud FROM coordenadas "
-                "WHERE timestamp >= %s AND timestamp <= %s")
-    cursor.execute(consulta, (inicio, fin))
-    coordenadas = cursor.fetchall()
-    conexion.close()
+    # Verifica si hay valores para inicio y fin
+    if inicio is not None and fin is not None:
+        # Realiza la conexión con la base de datos y ejecuta la consulta SQL
+        conexion = mysql.connector.connect(**db)
+        cursor = conexion.cursor()
+        consulta = ("SELECT Latitud, Longitud FROM coordenadas "
+                    "WHERE timestamp >= %s AND timestamp <= %s")
+        cursor.execute(consulta, (inicio, fin))
+        coordenadas = cursor.fetchall()
+        conexion.close()
+        
+        # Prepara las coordenadas para enviarlas al frontend
+        coordenadas_json = [{'latitud': lat, 'longitud': lon} for lat, lon in coordenadas]
+        
+        return jsonify(coordenadas_json)
     
-    # Prepara las coordenadas para enviarlas al frontend
-    coordenadas_json = [{'latitud': lat, 'longitud': lon} for lat, lon in coordenadas]
-    
-    return jsonify(coordenadas_json)
+    # Si no hay valores para inicio y fin, solo muestra la página pag2.html
+    return render_template('pag2.html')
+
 
 
 
