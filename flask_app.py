@@ -4,7 +4,7 @@ import mysql.connector
 import os
 from dotenv import load_dotenv
 
-#variable_de_entorno
+# Variable de entorno
 load_dotenv()
 
 app = Flask(__name__)
@@ -16,7 +16,6 @@ db = mysql.connector.connect(
     password=os.environ.get("DB_PASSWORD"),
     database=os.environ.get("DB_NAME")
 )
-
 
 @app.route('/')
 def index():
@@ -57,6 +56,9 @@ def recibir_udp():
     print("Datos enviados al cliente WebSocket:", {'latitud': latitud, 'longitud': longitud, 'altitud': altitud, 'timestamp':timestamp})
     return 'Datos recibidos y procesados correctamente'
 
-if __name__ == '__main__':
-    socketio.run(app, debug=True, host= '0.0.0.0', port='5000')
+@app.route('/consulta_historica')
+def consulta_historica():
+    return render_template('pag2.html')
 
+if __name__ == '__main__':
+    socketio.run(app, debug=True, host='0.0.0.0', port=5000)
