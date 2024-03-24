@@ -17,7 +17,7 @@ db = mysql.connector.connect(
     database=os.environ.get("DB_NAME")
 )
 
-@app.route('/')
+@app.route('/tiempo_real')
 def index():
     return render_template('pag1.html')
 
