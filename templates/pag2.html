@@ -151,15 +151,12 @@
                         mymap.removeLayer(ruta); // Eliminar la polilínea anterior si existe
                     }
                     ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
-                    var bounds = new L.LatLngBounds(historialCoords);
                     mymap.fitBounds(bounds);
                 },
                 error: function(error) {
                     console.error('Error:', error);
                 }
             });
-
-            return false; // Evitar el envío del formulario
         }
 
         // Evento click del botón para consultar históricos
