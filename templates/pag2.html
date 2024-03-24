@@ -99,7 +99,7 @@
     </div>
 
     <!-- Formulario de consulta histórica -->
-    <form class="consulta-form" method="POST" action="/consulta_historica">
+    <form id="historial-form" class="consulta-form">
         <label for="inicio">Inicio:</label>
         <input type="text" id="inicio" name="inicio">
         
@@ -108,8 +108,7 @@
         
         <button type="submit" class="btn-form">Consultar historial</button>
     </form>
-
-
+    
     <!-- Mapa -->
     <div id="map-container">
         <div id="map"></div>
