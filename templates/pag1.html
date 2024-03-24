@@ -55,6 +55,16 @@
             border: 2px solid #cc3b62; /* Rosa oscuro */
             margin-bottom: 20px;
         }
+        /* Estilos del botón */
+        .btn-consulta {
+            background-color: #cc3b62; /* Color de fondo rosa oscuro */
+            color: white; /* Color del texto blanco */
+            padding: 10px 20px; /* Espacio de relleno */
+            border: none; /* Sin borde */
+            border-radius: 5px; /* Bordes redondeados */
+            cursor: pointer; /* Cursor de puntero al pasar sobre él */
+            text-decoration: none; /* Eliminar subrayado del enlace */
+        }
     </style>
 </head>
 <body>
@@ -78,6 +88,12 @@
     <div id="map-container">
         <div id="map"></div>
     </div>
+
+    <!-- Enlace para cargar la página de consulta histórica -->
+    <a href="#" class="btn-consulta" onclick="cargarConsultaHistorica()">Consultar históricos</a>
+
+    <!-- Contenedor donde se cargará la página de consulta histórica -->
+    <div id="consulta-historica-container"></div>
 
     <!-- Incluye la última versión de la librería de Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
@@ -124,11 +140,27 @@
             console.log('Conexión establecida correctamente con el servidor WebSocket');
         });
 
-        // Escucha el evento 'update_coords' del servidor WebSocket
-        socket.on('update_coords', function(data) {
+                // Escucha el evento 'update_coords' del servidor WebSocket
+                socket.on('update_coords', function(data) {
             actualizarUbicacion(data);
         });
+
+        // Función para cargar la página de consulta histórica mediante Ajax
+        function cargarConsultaHistorica() {
+            // Realizar una solicitud Ajax para obtener el contenido de la página de consulta histórica
+            var xhr = new XMLHttpRequest();
+            xhr.onreadystatechange = function() {
+                if (this.readyState == 4 && this.status == 200) {
+                    // Cuando la solicitud sea exitosa, colocar el contenido dentro del contenedor
+                    document.getElementById("consulta-historica-container").innerHTML = this.responseText;
+                }
+            };
+            xhr.open("GET", "/consulta_historica", true);
+            xhr.send();
+        }
     </script>
 </body>
 </html>
+
+
 
