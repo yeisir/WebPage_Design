@@ -110,14 +110,16 @@
         <button type="submit" class="btn-form">Consultar historial</button>
     </form>
 
-    <form action="/tiempo_real" method="post">
-        <button type="submit" class="btn-volver">Ir a Tiempo real</button>
-    </form>
+    
 
     <!-- Mapa -->
     <div id="map-container">
         <div id="map"></div>
     </div>
+
+    <form action="/tiempo_real" method="post">
+        <button type="submit" class="btn-volver">Ir a Tiempo real</button>
+    </form>
 
     <!-- Script de JavaScript -->
     <script>
@@ -142,20 +144,24 @@
 
         // Escuchar el evento 'update_historical_coords' del servidor y trazar la ruta en el mapa
         socket.on('update_historical_coords', function(data) {
-            var coordenadas = data.coordenadas;
-            var historialCoords = [];
-            for (var i = 0; i < coordenadas.length; i++) {
-                var latitud = parseFloat(coordenadas[i].latitud);
-                var longitud = parseFloat(coordenadas[i].longitud);
-                historialCoords.push([latitud, longitud]);
-            }
-            // Trazar ruta en el mapa
-            var ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
-            // Ajustar el mapa para mostrar la ruta
-            if (historialCoords.length > 0) {
-                mymap.fitBounds(ruta.getBounds());
-            }
-        });
+        var coordenadas = data.coordenadas;
+        var historialCoords = [];
+        for (var i = 0; i < coordenadas.length; i++) {
+            var latitud = parseFloat(coordenadas[i].latitud);
+            var longitud = parseFloat(coordenadas[i].longitud);
+            historialCoords.push([latitud, longitud]);
+        }
+        
+        // Trazar ruta en el mapa
+        var ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
+
+        // Crear objeto LatLngBounds
+        var bounds = new L.LatLngBounds(historialCoords);
+
+        // Ajustar el mapa para mostrar la ruta
+        mymap.fitBounds(bounds);
+    });
+
     </script>
 </body>
 </html>
