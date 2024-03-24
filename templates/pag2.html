@@ -63,7 +63,7 @@
             display: block;
             margin-bottom: 5px;
         }
-        .consulta-form input[type="datetime-local"] {
+        .consulta-form input[type="text"] {
             width: 100%;
             padding: 8px;
             border-radius: 5px;
@@ -84,10 +84,12 @@
     <!-- Formulario de consulta histórica -->
     <form class="consulta-form" action="/consulta_historica" method="post">
         <label for="inicio">Inicio:</label>
-        <input type="datetime-local" id="inicio" name="inicio">
+        <!-- Usar un campo de texto con un placeholder que muestra el formato esperado -->
+        <input type="text" id="inicio" name="inicio" placeholder="YYYY-MM-DD HH:MM:SS">
 
         <label for="fin">Fin:</label>
-        <input type="datetime-local" id="fin" name="fin">
+        <!-- Usar un campo de texto con un placeholder que muestra el formato esperado -->
+        <input type="text" id="fin" name="fin" placeholder="YYYY-MM-DD HH:MM:SS">
 
         <button type="submit">Consultar Historial</button>
     </form>
