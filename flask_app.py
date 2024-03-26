@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, jsonify, render_template, request
 from flask_socketio import SocketIO
 import mysql.connector
 import os
@@ -19,23 +19,20 @@ db = mysql.connector.connect(
     database=os.environ.get("DB_NAME")
 )
 
-# Función para obtener coordenadas históricas desde la base de datos en un rango de fechas
-def obtener_coordenadas_historicas(inicio, fin):
-    cursor = db.cursor()
-    select_query = "SELECT latitud, longitud, altitud FROM coordenadas WHERE timestamp BETWEEN %s AND %s"
-    inicio_datetime = datetime.strptime(inicio, "%Y-%m-%d %H:%M:%S")
-    fin_datetime = datetime.strptime(fin, "%Y-%m-%d %H:%M:%S")
-    cursor.execute(select_query, (inicio_datetime, fin_datetime))
-    coordenadas_historicas = []
-    for (latitud, longitud, altitud) in cursor.fetchall():
-        coordenadas_historicas.append({'latitud': latitud, 'longitud': longitud, 'altitud': altitud})
-    cursor.close()
-    return coordenadas_historicas
+db_config = {
+    'host': os.environ.get("DB_HOST"),
+    'user': os.environ.get("DB_USER"),
+    'password': os.environ.get("DB_PASSWORD"),
+    'database': os.environ.get("DB_NAME")
+}
 
 
-@app.route('/tiempo_real')
+@app.route('/tiempo_real', methods=['GET', 'POST'])
 def index():
-    return render_template('pag1.html')
+    if request.method == 'POST':
+        return render_template('pag1.html')
+    else:
+        return render_template('pag1.html')
 
 @app.route('/recibir_udp', methods=['POST'])
 def recibir_udp():
@@ -62,29 +59,33 @@ def recibir_udp():
     return 'Datos recibidos y procesados correctamente'
 
 @app.route('/consulta_historica', methods=['POST'])
-def consulta_historica():
+def consultar_historial():
     inicio = request.form.get('inicio')
     fin = request.form.get('fin')
     
-    # Verificar si se han proporcionado valores de inicio y fin
-    if inicio and fin:
-        # Obtener las coordenadas históricas desde la base de datos
-        coordenadas_historicas = obtener_coordenadas_historicas(inicio, fin)
+    # Verifica si hay valores para inicio y fin
+    if inicio is not None and fin is not None:
+        # Realiza la conexión con la base de datos y ejecuta la consulta SQL
+        conexion = mysql.connector.connect(**db_config)
+        cursor = conexion.cursor()
+        consulta = ("SELECT Latitud, Longitud FROM coordenadas "
+                    "WHERE timestamp >= %s AND timestamp <= %s")
+        cursor.execute(consulta, (inicio, fin))
+        coordenadas = cursor.fetchall()
+        conexion.close()
         
-        # Emitir los datos al cliente WebSocket para que se dibuje el recorrido en tiempo real
-        socketio.emit('update_historical_coords', {'coordenadas': coordenadas_historicas})
+        # Prepara las coordenadas para enviarlas al frontend
+        coordenadas_json = [{'latitud': str(lat), 'longitud': str(lon)} for lat, lon in coordenadas]
         
-        # Pasar los resultados a la plantilla HTML para mostrarlos al usuario (opcional)
-        return render_template('pag2.html', coordenadas_historicas=coordenadas_historicas, inicio=inicio, fin=fin)
-    else:
-        # Si no se proporcionaron valores de inicio y fin, mostrar un mensaje de error al usuario
-        error_message = "Por favor, proporcione valores de inicio y fin."
-        return render_template('pag2.html', error_message=error_message)
+        # Devolver las coordenadas en formato JSON
+        return jsonify({'coordenadas': coordenadas_json})
+    
+    # Si no hay valores para inicio y fin, solo muestra la página
+    return render_template('pag2.html')
 
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)
-
 
 
 
