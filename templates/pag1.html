@@ -81,6 +81,11 @@
         </header>
     </div>
 
+    <form action="/consulta_historica" method="post">
+        <button type="submit" class="btn-consulta">Ir a consulta de históricos</button>
+    </form>
+    
+
     <!-- Contenedor de coordenadas -->
     <div class="container">
         <div class="coord-data">Latitud: <span id="latitud"></span></div>
@@ -94,10 +99,7 @@
         <div id="map"></div>
     </div>
 
-    <form action="/consulta_historica" method="post">
-        <button type="submit" class="btn-consulta">Ir a consulta de históricos</button>
-    </form>
-    
+   
 
     <!-- Incluye la última versión de la librería de Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
