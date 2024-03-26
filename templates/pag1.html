@@ -18,10 +18,12 @@
         }
         .header-container {
             background-color: white; /* Fondo blanco */
-            border-radius: 0; /* Bordes cuadrados */
+            border-radius: 0px; /* Bordes no-redondeados */
             border: 2px solid #cc3b62; /* Rosa oscuro */
             padding: 10px 20px; /* Menor espacio de relleno arriba y abajo, mayor espacio de relleno a los lados */
             margin-bottom: 20px;
+            width: calc(75% - 20px); /* Ancho del cuadro de bienvenida */
+            float: left; /* Alineación a la izquierda */
         }
         header {
             margin: 10; /* Eliminar el margen del encabezado */
@@ -79,6 +81,11 @@
         </header>
     </div>
 
+    <form action="/consulta_historica" method="post">
+        <button type="submit" class="btn-consulta">Ir a consulta de históricos</button>
+    </form>
+    
+
     <!-- Contenedor de coordenadas -->
     <div class="container">
         <div class="coord-data">Latitud: <span id="latitud"></span></div>
@@ -92,10 +99,7 @@
         <div id="map"></div>
     </div>
 
-    <form action="/consulta_historica" method="post">
-        <button type="submit" class="btn-consulta">Ir a consulta de históricos</button>
-    </form>
-    
+   
 
     <!-- Incluye la última versión de la librería de Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
