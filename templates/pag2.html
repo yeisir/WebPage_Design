@@ -64,20 +64,25 @@
         /* Estilos para el formulario */
         .consulta-form {
             margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
         }
         .consulta-form label {
+            grid-column: 1 / span 2;
             display: block;
             margin-bottom: 5px;
             clear: both; 
         }
         .consulta-form input[type="text"] {
+            grid-column: 1 / 2;
             width: 35%;
             padding: 8px;
             border-radius: 5px;
             border: 1px solid #ccc;
             box-sizing: border-box;
+            #fin {
+                grid-column: 2 / 3;
+            }
         }
         .btn-form {
             background-color: #cc3b62; /* Color de fondo rosa oscuro */
@@ -90,6 +95,7 @@
             display: inline-block; /* Para que el botón se comporte como un elemento en línea */
             margin-top: 20px; /* Espacio superior */
             width: 20%;
+            grid-column: 3 / 4;
         }
         
     </style>
