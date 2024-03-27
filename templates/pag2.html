@@ -69,18 +69,24 @@
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
-            align-items: flex-start;
+            align-items: center;
             margin-bottom: 5px;
-            width: 100%
         }
         .consulta-form input[type="text"] {
-            width: 35%;
             margin-right: 2%;
             padding: 8px;
-            border-radius: 5px;
+            border-radius: 7px;
             border: 1px solid #ccc;
             box-sizing: border-box;
-            float: left;
+        }
+        .date-container {
+            pisplay: flex;
+            flex-wrap: wrap;
+            width: 80%;
+        }
+        .data-container input[type="text"]{
+            flex: 1;
+            margin-right: 10px;
         }
         .btn-form {
             background-color: #cc3b62; /* Color de fondo rosa oscuro */
@@ -123,6 +129,7 @@
 
     <!-- Formulario para consultar históricos -->
     <form class="consulta-form">
+        <div class="date-container">
         <!-- Campo de entrada para la fecha de inicio -->
         <label for="inicio">Fecha y hora de inicio:</label>
         <input type="text" id="inicio" name="inicio" data-input>
@@ -130,7 +137,8 @@
         <!-- Campo de entrada para la fecha de fin -->
         <label for="fin">Fecha y hora de fin:</label>
         <input type="text" id="fin" name="fin" data-input>
-
+        </div>
+            
         <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
         <button type="button" id="consultar-historicos-btn" class="btn-form">Consultar historial</button>
     </form>
