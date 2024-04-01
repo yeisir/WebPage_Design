@@ -18,10 +18,15 @@
         }
         .header-container {
             background-color: white; /* Fondo blanco */
-            border-radius: 0; /* Bordes cuadrados */
+            border-radius: 7px; /* Bordes cuadrados */
             border: 2px solid #cc3b62; /* Rosa oscuro */
             padding: 10px 20px; /* Menor espacio de relleno arriba y abajo, mayor espacio de relleno a los lados */
             margin-bottom: 20px;
+            margin-right: 80px;
+            width: calc(75% - 20px);
+            float: left;
+            text-align: center;
+            font-size: 16.5px;
         }
         header {
             margin: 0; /* Eliminar el margen del encabezado */
@@ -32,6 +37,7 @@
             justify-content: space-between;
             align-items: flex-start;
             margin-top: 20px; /* Dejar espacio debajo del encabezado */
+            width: 100%;
         }
         #map-container {
             width: 100%;
@@ -47,39 +53,47 @@
         .btn-volver {
             background-color: #cc3b62; /* Color de fondo rosa oscuro */
             color: white; /* Color del texto blanco */
-            padding: 10px 20px; /* Espacio de relleno */
+            padding: 15px 30px; /* Espacio de relleno */
             border: none; /* Sin borde */
-            border-radius: 5px; /* Bordes redondeados */
+            border-radius: 10px; /* Bordes redondeados */
             cursor: pointer; /* Cursor de puntero al pasar sobre él */
             text-decoration: none; /* Eliminar subrayado del enlace */
             display: inline-block; /* Para que el botón se comporte como un elemento en línea */
             margin-top: 20px; /* Espacio superior */
+            font-size: 15px;
         }
         /* Estilos para el formulario */
         .consulta-form {
             margin-bottom: 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            width: 100%;
         }
         .consulta-form label {
             display: block;
             margin-bottom: 5px;
+            margin-right: 7px;
         }
         .consulta-form input[type="text"] {
-            width: 100%;
             padding: 8px;
-            border-radius: 5px;
-            border: 1px solid #ccc;
+            border-radius: 7px;
+            border: 2px solid #ababab;
             box-sizing: border-box;
+            width: calc(27% - 10px);
+            margin-right: 10px;
         }
         .btn-form {
             background-color: #cc3b62; /* Color de fondo rosa oscuro */
             color: white; /* Color del texto blanco */
-            padding: 5px 10px; /* Espacio de relleno */
+            padding: 10px 20px; /* Espacio de relleno */
             border: none; /* Sin borde */
-            border-radius: 5px; /* Bordes redondeados */
+            border-radius: 10px; /* Bordes redondeados */
             cursor: pointer; /* Cursor de puntero al pasar sobre él */
             text-decoration: none; /* Eliminar subrayado del enlace */
             display: inline-block; /* Para que el botón se comporte como un elemento en línea */
-            margin-top: 20px; /* Espacio superior */
+            margin-top: 3px; /* Espacio superior */
+            vertical-align: top;
         }
         
     </style>
@@ -100,9 +114,13 @@
     <div class="header-container">
         <header>
             <h1>Consulta Histórica</h1>
-            <p>Visualización de coordenadas históricas del vehículo.</p>
+            <p>Gracias por visitar la consulta histórica! Aquí podrás visualizar las coordenadas históricas del vehículo.</p>
         </header>
     </div>
+
+    <form action="/tiempo_real" method="post">
+        <button type="submit" class="btn-volver">Ir a tiempo real</button>
+    </form>
 
     <!-- Formulario para consultar históricos -->
     <form class="consulta-form">
@@ -113,7 +131,7 @@
         <!-- Campo de entrada para la fecha de fin -->
         <label for="fin">Fecha y hora de fin:</label>
         <input type="text" id="fin" name="fin" data-input>
-
+            
         <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
         <button type="button" id="consultar-historicos-btn" class="btn-form">Consultar historial</button>
     </form>
@@ -122,11 +140,6 @@
     <div id="map-container">
         <div id="map" style="height: 400px;"></div>
     </div>
-
-    <form action="/tiempo_real" method="post">
-        <button type="submit" class="btn-volver">Ir a tiempo real</button>
-    </form>
-
     <script>
     
         // Añadir capa de OpenStreetMap al mapa
