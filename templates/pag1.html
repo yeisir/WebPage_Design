@@ -18,22 +18,22 @@
         }
         .header-container {
             background-color: white; /* Fondo blanco */
-            border-radius: 0px; /* Bordes no-redondeados */
+            border-radius: 7px; /* Bordes no-redondeados */
             border: 2px solid #cc3b62; /* Rosa oscuro */
             padding: 10px 20px; /* Menor espacio de relleno arriba y abajo, mayor espacio de relleno a los lados */
             margin-bottom: 20px;
-            margin-right: 30px;
+            margin-right: 50px;
             width: calc(75% - 20px); /* Ancho del cuadro de bienvenida */
             float: left; /* Alineación a la izquierda */
+            font-size: 17.5px;
         }
         .container {
             display: flex;
             flex-wrap: wrap;
             justify-content: space-between;
             align-items: flex-start;
-            margin-top: 20px; /* Dejar espacio debajo del encabezado */
-            margin-left: 15px;
-            float: left;
+            margin-top: 30px; /* Dejar espacio debajo del encabezado */
+            width: 100%;
         }
         .coord-data {
             font-family: 'Arial Rounded MT Bold', sans-serif; /* Fuente más atractiva */
@@ -42,8 +42,8 @@
             border: 2px solid #cc3b62; /* Rosa oscuro */
             padding: 8px;
             margin-bottom: 8px;
-            width: calc(25% - 15px); /* Ancho de los cuadros */
-            margin-right: 15px; /* Espacio entre los cuadros */
+            width: 23%; /* Ancho de los cuadros */
+            margin-right: 2%; /* Espacio entre los cuadros */
             box-sizing: border-box; /* Incluye el borde en el cálculo del ancho */
             background-color: white; /* Fondo blanco */
         }
@@ -77,7 +77,7 @@
     <div class="header-container">
         <header>
             <h1>¡Bienvenido!</h1>
-            <p>Gracias por visitar nuestra página web. Aquí podrás seguir en tiempo real la ubicación del vehículo.</p>
+            <p>Gracias por visitar nuestra página web! Aquí podrás seguir en tiempo real la ubicación del vehículo.</p>
         </header>
     </div>
 
@@ -153,6 +153,7 @@
     </script>
 </body>
 </html>
+
 
 
 
