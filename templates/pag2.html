@@ -172,6 +172,18 @@
         var marcadorInicio;
         var marcadorFin;
 
+         marcadorInicio.on('dragend', function(event) {     
+             var latlng = event.target.getLatLng();
+             var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
+
+             // Si el marcador se encuentra fuera de la polilínea con una tolerancia de 100 metros, reposicionarlo al punto más cercano
+             if (!puntoDentroPolilinea(latlng, historialCoords, 15)) {
+                 latlng = encontrarPuntoMasCercano(latlng, historialCoords);
+                 event.target.setLatLng(latlng); // Reposicionar el marcador
+                 timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el nuevo timestamp del marcador
+                 actualizarPopup(latlng, timestamp);
+             }
+
         function obtenerCoordenadasHistoricas() {
             var inicio = $("#inicio").val();
             var fin = $("#fin").val();
@@ -220,18 +232,6 @@
                         var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
                         actualizarPopup(latlng, timestamp);
                     });
-
-                    marcadorInicio.on('dragend', function(event) {                        
-                        var latlng = event.target.getLatLng();
-                        var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
-
-                        // Si el marcador se encuentra fuera de la polilínea con una tolerancia de 100 metros, reposicionarlo al punto más cercano
-                        if (!puntoDentroPolilinea(latlng, historialCoords, 15)) {
-                            latlng = encontrarPuntoMasCercano(latlng, historialCoords);
-                            event.target.setLatLng(latlng); // Reposicionar el marcador
-                            timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el nuevo timestamp del marcador
-                            actualizarPopup(latlng, timestamp);
-                        }
                     });
                     marcadorFin.bindPopup("Fin de recorrido").openPopup();
                 }
