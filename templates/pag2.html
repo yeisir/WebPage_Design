@@ -197,6 +197,24 @@
                     // Trazar nueva ruta en el mapa
                     ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
 
+                    // Agregar eventos de hover a cada punto de la polilínea
+                    ruta.eachLayer(function(layer) {
+                        layer.on('mouseover', function(e) {
+                            // Obtener las coordenadas y el timestamp del punto
+                            var latitud = e.latlng.lat.toFixed(6);
+                            var longitud = e.latlng.lng.toFixed(6);
+                            var timestamp = coordenadas[layer._leaflet_id].timestamp; // suponiendo que 'coordenadas' es un objeto que mapea ID de capa a coordenadas
+
+                            // Crear la ventana emergente con las coordenadas y el timestamp
+                            layer.bindPopup('<b>Coordenadas:</b><br>Latitud: ' + latitud + '<br>Longitud: ' + longitud + '<br>Timestamp: ' + timestamp).openPopup();
+                        });
+                        layer.on('mouseout', function(e) {
+                            // Cerrar la ventana emergente al quitar el mouse
+                            layer.closePopup();
+                        });
+                    });
+
+
                     // Obtener los límites de la polilínea
                     var bounds = ruta.getBounds();
 
@@ -206,6 +224,21 @@
                     // Agregar un marcador en el final de la ruta
                     var ultimoPunto = historialCoords[historialCoords.length - 1];
                     marcador = L.marker(ultimoPunto).addTo(mymap);
+
+                    marcador.on('mouseover', function(e) {
+                        // Obtener las coordenadas del marcador
+                        var latitud = e.latlng.lat.toFixed(6);
+                        var longitud = e.latlng.lng.toFixed(6);
+                        var timestamp = historialCoords[historialCoords.length - 1]; // Suponiendo que el último punto de historialCoords sea el timestamp
+
+                        // Crear la ventana emergente con las coordenadas y el timestamp
+                        marcador.bindPopup('<b>Coordenadas:</b><br>Latitud: ' + latitud + '<br>Longitud: ' + longitud + '<br>Timestamp: ' + timestamp).openPopup();
+                    });
+
+                    marcador.on('mouseout', function(e) {
+                        // Cerrar la ventana emergente al quitar el mouse
+                        marcador.closePopup();
+                    });
                 }
             });
         }
