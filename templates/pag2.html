@@ -229,18 +229,23 @@
             var latlng = event.target.getLatLng(); // Obtener la nueva posición del marcador
 
             // Encontrar el punto más cercano en la polilínea a la posición actual del marcador
-            var closestPoint = ruta.getClosestLatLng(latlng);
-
-            // Verificar si la nueva posición está dentro de la polilínea
-            var isInsidePolyline = ruta.getLatLngs().some(function(latlng) {
-                return latlng.equals(closestPoint);
-            });
-
-            // Si la nueva posición está fuera de la polilínea, revertir la posición del marcador
-            if (!isInsidePolyline) {
-                event.target.setLatLng(closestPoint);
+            var closestPoint = null;
+            var shortestDistance = Number.MAX_VALUE;
+            var coordinates = ruta.getLatLngs();
+            for (var i = 0; i < coordinates.length - 1; i++) {
+                var start = coordinates[i];
+                var end = coordinates[i + 1];
+                var distance = L.GeometryUtil.distanceSegment(latlng, start, end);
+                if (distance < shortestDistance) {
+                    shortestDistance = distance;
+                    closestPoint = L.GeometryUtil.closestOnSegment(latlng, start, end);
+                }
             }
+
+            // Mover el marcador a la posición más cercana en la polilínea
+            event.target.setLatLng(closestPoint);
         });
+
 
 
     </script>
