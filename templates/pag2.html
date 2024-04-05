@@ -230,10 +230,12 @@
                         if (!puntoDentroPolilinea(latlng, historialCoords, 10)) {
                             latlng = encontrarPuntoMasCercano(latlng, historialCoords);
                             event.target.setLatLng(latlng); // Reposicionar el marcador
+                            timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el nuevo timestamp del marcador
                         }
 
                         actualizarPopup(latlng, timestamp);
                     });
+
 
 
                     marcadorFin.bindPopup("Fin de recorrido").openPopup();
