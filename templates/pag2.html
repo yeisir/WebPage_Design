@@ -183,11 +183,13 @@
                 success: function(data) {
                     // Tratar la respuesta del servidor y trazar la polilínea en el mapa
                     var coordenadas = data.coordenadas;
+                    var timestamps = data.timestamps;
                     var historialCoords = [];
                     for (var i = 0; i < coordenadas.length; i++) {
                         var latitud = parseFloat(coordenadas[i].latitud);
                         var longitud = parseFloat(coordenadas[i].longitud);
-                        historialCoords.push([latitud, longitud]);
+                        var timestamp = timestamps[i];
+                        historialCoords.push({latlng: [latitud, longitud], timestamp: timestamp});
                     }
 
                     // Borrar polilínea y marcador existentes

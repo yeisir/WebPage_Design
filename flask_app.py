@@ -75,10 +75,11 @@ def consultar_historial():
         conexion.close()
         
         # Prepara las coordenadas y timestamps para enviarlas al frontend
-        coordenadas = [{'latitud': str(lat), 'longitud': str(lon), 'timestamp': str(ts)} for lat, lon, ts in resultados]
+        coordenadas = [{'latitud': str(lat), 'longitud': str(lon)} for lat, lon, _ in resultados]
+        timestamps = [str(ts) for _, _, ts in resultados]
         
-        # Devolver las coordenadas en formato JSON
-        return jsonify({'coordenadas': coordenadas})
+        # Devolver las coordenadas y timestamps en formato JSON
+        return jsonify({'coordenadas': coordenadas, 'timestamps': timestamps})
     
     # Si no hay valores para inicio y fin, solo muestra la página
     return render_template('pag2.html')
