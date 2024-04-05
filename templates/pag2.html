@@ -234,8 +234,7 @@
         }
 
         function actualizarPopup(latlng, timestamp) {
-            // Formatear el timestamp como una cadena legible
-            var formattedTimestamp = timestamp.toLocaleString();
+            var formattedTimestamp = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
             marcadorInicio.timestamp = timestamp; // Guardar el timestamp en el marcador
             marcadorInicio.bindPopup("Timestamp: " + formattedTimestamp + "<br> Ubicación: " + latlng.lat + ", " + latlng.lng).openPopup();
         }
