@@ -204,8 +204,11 @@
                     // Agregar marcadores de inicio y fin
                     var primerPunto = historialCoords[0];
                     var ultimoPunto = historialCoords[historialCoords.length - 1];
-                    marcadorInicio = L.marker(primerPunto, {icon: greenIcon}).addTo(mymap);
+                    marcadorInicio = L.marker(primerPunto).addTo(mymap);
                     marcadorFin = L.marker(ultimoPunto).addTo(mymap);
+
+                    // Añadir texto personalizado al marcador de fin
+                    marcadorFin.bindPopup("Fin de recorrido").openPopup();
                                     
                     // Obtener los límites de la polilínea
                     var bounds = ruta.getBounds();
@@ -215,15 +218,6 @@
                 }
             });
         }
-
-        // Define icono personalizado para el marcador de inicio
-        var greenIcon = L.icon({
-            iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-green.png',
-            iconSize: [25, 41],
-            iconAnchor: [12, 41],
-            popupAnchor: [1, -34],
-            shadowSize: [41, 41]
-        });
 
         // Evento click del botón para consultar históricos
         $('#consultar-historicos-btn').click(function() {
