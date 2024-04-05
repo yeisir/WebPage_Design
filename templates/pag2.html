@@ -224,6 +224,17 @@
             obtenerCoordenadasHistoricas();
         });
 
+        // Evento drag del marcador de inicio
+        marcadorInicio.on('drag', function(event) {
+            var latlng = event.target.getLatLng(); // Obtener la nueva posición del marcador
+
+            // Encontrar el punto más cercano en la polilínea a la posición actual del marcador
+            var closestPoint = ruta.getClosestLatLng(latlng);
+
+            // Establecer la posición del marcador en el punto más cercano de la polilínea
+            event.target.setLatLng(closestPoint);
+        });
+
     </script>
 </body>
 </html>
