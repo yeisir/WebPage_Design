@@ -221,9 +221,7 @@
                         actualizarPopup(latlng, timestamp);
                     });
 
-                    marcadorInicio.on('dragend', function(event) {
-                        marcadorInicio.off('dragend');
-                        
+                    marcadorInicio.on('dragend', function(event) {                        
                         var latlng = event.target.getLatLng();
                         var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
 
@@ -232,16 +230,10 @@
                             latlng = encontrarPuntoMasCercano(latlng, historialCoords);
                             event.target.setLatLng(latlng); // Reposicionar el marcador
                             timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el nuevo timestamp del marcador
+                            actualizarPopup(latlng, timestamp);
                         }
-
-                        marcadorInicio.on('dragend', arguments.callee);
-                        actualizarPopup(latlng, timestamp);
                     });
-
-
-
                     marcadorFin.bindPopup("Fin de recorrido").openPopup();
-
                 }
             });
         }
