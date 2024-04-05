@@ -166,7 +166,8 @@
         });
 
         var ruta;
-        var marcador;
+        var marcadorInicio;
+        var marcadorFin;
 
         function obtenerCoordenadasHistoricas() {
             var inicio = $("#inicio").val();
@@ -186,58 +187,43 @@
                         historialCoords.push([latitud, longitud]);
                     }
 
-                    // Borrar polilínea existente
+                    // Borrar polilínea y marcador existentes
                     if (ruta) {
                         mymap.removeLayer(ruta); // Eliminar la polilínea anterior si existe
+                    }
+                    if (marcadorInicio) {
+                    mymap.removeLayer(marcadorInicio); // Eliminar el marcador de inicio anterior si existe
+                    }
+                    if (marcadorFin) {
+                        mymap.removeLayer(marcadorFin); // Eliminar el marcador de fin anterior si existe
                     }
 
                     // Trazar nueva ruta en el mapa
                     ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
 
-                    // Agregar eventos de hover a cada punto de la polilínea
-                    ruta.eachLayer(function(layer) {
-                        layer.on('mouseover', function(e) {
-                            // Obtener las coordenadas y el timestamp del punto
-                            var latitud = e.latlng.lat.toFixed(6);
-                            var longitud = e.latlng.lng.toFixed(6);
-                            var timestamp = coordenadas[layer._leaflet_id].timestamp; // suponiendo que 'coordenadas' es un objeto que mapea ID de capa a coordenadas
-
-                            // Crear la ventana emergente con las coordenadas y el timestamp
-                            layer.bindPopup('<b>Coordenadas:</b><br>Latitud: ' + latitud + '<br>Longitud: ' + longitud + '<br>Timestamp: ' + timestamp).openPopup();
-                        });
-                        layer.on('mouseout', function(e) {
-                            // Cerrar la ventana emergente al quitar el mouse
-                            layer.closePopup();
-                        });
-                    });
-
+                    // Agregar marcadores de inicio y fin
+                    var primerPunto = historialCoords[0];
+                    var ultimoPunto = historialCoords[historialCoords.length - 1];
+                    marcadorInicio = L.marker(primerPunto, {icon: greenIcon}).addTo(mymap);
+                    marcadorFin = L.marker(ultimoPunto).addTo(mymap);
+                                    
                     // Obtener los límites de la polilínea
                     var bounds = ruta.getBounds();
 
                     // Ajustar el zoom del mapa a los límites de la polilínea
                     mymap.fitBounds(bounds);
-
-                    // Agregar un marcador en el final de la ruta
-                    var ultimoPunto = historialCoords[historialCoords.length - 1];
-                    marcador = L.marker(ultimoPunto).addTo(mymap);
-
-                    marcador.on('mouseover', function(e) {
-                        // Obtener las coordenadas del marcador
-                        var latitud = e.latlng.lat.toFixed(6);
-                        var longitud = e.latlng.lng.toFixed(6);
-                        var timestamp = coordenadas[layer._leaflet_id].timestamp; // Suponiendo que 'coordenadas' es un objeto que mapea ID de capa a coordenadas
-
-                        // Crear la ventana emergente con las coordenadas y el timestamp
-                        marcador.bindPopup('<b>Coordenadas:</b><br>Latitud: ' + latitud + '<br>Longitud: ' + longitud + '<br>Timestamp: ' + timestamp).openPopup();
-                    });
-
-                    marcador.on('mouseout', function(e) {
-                        // Cerrar la ventana emergente al quitar el mouse
-                        marcador.closePopup();
-                    });
                 }
             });
         }
+
+        // Define icono personalizado para el marcador de inicio
+        var greenIcon = L.icon({
+            iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon-green.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
 
         // Evento click del botón para consultar históricos
         $('#consultar-historicos-btn').click(function() {
