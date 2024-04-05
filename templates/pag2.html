@@ -208,7 +208,7 @@
                     marcadorFin = L.marker(ultimoPunto).addTo(mymap);
 
                     // Añadir texto personalizado al marcador de fin
-                    marcadorFin.bindPopup("Fin de recorrido", {closeButton: false, offset: L.point(0, 10)}).openPopup();
+                    marcadorFin.bindPopup("Fin de recorrido", {closeButton: true, offset: L.point(0, 10)}).openPopup();
                                     
                     // Obtener los límites de la polilínea
                     var bounds = ruta.getBounds();
