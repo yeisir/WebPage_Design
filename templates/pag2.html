@@ -217,15 +217,21 @@
 
                     marcadorInicio.on('drag', function(event) {
                         var latlng = event.target.getLatLng();
-                        var nearestPoint = encontrarPuntoMasCercano(latlng, historialCoords, tolerancia);
-                        event.target.setLatLng(nearestPoint); // Mover el marcador al punto más cercano a la polilínea
-                        var timestamp = encontrarTimestamp(nearestPoint, coordenadas);
-                        actualizarPopup(nearestPoint, timestamp);
+                        var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
+                        actualizarPopup(latlng, timestamp);
                     });
+
 
                     marcadorInicio.on('dragend', function(event) {
                         var latlng = event.target.getLatLng();
-                        var timestamp = encontrarTimestamp(latlng, coordenadas);
+                        var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
+
+                        // Si el marcador se encuentra fuera de la polilínea, reposicionarlo al punto más cercano
+                        if (!puntoDentroPolilinea(latlng, historialCoords)) {
+                            latlng = encontrarPuntoMasCercano(latlng, historialCoords);
+                            event.target.setLatLng(latlng); // Reposicionar el marcador
+                        }
+
                         actualizarPopup(latlng, timestamp);
                     });
 
@@ -235,20 +241,27 @@
             });
         }
 
-        // Función para encontrar el punto más cercano a la polilínea
-        function encontrarPuntoMasCercano(latlng, historialCoords, tolerancia) {
-            var nearestPoint = null;
-            var minDistance = Number.MAX_VALUE;
-            for (var i = 0; i < historialCoords.length; i++) {
-                var point = L.latLng(historialCoords[i]);
-                var distance = latlng.distanceTo(point);
-                if (distance < minDistance && distance <= tolerancia) {
-                    minDistance = distance;
-                    nearestPoint = point;
+        // Verifica si un punto dado está dentro de una polilínea
+        function puntoDentroPolilinea(latlng, polilinea) {
+            return L.polyline(polilinea).getBounds().contains(latlng);
+        }
+
+        // Encuentra el punto más cercano a un punto dado dentro de una polilínea
+        function encontrarPuntoMasCercano(latlng, polilinea) {
+            var puntoMasCercano = polilinea[0];
+            var distanciaMinima = latlng.distanceTo(puntoMasCercano);
+
+            for (var i = 1; i < polilinea.length; i++) {
+                var distancia = latlng.distanceTo(polilinea[i]);
+                if (distancia < distanciaMinima) {
+                    distanciaMinima = distancia;
+                    puntoMasCercano = polilinea[i];
                 }
             }
-            return nearestPoint;
+
+            return puntoMasCercano;
         }
+
 
         // Función para encontrar el timestamp correspondiente a las coordenadas
         function encontrarTimestamp(latlng, coordenadas) {
