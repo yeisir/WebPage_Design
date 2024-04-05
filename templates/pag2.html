@@ -213,7 +213,9 @@
                     marcadorInicio = L.marker(primerPunto, { draggable: true }).addTo(mymap);
                     marcadorFin = L.marker(ultimoPunto).addTo(mymap);
 
-                    marcadorInicio.timestamp = timestamps[0];
+                    for (var j = 0; j < historialCoords.length; j++) {
+                        marcadorInicio[j].timestamp = timestamps[j];
+                    }
 
                     marcadorInicio.on('drag', function(event) {
                         var latlng = event.target.getLatLng();
