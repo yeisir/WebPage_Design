@@ -222,6 +222,8 @@
                     });
 
                     marcadorInicio.on('dragend', function(event) {
+                        marcadorInicio.off('dragend');
+                        
                         var latlng = event.target.getLatLng();
                         var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
 
@@ -232,6 +234,7 @@
                             timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el nuevo timestamp del marcador
                         }
 
+                        marcadorInicio.on('dragend', arguments.callee);
                         actualizarPopup(latlng, timestamp);
                     });
 
