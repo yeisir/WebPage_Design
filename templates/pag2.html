@@ -192,54 +192,45 @@
                         historialCoords.push({latlng: [latitud, longitud], timestamp: timestamp});
                     }
 
-                    // Borrar polilínea y marcador existentes
                     if (ruta) {
-                        mymap.removeLayer(ruta); // Eliminar la polilínea anterior si existe
+                        mymap.removeLayer(ruta);
                     }
                     if (marcadorInicio) {
-                        mymap.removeLayer(marcadorInicio); // Eliminar el marcador de inicio anterior si existe
+                        mymap.removeLayer(marcadorInicio);
                     }
                     if (marcadorFin) {
-                        mymap.removeLayer(marcadorFin); // Eliminar el marcador de fin anterior si existe
+                        mymap.removeLayer(marcadorFin);
                     }
 
-                    // Trazar nueva ruta en el mapa
                     ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
-
-                    // Agregar marcadores de inicio y fin
                     var primerPunto = historialCoords[0];
                     var ultimoPunto = historialCoords[historialCoords.length - 1];
                     marcadorInicio = L.marker(primerPunto, { draggable: true }).addTo(mymap);
                     marcadorFin = L.marker(ultimoPunto).addTo(mymap);
 
-                    // Adjuntar evento de arrastre al marcador de inicio
                     marcadorInicio.on('drag', function(event) {
-                        var latlng = event.target.getLatLng(); // Obtener la nueva posición del marcador
-                        actualizarPopup(latlng); // Actualizar el popup con la nueva ubicación
+                        var latlng = event.target.getLatLng();
+                        var timestamp = event.target.timestamp; // Obtener el timestamp del marcador
+                        actualizarPopup(latlng, timestamp);
                     });
 
-                    // Adjuntar evento de arrastre al marcador de inicio
                     marcadorInicio.on('dragend', function(event) {
-                        var latlng = event.target.getLatLng(); // Obtener la nueva posición del marcador
-                        actualizarPopup(latlng); // Actualizar el popup con la nueva ubicación
+                        var latlng = event.target.getLatLng();
+                        var timestamp = event.target.timestamp; // Obtener el timestamp del marcador
+                        actualizarPopup(latlng, timestamp);
                     });
 
-                    // Añadir texto personalizado al marcador de fin
                     marcadorFin.bindPopup("Fin de recorrido").openPopup();
-                                    
-                    // Obtener los límites de la polilínea
-                    var bounds = ruta.getBounds();
 
-                    // Ajustar el zoom del mapa a los límites de la polilínea
+                    var bounds = ruta.getBounds();
                     mymap.fitBounds(bounds);
 
                 }
             });
         }
 
-
-        // Función para actualizar el popup del marcador con el timestamp y la ubicación
         function actualizarPopup(latlng, timestamp) {
+            marcadorInicio.timestamp = timestamp; // Guardar el timestamp en el marcador
             marcadorInicio.bindPopup("Timestamp: " + timestamp + "<br> Ubicación: " + latlng.toString()).openPopup();
         }
 
