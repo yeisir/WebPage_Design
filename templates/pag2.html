@@ -213,19 +213,17 @@
                     marcadorInicio = L.marker(primerPunto, { draggable: true }).addTo(mymap);
                     marcadorFin = L.marker(ultimoPunto).addTo(mymap);
 
-                    for (var j = 0; j < historialCoords.length; j++) {
-                        marcadorInicio[j].timestamp = timestamps[j];
-                    }
+                    marcadorInicio.timestamp = timestamps[0];
 
                     marcadorInicio.on('drag', function(event) {
                         var latlng = event.target.getLatLng();
-                        var timestamp = event.target.timestamp; // Obtener el timestamp del marcador
+                        var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
                         actualizarPopup(latlng, timestamp);
                     });
 
                     marcadorInicio.on('dragend', function(event) {
                         var latlng = event.target.getLatLng();
-                        var timestamp = event.target.timestamp; // Obtener el timestamp del marcador
+                        var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
                         actualizarPopup(latlng, timestamp);
                     });
 
@@ -235,6 +233,18 @@
             });
         }
 
+        // Función para encontrar el timestamp correspondiente a las coordenadas
+        function encontrarTimestamp(latlng, coordenadas) {
+            // Busca el timestamp correspondiente a las coordenadas
+            for (var i = 0; i < coordenadas.length; i++) {
+                if (coordenadas[i].latitud === latlng.lat && coordenadas[i].longitud === latlng.lng) {
+                    return coordenadas[i].timestamp;
+                }
+            }
+            return "Timestamp no encontrado"; // Si no se encuentra el timestamp
+        }
+
+        // Actualizar el popup del marcador con el timestamp y la ubicación
         function actualizarPopup(latlng, timestamp) {
             var formattedTimestamp = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
             marcadorInicio.timestamp = timestamp; // Guardar el timestamp en el marcador
