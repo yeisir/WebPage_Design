@@ -183,13 +183,11 @@
                 success: function(data) {
                     // Tratar la respuesta del servidor y trazar la polilínea en el mapa
                     var coordenadas = data.coordenadas;
-                    var timestamps = data.timestamps;
                     var historialCoords = [];
                     for (var i = 0; i < coordenadas.length; i++) {
                         var latitud = parseFloat(coordenadas[i].latitud);
                         var longitud = parseFloat(coordenadas[i].longitud);
-                        var timestamp = timestamps[i];
-                        historialCoords.push({latlng: [latitud, longitud]});
+                        historialCoords.push([latitud, longitud]);
                     }
 
                     if (ruta) {
@@ -203,8 +201,12 @@
                     }
 
                     ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
+                    var bounds = ruta.getBounds();
+                    mymap.fitBounds(bounds);
+
                     var primerPunto = historialCoords[0];
                     var ultimoPunto = historialCoords[historialCoords.length - 1];
+
                     marcadorInicio = L.marker(primerPunto, { draggable: true }).addTo(mymap);
                     marcadorFin = L.marker(ultimoPunto).addTo(mymap);
 
@@ -221,9 +223,6 @@
                     });
 
                     marcadorFin.bindPopup("Fin de recorrido").openPopup();
-
-                    var bounds = ruta.getBounds();
-                    mymap.fitBounds(bounds);
 
                 }
             });
