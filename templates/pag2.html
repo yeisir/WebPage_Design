@@ -204,7 +204,7 @@
                     // Agregar marcadores de inicio y fin
                     var primerPunto = historialCoords[0];
                     var ultimoPunto = historialCoords[historialCoords.length - 1];
-                    marcadorInicio = L.marker(primerPunto).addTo(mymap);
+                    marcadorInicio = L.marker(primerPunto, { draggable: true }).addTo(mymap);
                     marcadorFin = L.marker(ultimoPunto).addTo(mymap);
 
                     // Añadir texto personalizado al marcador de fin
