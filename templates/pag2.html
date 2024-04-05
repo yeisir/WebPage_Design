@@ -210,6 +210,18 @@
                     marcadorInicio = L.marker(primerPunto, { draggable: true }).addTo(mymap);
                     marcadorFin = L.marker(ultimoPunto).addTo(mymap);
 
+                    // Adjuntar evento de arrastre al marcador de inicio
+                    marcadorInicio.on('drag', function(event) {
+                        var latlng = event.target.getLatLng(); // Obtener la nueva posición del marcador
+                        actualizarPopup(latlng); // Actualizar el popup con la nueva ubicación
+                    });
+
+                    // Adjuntar evento de arrastre al marcador de inicio
+                    marcadorInicio.on('dragend', function(event) {
+                        var latlng = event.target.getLatLng(); // Obtener la nueva posición del marcador
+                        actualizarPopup(latlng); // Actualizar el popup con la nueva ubicación
+                    });
+
                     // Añadir texto personalizado al marcador de fin
                     marcadorFin.bindPopup("Fin de recorrido").openPopup();
                                     
@@ -219,42 +231,14 @@
                     // Ajustar el zoom del mapa a los límites de la polilínea
                     mymap.fitBounds(bounds);
 
-                    // Adjuntar evento de arrastre al marcador de inicio
-                    marcadorInicio.on('drag', function(event) {
-                        var latlng = event.target.getLatLng(); // Obtener la nueva posición del marcador
-                        actualizarPopup(latlng, coordenadas); // Actualizar el popup con la nueva ubicación
-                    });
-
-                    // Adjuntar evento de arrastre al marcador de inicio
-                    marcadorInicio.on('dragend', function(event) {
-                        var latlng = event.target.getLatLng(); // Obtener la nueva posición del marcador
-                        actualizarPopup(latlng, coordenadas); // Actualizar el popup con la nueva ubicación
-                    });
-
                 }
             });
         }
 
 
         // Función para actualizar el popup del marcador con el timestamp y la ubicación
-        function actualizarPopup(latlng, coordenadas) {
-            var timestamp = obtenerTimestamp(coordenadas, latlng); // Obtener el timestamp del punto más cercano al marcador
+        function actualizarPopup(latlng, timestamp) {
             marcadorInicio.bindPopup("Timestamp: " + timestamp + "<br> Ubicación: " + latlng.toString()).openPopup();
-        }
-
-        // Función para obtener el timestamp del punto más cercano al marcador
-        function obtenerTimestamp(coordenadas, latlng) {
-            var distanciaMinima = Infinity;
-            var timestampMinimo = "";
-            for (var i = 0; i < coordenadas.length; i++) {
-                var coord = coordenadas[i];
-                var distancia = latlng.distanceTo([parseFloat(coord.latitud), parseFloat(coord.longitud)]);
-                if (distancia < distanciaMinima) {
-                    distanciaMinima = distancia;
-                    timestampMinimo = coord.timestamp;
-                }
-            }
-            return timestampMinimo;
         }
 
 
