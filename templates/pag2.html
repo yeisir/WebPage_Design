@@ -245,10 +245,6 @@
                 }
             }
 
-            // Mover el marcador solo si está dentro de la polilínea, de lo contrario, mantenerlo en su posición actual
-            if (ruta.getLatLngs().includes(closestPoint)) {
-                event.target.setLatLng(closestPoint);
-            }
         });
 
 
