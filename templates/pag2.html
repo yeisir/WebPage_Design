@@ -224,7 +224,8 @@
                             event.target.setLatlng(closestPoint);
                             var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
                             actualizarPopup(latlng, timestamp);
-                        }
+                        }else{
+                            event.target.setLatLng(event.oldLatLng);
                     });
 
 
@@ -237,7 +238,8 @@
                             event.target.setLatlng(closestPoint);
                             var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
                             actualizarPopup(latlng, timestamp);
-                        }                        
+                        }else{
+                            event.target.setLatLng(event.oldLatLng);
                     });
 
                     marcadorFin.bindPopup("Fin de recorrido").openPopup();
