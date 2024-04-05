@@ -227,7 +227,7 @@
                         var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
 
                         // Si el marcador se encuentra fuera de la polilínea con una tolerancia de 100 metros, reposicionarlo al punto más cercano
-                        if (!puntoDentroPolilinea(latlng, historialCoords, 10)) {
+                        if (!puntoDentroPolilinea(latlng, historialCoords, 20)) {
                             latlng = encontrarPuntoMasCercano(latlng, historialCoords);
                             event.target.setLatLng(latlng); // Reposicionar el marcador
                             timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el nuevo timestamp del marcador
@@ -275,7 +275,7 @@
 
         // Función para encontrar el timestamp correspondiente a las coordenadas
         function encontrarTimestamp(latlng, coordenadas) {
-            var tolerancia = 0.00001; 
+            var tolerancia = 0.001; 
 
             // Busca el timestamp correspondiente a las coordenadas
             for (var i = 0; i < coordenadas.length; i++) {
