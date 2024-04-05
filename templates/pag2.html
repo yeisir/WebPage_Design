@@ -186,12 +186,9 @@
                         historialCoords.push([latitud, longitud]);
                     }
 
-                    // Borrar polilínea y marcador existentes
+                    // Borrar polilínea existente
                     if (ruta) {
                         mymap.removeLayer(ruta); // Eliminar la polilínea anterior si existe
-                    }
-                    if (marcador) {
-                        mymap.removeLayer(marcador); // Eliminar el marcador anterior si existe
                     }
 
                     // Trazar nueva ruta en el mapa
@@ -214,7 +211,6 @@
                         });
                     });
 
-
                     // Obtener los límites de la polilínea
                     var bounds = ruta.getBounds();
 
@@ -229,7 +225,7 @@
                         // Obtener las coordenadas del marcador
                         var latitud = e.latlng.lat.toFixed(6);
                         var longitud = e.latlng.lng.toFixed(6);
-                        var timestamp = historialCoords[historialCoords.length - 1]; // Suponiendo que el último punto de historialCoords sea el timestamp
+                        var timestamp = coordenadas[layer._leaflet_id].timestamp; // Suponiendo que 'coordenadas' es un objeto que mapea ID de capa a coordenadas
 
                         // Crear la ventana emergente con las coordenadas y el timestamp
                         marcador.bindPopup('<b>Coordenadas:</b><br>Latitud: ' + latitud + '<br>Longitud: ' + longitud + '<br>Timestamp: ' + timestamp).openPopup();
