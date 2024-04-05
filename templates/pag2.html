@@ -188,7 +188,7 @@
                     for (var i = 0; i < coordenadas.length; i++) {
                         var latitud = parseFloat(coordenadas[i].latitud);
                         var longitud = parseFloat(coordenadas[i].longitud);
-                        var timestamp = coordenadas[i].timestamp; // Obtener el timestamp de cada coordenada
+                        var timestamp = new Date(coordenadas[i].timestamp); // Obtener el timestamp de cada coordenada
                         historialCoords.push([latitud, longitud]);
                         timestamps.push(timestamp); // Agregar el timestamp al array
                     }
@@ -217,13 +217,13 @@
 
                     marcadorInicio.on('drag', function(event) {
                         var latlng = event.target.getLatLng();
-                        var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp correspondiente a las coordenadas
+                        var timestamp = event.target.timestamp; // Obtener el timestamp del marcador
                         actualizarPopup(latlng, timestamp);
                     });
 
                     marcadorInicio.on('dragend', function(event) {
                         var latlng = event.target.getLatLng();
-                        var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp correspondiente a las coordenadas
+                        var timestamp = event.target.timestamp; // Obtener el timestamp del marcador
                         actualizarPopup(latlng, timestamp);
                     });
 
@@ -233,20 +233,11 @@
             });
         }
 
-        function encontrarTimestamp(latlng, coordenadas) {
-            // Busca el timestamp correspondiente a las coordenadas
-            for (var i = 0; i < coordenadas.length; i++) {
-                if (coordenadas[i].latitud === latlng.lat && coordenadas[i].longitud === latlng.lng) {
-                    return coordenadas[i].timestamp;
-                }
-            }
-            return "Timestamp no encontrado"; // Si no se encuentra el timestamp
-        }
-
         function actualizarPopup(latlng, timestamp) {
-            var ubicacion = latlng.lat.toFixed(6) + ', ' + latlng.lng.toFixed(6); // Formatear las coordenadas como un string
+            // Formatear el timestamp como una cadena legible
+            var formattedTimestamp = timestamp.toLocaleString();
             marcadorInicio.timestamp = timestamp; // Guardar el timestamp en el marcador
-            marcadorInicio.bindPopup("Timestamp: " + timestamp + "<br> Ubicación: " + ubicacion).openPopup();
+            marcadorInicio.bindPopup("Timestamp: " + formattedTimestamp + "<br> Ubicación: " + latlng.lat + ", " + latlng.lng).openPopup();
         }
 
 
