@@ -75,8 +75,8 @@ def consultar_historial():
         conexion.close()
         
         # Prepara las coordenadas y timestamps para enviarlas al frontend
-        coordenadas = [{'latitud': str(lat), 'longitud': str(lon)} for lat, lon in resultados]
-        timestamps = [str(ts) for ts in resultados]
+        coordenadas = [{'latitud': str(lat), 'longitud': str(lon), 'timestamp': str(ts)} for lat, lon, ts in resultados]
+        timestamps = [{'latitud': str(lat), 'longitud': str(lon), 'timestamp': str(ts)} for lat, lon, ts in resultados]
         
         # Devolver las coordenadas y timestamps en formato JSON
         return jsonify({'coordenadas': coordenadas, 'timestamps': timestamps})
