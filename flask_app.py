@@ -68,7 +68,7 @@ def consultar_historial():
         # Realiza la conexión con la base de datos y ejecuta la consulta SQL
         conexion = mysql.connector.connect(**db_config)
         cursor = conexion.cursor()
-        consulta = ("SELECT Latitud, Longitud, Timestamp FROM coordenadas "
+        consulta = ("SELECT latitud, longitud, timestamp FROM coordenadas "
                     "WHERE timestamp >= %s AND timestamp <= %s")
         cursor.execute(consulta, (inicio, fin))
         resultados = cursor.fetchall()
