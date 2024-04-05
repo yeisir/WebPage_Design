@@ -242,9 +242,11 @@
         }
 
         function actualizarPopup(latlng, timestamp) {
+            var ubicacion = latlng.lat.toFixed(6) + ', ' + latlng.lng.toFixed(6); // Formatear las coordenadas como un string
             marcadorInicio.timestamp = timestamp; // Guardar el timestamp en el marcador
-            marcadorInicio.bindPopup("Timestamp: " + timestamp + "<br> Ubicación: " + latlng.toString()).openPopup();
+            marcadorInicio.bindPopup("Timestamp: " + timestamp + "<br> Ubicación: " + ubicacion).openPopup();
         }
+
 
 
         // Evento click del botón para consultar históricos
