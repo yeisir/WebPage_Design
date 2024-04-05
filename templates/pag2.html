@@ -218,6 +218,30 @@
 
                     // Ajustar el zoom del mapa a los límites de la polilínea
                     mymap.fitBounds(bounds);
+
+                    // Evento drag del marcador de inicio
+                    marcadorInicio.on('drag', function(event) {
+                        var latlng = event.target.getLatLng(); // Obtener la nueva posición del marcador
+
+                        // Encontrar el punto más cercano en la polilínea a la posición actual del marcador
+                        var closestPoint = null;
+                        var shortestDistance = Number.MAX_VALUE;
+                        var coordinates = ruta.getLatLngs();
+                        for (var i = 0; i < coordinates.length - 1; i++) {
+                            var start = coordinates[i];
+                            var end = coordinates[i + 1];
+                            var distance = L.GeometryUtil.distanceSegment(latlng, start, end);
+                            if (distance < shortestDistance) {
+                                shortestDistance = distance;
+                                closestPoint = L.GeometryUtil.closestOnSegment(latlng, start, end);
+                            }
+                        }
+
+                        // Mover el marcador solo si está dentro de la polilínea, de lo contrario, mantenerlo en su posición actual
+                        if (ruta.getLatLngs().includes(closestPoint)) {
+                            event.target.setLatLng(closestPoint);
+                        }
+                    });
                 }
             });
         }
@@ -227,25 +251,7 @@
             obtenerCoordenadasHistoricas();
         });
 
-        // Evento drag del marcador de inicio
-        marcadorInicio.on('drag', function(event) {
-            var latlng = event.target.getLatLng(); // Obtener la nueva posición del marcador
-
-            // Encontrar el punto más cercano en la polilínea a la posición actual del marcador
-            var closestPoint = null;
-            var shortestDistance = Number.MAX_VALUE;
-            var coordinates = ruta.getLatLngs();
-            for (var i = 0; i < coordinates.length - 1; i++) {
-                var start = coordinates[i];
-                var end = coordinates[i + 1];
-                var distance = L.GeometryUtil.distanceSegment(latlng, start, end);
-                if (distance < shortestDistance) {
-                    shortestDistance = distance;
-                    closestPoint = L.GeometryUtil.closestOnSegment(latlng, start, end);
-                }
-            }
-
-        });
+        
 
 
 
