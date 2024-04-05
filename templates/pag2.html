@@ -231,9 +231,17 @@
             // Encontrar el punto más cercano en la polilínea a la posición actual del marcador
             var closestPoint = ruta.getClosestLatLng(latlng);
 
-            // Establecer la posición del marcador en el punto más cercano de la polilínea
-            event.target.setLatLng(closestPoint);
+            // Verificar si la nueva posición está dentro de la polilínea
+            var isInsidePolyline = ruta.getLatLngs().some(function(latlng) {
+                return latlng.equals(closestPoint);
+            });
+
+            // Si la nueva posición está fuera de la polilínea, revertir la posición del marcador
+            if (!isInsidePolyline) {
+                event.target.setLatLng(closestPoint);
+            }
         });
+
 
     </script>
 </body>
