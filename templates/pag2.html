@@ -225,10 +225,8 @@
 
                     marcadorInicio.on('dragend', function(event) {
                         var latlng = event.target.getLatLng();
-                        var nearestPoint = encontrarPuntoMasCercano(latlng, historialCoords, tolerancia);
-                        event.target.setLatLng(nearestPoint); // Mover el marcador al punto más cercano a la polilínea
-                        var timestamp = encontrarTimestamp(nearestPoint, coordenadas);
-                        actualizarPopup(nearestPoint, timestamp);
+                        var timestamp = encontrarTimestamp(latlng, coordenadas);
+                        actualizarPopup(latlng, timestamp);
                     });
 
                     marcadorFin.bindPopup("Fin de recorrido").openPopup();
