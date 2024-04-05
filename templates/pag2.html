@@ -217,20 +217,39 @@
 
                     marcadorInicio.on('drag', function(event) {
                         var latlng = event.target.getLatLng();
-                        var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
-                        actualizarPopup(latlng, timestamp);
+                        var nearestPoint = encontrarPuntoMasCercano(latlng, historialCoords, tolerancia);
+                        event.target.setLatLng(nearestPoint); // Mover el marcador al punto más cercano a la polilínea
+                        var timestamp = encontrarTimestamp(nearestPoint, coordenadas);
+                        actualizarPopup(nearestPoint, timestamp);
                     });
 
                     marcadorInicio.on('dragend', function(event) {
                         var latlng = event.target.getLatLng();
-                        var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
-                        actualizarPopup(latlng, timestamp);
+                        var nearestPoint = encontrarPuntoMasCercano(latlng, historialCoords, tolerancia);
+                        event.target.setLatLng(nearestPoint); // Mover el marcador al punto más cercano a la polilínea
+                        var timestamp = encontrarTimestamp(nearestPoint, coordenadas);
+                        actualizarPopup(nearestPoint, timestamp);
                     });
 
                     marcadorFin.bindPopup("Fin de recorrido").openPopup();
 
                 }
             });
+        }
+
+        // Función para encontrar el punto más cercano a la polilínea
+        function encontrarPuntoMasCercano(latlng, historialCoords, tolerancia) {
+            var nearestPoint = null;
+            var minDistance = Number.MAX_VALUE;
+            for (var i = 0; i < historialCoords.length; i++) {
+                var point = L.latLng(historialCoords[i]);
+                var distance = latlng.distanceTo(point);
+                if (distance < minDistance && distance <= tolerancia) {
+                    minDistance = distance;
+                    nearestPoint = point;
+                }
+            }
+            return nearestPoint;
         }
 
         // Función para encontrar el timestamp correspondiente a las coordenadas
