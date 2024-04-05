@@ -217,29 +217,23 @@
 
                     marcadorInicio.on('drag', function(event) {
                         var latlng = event.target.getLatLng();
-                        var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
-                        actualizarPopup(latlng, timestamp);
+                        var projectedPoint = L.GeometryUtil.closest(map, ruta, latlng, true); // Calcular la proyección del punto en la polilínea
+
+                        // Verificar si la proyección cae dentro de la polilínea
+                        if (projectedPoint) {
+                            event.target.setLatLng(projectedPoint); 
+                            var timestamp = encontrarTimestamp(projectedPoint, coordenadas);
+                            actualizarPopup(projectedPoint, timestamp);
+                        }
                     });
-
-
+                
                     marcadorInicio.on('dragend', function(event) {
                         var latlng = event.target.getLatLng();
-                        var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
-
-                        // Si el marcador se encuentra fuera de la polilínea con una tolerancia de 100 metros, reposicionarlo al punto más cercano
-                        if (!puntoDentroPolilinea(latlng, historialCoords, 20)) {
-                            latlng = encontrarPuntoMasCercano(latlng, historialCoords);
-                            event.target.setLatLng(latlng); // Reposicionar el marcador
-                            timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el nuevo timestamp del marcador
-                        }
-
+                        var timestamp = encontrarTimestamp(latlng, coordenadas); 
                         actualizarPopup(latlng, timestamp);
                     });
-
-
-
+                    
                     marcadorFin.bindPopup("Fin de recorrido").openPopup();
-
                 }
             });
         }
@@ -254,7 +248,6 @@
             }
             return false;
         }
-
 
         // Encuentra el punto más cercano a un punto dado dentro de una polilínea
         function encontrarPuntoMasCercano(latlng, polilinea) {
@@ -271,7 +264,6 @@
 
             return puntoMasCercano;
         }
-
 
         // Función para encontrar el timestamp correspondiente a las coordenadas
         function encontrarTimestamp(latlng, coordenadas) {
@@ -302,9 +294,6 @@
         $('#consultar-historicos-btn').click(function() {
             obtenerCoordenadasHistoricas();
         });
-
-        
-
   
     </script>
 </body>
