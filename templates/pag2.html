@@ -217,11 +217,16 @@
 
                     marcadorInicio.on('drag', function(event) {
                         var latlng = event.target.getLatLng();
+                        
                         var closestPoint = L.GeometryUtil.closest(map, ruta, latlng, false);
                         var closestLatLng = ruta.getLatLngs()[closestPoint.index];
 
                         // Verificar si la proyección cae dentro de la polilínea
                         if (closestPoint.before || closestPoint.after) {
+                            event.target.setLatLng(projectedPoint); 
+                            var timestamp = encontrarTimestamp(projectedPoint, coordenadas);
+                            actualizarPopup(projectedPoint, timestamp);
+                        }else{
                             event.target.setLatLng(projectedPoint); 
                             var timestamp = encontrarTimestamp(projectedPoint, coordenadas);
                             actualizarPopup(projectedPoint, timestamp);
