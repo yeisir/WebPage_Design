@@ -184,11 +184,13 @@
                     // Tratar la respuesta del servidor y trazar la polilínea en el mapa
                     var coordenadas = data.coordenadas;
                     var historialCoords = [];
+                    var timestamps = []; // Crear un array para almacenar los timestamps
                     for (var i = 0; i < coordenadas.length; i++) {
                         var latitud = parseFloat(coordenadas[i].latitud);
                         var longitud = parseFloat(coordenadas[i].longitud);
                         var timestamp = coordenadas[i].timestamp; // Obtener el timestamp de cada coordenada
-                        historialCoords.push({latlng: [latitud, longitud], timestamp: timestamp});
+                        historialCoords.push([latitud, longitud]);
+                        timestamps.push(timestamp); // Agregar el timestamp al array
                     }
 
                     if (ruta) {
