@@ -215,13 +215,13 @@
 
                     marcadorInicio.on('drag', function(event) {
                         var latlng = event.target.getLatLng();
-                        var timestamp = event.target.timestamp; // Obtener el timestamp del marcador
+                        var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp correspondiente a las coordenadas
                         actualizarPopup(latlng, timestamp);
                     });
 
                     marcadorInicio.on('dragend', function(event) {
                         var latlng = event.target.getLatLng();
-                        var timestamp = event.target.timestamp; // Obtener el timestamp del marcador
+                        var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp correspondiente a las coordenadas
                         actualizarPopup(latlng, timestamp);
                     });
 
@@ -229,6 +229,16 @@
 
                 }
             });
+        }
+
+        function encontrarTimestamp(latlng, coordenadas) {
+            // Busca el timestamp correspondiente a las coordenadas
+            for (var i = 0; i < coordenadas.length; i++) {
+                if (coordenadas[i].latitud === latlng.lat && coordenadas[i].longitud === latlng.lng) {
+                    return coordenadas[i].timestamp;
+                }
+            }
+            return "Timestamp no encontrado"; // Si no se encuentra el timestamp
         }
 
         function actualizarPopup(latlng, timestamp) {
