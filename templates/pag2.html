@@ -224,7 +224,6 @@
 
                     marcadorInicio.on('dragend', function(event) {
                         var latlng = event.target.getLatLng();
-                        latlng = L.latLng(latlng.lat, latlng.lng);
                         var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
 
                         // Si el marcador se encuentra fuera de la polilínea con una tolerancia de 100 metros, reposicionarlo al punto más cercano
@@ -234,28 +233,7 @@
                             timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el nuevo timestamp del marcador
                         }
                         actualizarPopup(latlng, timestamp);
-
-                        // Desvincular eventos previos para evitar duplicaciones
-                        marcadorInicio.off('drag');
-                        // Vincular nuevamente el evento 'drag' para permitir mover el marcador
-                        marcadorInicio.on('drag', function(event) {
-                            var latlng = event.target.getLatLng();
-                            var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
-                            actualizarPopup(latlng, timestamp);
-                        });
                     });
-
-                    // Evento para permitir el movimiento del mapa cuando el marcador está quieto
-                    mymap.on('click', function(event) {
-                        if (!marcadorInicio.dragging._draggable._moved) {
-                            mymap.dragging.enable();
-                        }
-                    });
-
-                    mymap.on('movestart', function(event) {
-                        mymap.dragging.disable();
-                    });
-
                     marcadorFin.bindPopup("Fin de recorrido").openPopup();
                 }
             });
