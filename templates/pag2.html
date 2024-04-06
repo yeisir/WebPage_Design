@@ -223,17 +223,18 @@
 
 
                     marcadorInicio.on('dragend', function(event) {
-                        var latlng = event.target.getLatLng();
-                        var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
-
                         // Si el marcador se encuentra fuera de la polilínea con una tolerancia de 100 metros, reposicionarlo al punto más cercano
-                        if (!puntoDentroPolilinea(latlng, historialCoords, 20)) {
-                            latlng = encontrarPuntoMasCercano(latlng, historialCoords);
+                        if (!puntoDentroPolilinea(event.target.getLatLng(), historialCoords, 10)) {
+                            var latlng = encontrarPuntoMasCercano(event.target.getLatLng(), historialCoords);
                             event.target.setLatLng(latlng); // Reposicionar el marcador
-                            timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el nuevo timestamp del marcador
+
+                            // Obtener el nuevo timestamp después de reposicionar el marcador
+                            var timestamp = encontrarTimestamp(latlng, coordenadas); 
+
+                            // Actualizar el popup con la nueva ubicación y el nuevo timestamp
+                            actualizarPopup(latlng, timestamp);
                         }
 
-                        actualizarPopup(latlng, timestamp);
                     });
 
 
