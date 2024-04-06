@@ -99,8 +99,8 @@
         /* Estilos para los puntos de la polilínea */
         .ruta-punto {
             background-color: red;
-            width: 10px;
-            height: 10px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
             position: absolute;
             z-index: 1000;
@@ -225,7 +225,7 @@
 
                     // Agregar puntos de la polilínea con hover
                     historialCoords.forEach(coord => {
-                        var punto = L.divIcon({className: 'ruta-punto', html: '', iconAnchor: [5, 5]});
+                        var punto = L.divIcon({className: 'ruta-punto', html: '', iconAnchor: [3, 3]});
                         var marker = L.marker([coord.latitud, coord.longitud], {icon: punto}).addTo(mymap);
                         marker.bindPopup('Latitud: ' + coord.latitud + '<br>Longitud: ' + coord.longitud + '<br>Timestamp: ' + coord.timestamp).on('mouseover', function (e) {
                             this.openPopup();
