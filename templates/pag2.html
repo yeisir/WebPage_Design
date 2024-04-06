@@ -221,7 +221,6 @@
                         actualizarPopup(latlng, timestamp);
                     });
 
-
                     marcadorInicio.on('dragend', function(event) {
                         var latlng = event.target.getLatLng();
                         var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
@@ -268,25 +267,18 @@
 
         // Función para encontrar el timestamp correspondiente a las coordenadas
         function encontrarTimestamp(latlng, coordenadas) {
-            var tolerancia = 0.001;
-            var puntoMasCercano = null;
-            var distanciaMinima = Infinity; // Inicializar con un valor grande
+            var tolerancia = 0.001; 
 
-            // Buscar el punto más cercano a las coordenadas del marcador
+            // Busca el timestamp correspondiente a las coordenadas
             for (var i = 0; i < coordenadas.length; i++) {
                 var coordenada = coordenadas[i];
-                var distancia = latlng.distanceTo(L.latLng(coordenada.latitud, coordenada.longitud));
-                if (distancia < distanciaMinima) {
-                    distanciaMinima = distancia;
-                    puntoMasCercano = coordenada;
+                var latitudDiff = Math.abs(coordenada.latitud - latlng.lat);
+                var longitudDiff = Math.abs(coordenada.longitud - latlng.lng);
+                if (latitudDiff <= tolerancia && longitudDiff <= tolerancia) {
+                    return new Date(coordenada.timestamp); // Retornar el timestamp como objeto Date
                 }
             }
-
-            if (puntoMasCercano) {
-                return new Date(puntoMasCercano.timestamp);
-            } else {
-                return "Timestamp no encontrado";
-            }
+            return "Timestamp no encontrado"; 
         }
 
         // Actualizar el popup del marcador con el timestamp y la ubicación
@@ -300,6 +292,7 @@
         $('#consultar-historicos-btn').click(function() {
             obtenerCoordenadasHistoricas();
         });
+  
     </script>
 </body>
 </html>
