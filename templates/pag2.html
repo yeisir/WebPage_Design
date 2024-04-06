@@ -221,6 +221,7 @@
                         actualizarPopup(latlng, timestamp);
                     });
 
+                    // Vincular evento 'dragend' para actualizar el popup y realizar otras acciones al soltar el marcador
                     marcadorInicio.on('dragend', function(event) {
                         var latlng = event.target.getLatLng();
                         var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
@@ -233,6 +234,10 @@
                         }
                         actualizarPopup(latlng, timestamp);
                     });
+
+                    // Permitir que el mapa siga siendo interactivo después de soltar el marcador
+                    mymap.dragging.enable();
+                    
                     marcadorFin.bindPopup("Fin de recorrido").openPopup();
                 }
             });
