@@ -232,6 +232,13 @@
                             timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el nuevo timestamp del marcador
                         }
                         actualizarPopup(latlng, timestamp);
+
+                        // Vincular nuevamente el evento 'drag' para permitir mover el marcador
+                        event.target.on('drag', function(event) {
+                            var latlng = event.target.getLatLng();
+                            var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
+                            actualizarPopup(latlng, timestamp);
+                        });
                     });
                     marcadorFin.bindPopup("Fin de recorrido").openPopup();
                 }
