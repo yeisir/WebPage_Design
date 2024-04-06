@@ -234,13 +234,27 @@
                         }
                         actualizarPopup(latlng, timestamp);
 
+                        // Desvincular eventos previos para evitar duplicaciones
+                        marcadorInicio.off('drag');
                         // Vincular nuevamente el evento 'drag' para permitir mover el marcador
-                        event.target.on('drag', function(event) {
+                        marcadorInicio.on('drag', function(event) {
                             var latlng = event.target.getLatLng();
                             var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
                             actualizarPopup(latlng, timestamp);
                         });
                     });
+
+                    // Evento para permitir el movimiento del mapa cuando el marcador está quieto
+                    mymap.on('click', function(event) {
+                        if (!marcadorInicio.dragging._draggable._moved) {
+                            mymap.dragging.enable();
+                        }
+                    });
+
+                    mymap.on('movestart', function(event) {
+                        mymap.dragging.disable();
+                    });
+
                     marcadorFin.bindPopup("Fin de recorrido").openPopup();
                 }
             });
