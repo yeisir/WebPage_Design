@@ -224,6 +224,7 @@
 
                     marcadorInicio.on('dragend', function(event) {
                         var latlng = event.target.getLatLng();
+                        latlng = L.latLng(latlng.lat, latlng.lng);
                         var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
 
                         // Si el marcador se encuentra fuera de la polilínea con una tolerancia de 100 metros, reposicionarlo al punto más cercano
