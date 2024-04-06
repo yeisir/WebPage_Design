@@ -267,7 +267,7 @@
 
         // Función para encontrar el timestamp correspondiente a las coordenadas
         function encontrarTimestamp(latlng, coordenadas) {
-            var tolerancia = 0.001; 
+            var tolerancia = 0.0001; 
 
             // Busca el timestamp correspondiente a las coordenadas
             for (var i = 0; i < coordenadas.length; i++) {
@@ -278,7 +278,7 @@
                     return new Date(coordenada.timestamp); // Retornar el timestamp como objeto Date
                 }
             }
-            return "Timestamp no encontrado"; 
+            return null; 
         }
 
         // Actualizar el popup del marcador con el timestamp y la ubicación
