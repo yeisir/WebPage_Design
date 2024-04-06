@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/8750339612.js" crossorigin="anonymous"></script>
     <title>Coordenadas</title>
     <!-- Estilos -->
     <style>
@@ -99,8 +100,6 @@
         <div id="map"></div>
     </div>
 
-   
-
     <!-- Incluye la última versión de la librería de Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -115,10 +114,8 @@
         var polyline = L.polyline([]).addTo(mymap);
         var marker = L.marker([0, 0], {
             icon: L.icon({
-                iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/images/marker-icon.png',
-                iconSize: [25, 41], // Tamaño del icono
-                iconAnchor: [12, 41], // Punto de anclaje del icono
-                popupAnchor: [1, -34] // Punto de anclaje del popup
+                className: 'custom-marker',
+                html: <i class="fa-solid fa-car-side fa-2xl"></i>,
             })
         }).addTo(mymap);
 
