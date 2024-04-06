@@ -225,8 +225,10 @@
                     marcadorInicio.on('dragend', function(event) {
                         // Si el marcador se encuentra fuera de la polilínea con una tolerancia de 100 metros, reposicionarlo al punto más cercano
                         if (!puntoDentroPolilinea(event.target.getLatLng(), historialCoords, 10)) {
-                            var latlng = encontrarPuntoMasCercano(event.target.getLatLng(), historialCoords);
-                            event.target.setLatLng(latlng); // Reposicionar el marcador
+                            var lat = encontrarPuntoMasCercano(event.target.getLatLng(), historialCoords);
+                            event.target.setLatLng(lat); // Reposicionar el marcador
+
+                            var latlng = event.target.getLatLng();
 
                             // Obtener el nuevo timestamp después de reposicionar el marcador
                             var timestamp = encontrarTimestamp(latlng, coordenadas); 
