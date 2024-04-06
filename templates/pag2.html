@@ -221,25 +221,19 @@
                         actualizarPopup(latlng, timestamp);
                     });
 
-
                     marcadorInicio.on('dragend', function(event) {
                         var latlng = event.target.getLatLng();
                         var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
 
                         // Si el marcador se encuentra fuera de la polilínea con una tolerancia de 100 metros, reposicionarlo al punto más cercano
-                        if (!puntoDentroPolilinea(event.target.getLatLng(), historialCoords, 10)) {
-                            var latlng = encontrarPuntoMasCercano(event.target.getLatLng(), historialCoords);
+                        if (!puntoDentroPolilinea(latlng, historialCoords, 10)) {
+                            latlng = encontrarPuntoMasCercano(latlng, historialCoords);
                             event.target.setLatLng(latlng); // Reposicionar el marcador
-
-                            // Obtener el nuevo timestamp después de reposicionar el marcador
-                            var timestamp = encontrarTimestamp(latlng, coordenadas); 
-
-                            // Actualizar el popup con la nueva ubicación y el nuevo timestamp
-                            actualizarPopup(latlng, timestamp);
+                            timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el nuevo timestamp del marcador
                         }
+                        actualizarPopup(latlng, timestamp);
                     });
                     marcadorFin.bindPopup("Fin de recorrido").openPopup();
-                    console.log("Recorrido:", data.coordenadas);
                 }
             });
         }
@@ -273,32 +267,23 @@
 
         // Función para encontrar el timestamp correspondiente a las coordenadas
         function encontrarTimestamp(latlng, coordenadas) {
-            var tolerancia = 0.001;
-            var puntoMasCercano = null;
-            var distanciaMinima = Infinity; // Inicializar con un valor grande
+            var tolerancia = 0.001; 
 
-            // Buscar el punto más cercano a las coordenadas del marcador
+            // Busca el timestamp correspondiente a las coordenadas
             for (var i = 0; i < coordenadas.length; i++) {
                 var coordenada = coordenadas[i];
-                var distancia = L.GeometryUtil.distance(latlng, L.latLng(coordenada.latitud, coordenada.longitud));
-                if (distancia < distanciaMinima) {
-                    distanciaMinima = distancia;
-                    puntoMasCercano = coordenada;
+                var latitudDiff = Math.abs(coordenada.latitud - latlng.lat);
+                var longitudDiff = Math.abs(coordenada.longitud - latlng.lng);
+                if (latitudDiff <= tolerancia && longitudDiff <= tolerancia) {
+                    return new Date(coordenada.timestamp); // Retornar el timestamp como objeto Date
                 }
             }
-
-            if (puntoMasCercano) {
-                return new Date(puntoMasCercano.timestamp);
-            } else {
-                return "Timestamp no encontrado";
-            }
+            return "Timestamp no encontrado"; 
         }
 
         // Actualizar el popup del marcador con el timestamp y la ubicación
         function actualizarPopup(latlng, timestamp) {
             var formattedTimestamp = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
-             var latitud = L.Util.formatNum(latlng.lat, 6); 
-  var longitud = L.Util.formatNum(latlng.lng, 6);
             marcadorInicio.timestamp = timestamp; // Guardar el timestamp en el marcador
             marcadorInicio.bindPopup("Timestamp: " + formattedTimestamp + "<br> Ubicación: " + latlng.lat + ", " + latlng.lng).openPopup();
         }
@@ -307,6 +292,7 @@
         $('#consultar-historicos-btn').click(function() {
             obtenerCoordenadasHistoricas();
         });
+  
     </script>
 </body>
 </html>
