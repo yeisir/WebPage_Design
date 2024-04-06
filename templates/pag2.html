@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/8750339612.js" crossorigin="anonymous"></script>
     <title>Consulta Histórica</title>
     <!-- Estilos -->
     <style>
@@ -210,7 +211,16 @@
                     var primerPunto = historialCoords[0];
                     var ultimoPunto = historialCoords[historialCoords.length - 1];
 
-                    marcadorInicio = L.marker(primerPunto, { draggable: true }).addTo(mymap);
+                    marcadorInicio = L.marker(primerPunto, { 
+                        draggable: true,
+                        icon: L.divIcon({
+                            className: 'custom-marker',
+                            html: '<i class="fa-solid fa-car-side"></i>',
+                            iconSize: [30, 30],
+                            iconAnchor: [15, 30],
+                        })
+                    }).addTo(mymap);
+                    
                     marcadorFin = L.marker(ultimoPunto).addTo(mymap);
 
                     marcadorInicio.timestamp = timestamps[0];
