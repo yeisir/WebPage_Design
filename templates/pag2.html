@@ -186,6 +186,13 @@
                     var coordenadas = data.coordenadas;
                     var historialCoords = [];
                     var timestamps = []; // Crear un array para almacenar los timestamps
+
+                    // Verificar si hay recorridos disponibles
+                    if (coordenadas.length === 0) {
+                        alert("No hay recorridos disponibles.");
+                        return; 
+                    }
+
                     for (var i = 0; i < coordenadas.length; i++) {
                         var latitud = parseFloat(coordenadas[i].latitud);
                         var longitud = parseFloat(coordenadas[i].longitud);
@@ -219,7 +226,8 @@
                         })
                     }).addTo(mymap);
 
-                    marcadorInicio.bindPopup("Desplazame al lugar requerido").openPopup();
+                    marcadorInicio.bindPopup("Desplazame al lugar requerido");
+                    marcadorInicio.openPopup();
 
                     marcadorFin = L.marker(ultimoPunto, {
                         icon: L.divIcon({
