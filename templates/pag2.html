@@ -218,7 +218,9 @@
                             html: '<i class="fa-solid fa-location-crosshairs fa-2xl" style="color: #3f5a8d;"></i>',
                         })
                     }).addTo(mymap);
-                    
+
+                    marcadorInicio.bindPopup("Desplazame al lugar requerido").openPopup();
+
                     marcadorFin = L.marker(ultimoPunto, {
                         icon: L.divIcon({
                             className: 'custom-marker',
@@ -251,7 +253,6 @@
 
                     });
 
-                    marcadorInicio.bindPopup("Desplazame al lugar determinado").openPopup();
                     marcadorFin.bindPopup("Fin de recorrido").openPopup();
 
                 }
