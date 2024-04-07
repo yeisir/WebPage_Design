@@ -234,7 +234,6 @@
                         actualizarPopup(latlng, timestamp);
                     });
 
-
                     marcadorInicio.on('dragend', function(event) {
                         // Si el marcador se encuentra fuera de la polilínea con una tolerancia de 100 metros, reposicionarlo al punto más cercano
                         if (!puntoDentroPolilinea(event.target.getLatLng(), historialCoords, 10)) {
@@ -252,8 +251,7 @@
 
                     });
 
-
-
+                    marcadorInicio.bindPopup("Desplazame al lugar determinado").openPopup();
                     marcadorFin.bindPopup("Fin de recorrido").openPopup();
 
                 }
@@ -271,7 +269,6 @@
             return false;
         }
 
-
         // Encuentra el punto más cercano a un punto dado dentro de una polilínea
         function encontrarPuntoMasCercano(latlng, polilinea) {
             var puntoMasCercano = polilinea[0];
@@ -287,7 +284,6 @@
 
             return puntoMasCercano;
         }
-
 
         // Función para encontrar el timestamp correspondiente a las coordenadas
         function encontrarTimestamp(latlng, coordenadas) {
@@ -311,17 +307,12 @@
             marcadorInicio.timestamp = timestamp; // Guardar el timestamp en el marcador
             marcadorInicio.bindPopup("Timestamp: " + formattedTimestamp + "<br> Ubicación: " + latlng.lat + ", " + latlng.lng).openPopup();
         }
-
-
-
+        
         // Evento click del botón para consultar históricos
         $('#consultar-historicos-btn').click(function() {
             obtenerCoordenadasHistoricas();
         });
-
         
-
-  
     </script>
 </body>
 </html>
