@@ -187,23 +187,6 @@
                     var historialCoords = [];
                     var timestamps = []; // Crear un array para almacenar los timestamps
 
-                    // Verificar si hay recorridos disponibles
-                    if (coordenadas.length === 0) {                   
-                        if (ruta) {
-                            mymap.removeLayer(ruta);
-                        }
-
-                        if (marcadorInicio) {
-                            mymap.removeLayer(marcadorInicio);
-                        }
-
-                        if (marcadorFin) {
-                            mymap.removeLayer(marcadorFin);
-                        }
-                        alert("No hay recorridos disponibles.");                        
-                        return; 
-                    }
-
                     for (var i = 0; i < coordenadas.length; i++) {
                         var latitud = parseFloat(coordenadas[i].latitud);
                         var longitud = parseFloat(coordenadas[i].longitud);
@@ -220,6 +203,12 @@
                     }
                     if (marcadorFin) {
                         mymap.removeLayer(marcadorFin);
+                    }
+
+                     // Verificar si hay recorridos disponibles
+                    if (coordenadas.length === 0) {                   
+                        alert("No hay recorridos disponibles.");                        
+                        return; 
                     }
 
                     ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
@@ -244,7 +233,7 @@
                             html: '<i class="fa-solid fa-flag-checkered fa-2xl" style="color: #000000;"></i>',
                         })
                     }).addTo(mymap);
-                    marcadorFin.bindPopup("Fin de recorrido").openPopup;
+                    marcadorFin.bindPopup("Fin de recorrido");
 
                     marcadorInicio.timestamp = timestamps[0];
 
