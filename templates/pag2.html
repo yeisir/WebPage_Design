@@ -177,6 +177,18 @@
             var inicio = $("#inicio").val();
             var fin = $("#fin").val();
 
+            if (ruta) {
+                mymap.removeLayer(ruta);
+            }
+            
+            if (marcadorInicio) {
+                mymap.removeLayer(marcadorInicio);
+            }
+                    
+            if (marcadorFin) {
+                mymap.removeLayer(marcadorFin);
+            }
+
             $.ajax({
                 url: '/consulta_historica',
                 type: 'POST',
@@ -196,28 +208,9 @@
                     }
 
                     if (coordenadas.length === 0) {
-                        if (ruta) {
-                            mymap.removeLayer(ruta);
-                        }
-                        if (marcadorInicio) {
-                            mymap.removeLayer(marcadorInicio);
-                        }
-                        if (marcadorFin) {
-                            mymap.removeLayer(marcadorFin);
-                        }
-
+                    
                         alert("No hay recorridos disponibles.");
                         return;
-                    }
-
-                    if (ruta) {
-                        mymap.removeLayer(ruta);
-                    }
-                    if (marcadorInicio) {
-                        mymap.removeLayer(marcadorInicio);
-                    }
-                    if (marcadorFin) {
-                        mymap.removeLayer(marcadorFin);
                     }
 
                     
