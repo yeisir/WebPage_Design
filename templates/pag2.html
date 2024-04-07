@@ -157,6 +157,7 @@
             enableTime: true,
             dateFormat: "Y-m-d H:i:S",
             time_24hr: true,
+            maxDate: "today",
             onClose: function(selectedDates) {
                 // Configurar la fecha mínima para el campo de fecha de fin
                 var minDate = selectedDates[0];
@@ -164,10 +165,20 @@
                     enableTime: true,
                     dateFormat: "Y-m-d H:i:S",
                     time_24hr: true,
-                    minDate: minDate
-                });
-            }
+                    minDate: minDate,
+                    maxDate: "today"
+                });               
+            }  
         });
+
+        //prueba responsive
+        funtion ajustarMapa(){
+            ver mapa = document.getElementById("map");
+            ver  mapContainer = document.getElementById("map-container");
+            mapa.style.height = mapContainer.offsetHeight + "px";
+        }
+        window.addEventListener("resize", ajustarMapa);
+        ajustarMapa();
 
         var ruta;
         var marcadorInicio;
