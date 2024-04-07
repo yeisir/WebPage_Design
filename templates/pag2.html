@@ -206,11 +206,21 @@
                     }
 
                      // Verificar si hay recorridos disponibles
-                    if (coordenadas.length === 0) { 
+                     if (coordenadas.length === 0) { 
                         
                         if (ruta) {
-                            mymap.removeLayer(ruta);
+                        mymap.removeLayer(ruta);
                         }
+                        if (marcadorInicio) {
+                            mymap.removeLayer(marcadorInicio);
+                        }
+                        if (marcadorFin) {
+                            mymap.removeLayer(marcadorFin);
+                        }
+                        
+                    }
+
+                    if (coordenadas.length === 0) { 
                         
                         alert("No hay recorridos disponibles.");                        
                         return; 
