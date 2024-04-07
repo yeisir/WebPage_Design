@@ -195,6 +195,21 @@
                         timestamps.push(timestamp); // Agregar el timestamp al array
                     }
 
+                    if (coordenadas.length === 0) {
+                        if (ruta) {
+                            mymap.removeLayer(ruta);
+                        }
+                        if (marcadorInicio) {
+                            mymap.removeLayer(marcadorInicio);
+                        }
+                        if (marcadorFin) {
+                            mymap.removeLayer(marcadorFin);
+                        }
+
+                        alert("No hay recorridos disponibles.");
+                        return;
+                    }
+
                     if (ruta) {
                         mymap.removeLayer(ruta);
                     }
@@ -205,26 +220,7 @@
                         mymap.removeLayer(marcadorFin);
                     }
 
-                     // Verificar si hay recorridos disponibles
-                    if (coordenadas.length === 0) { 
-                        
-                        if (ruta) {
-                        mymap.removeLayer(ruta);
-                        }
-                        if (marcadorInicio) {
-                            mymap.removeLayer(marcadorInicio);
-                        }
-                        if (marcadorFin) {
-                            mymap.removeLayer(marcadorFin);
-                        }
-                        
-                    }
-
-                    if (coordenadas.length === 0) { 
-                        
-                        alert("No hay recorridos disponibles.");                        
-                        return; 
-                    }
+                    
 
                     ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
                     var bounds = ruta.getBounds();
