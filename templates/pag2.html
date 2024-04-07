@@ -190,6 +190,19 @@
                     // Verificar si hay recorridos disponibles
                     if (coordenadas.length === 0) {
                         alert("No hay recorridos disponibles.");
+                        
+                        if (ruta) {
+                            mymap.removeLayer(ruta);
+                        }
+
+                        if (marcadorInicio) {
+                            mymap.removeLayer(marcadorInicio);
+                        }
+
+                        if (marcadorFin) {
+                            mymap.removeLayer(marcadorFin);
+                        }
+                        
                         return; 
                     }
 
@@ -218,6 +231,8 @@
                     var primerPunto = historialCoords[0];
                     var ultimoPunto = historialCoords[historialCoords.length - 1];
 
+                    marcadorInicio.bindPopup("Desplazame al lugar requerido").openPopup();
+
                     marcadorInicio = L.marker(primerPunto, { 
                         draggable: true,
                         icon: L.divIcon({
@@ -225,9 +240,6 @@
                             html: '<i class="fa-solid fa-location-crosshairs fa-2xl" style="color: #3f5a8d;"></i>',
                         })
                     }).addTo(mymap);
-
-                    marcadorInicio.bindPopup("Desplazame al lugar requerido");
-                    marcadorInicio.openPopup();
 
                     marcadorFin = L.marker(ultimoPunto, {
                         icon: L.divIcon({
