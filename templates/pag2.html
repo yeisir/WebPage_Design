@@ -207,6 +207,16 @@
                         timestamps.push(timestamp); // Agregar el timestamp al array
                     }
 
+                    if (ruta) {
+                        mymap.removeLayer(ruta);
+                    }
+                    if (marcadorInicio) {
+                        mymap.removeLayer(marcadorInicio);
+                    }
+                    if (marcadorFin) {
+                        mymap.removeLayer(marcadorFin);
+                    }
+
                     if (coordenadas.length === 0) {
                         alert("No hay recorridos disponibles.");
                         return;
