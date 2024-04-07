@@ -180,11 +180,9 @@
             if (ruta) {
                 mymap.removeLayer(ruta);
             }
-            
             if (marcadorInicio) {
                 mymap.removeLayer(marcadorInicio);
-            }
-                    
+            }       
             if (marcadorFin) {
                 mymap.removeLayer(marcadorFin);
             }
@@ -208,12 +206,9 @@
                     }
 
                     if (coordenadas.length === 0) {
-                    
                         alert("No hay recorridos disponibles.");
                         return;
                     }
-
-                    
 
                     ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
                     var bounds = ruta.getBounds();
@@ -260,7 +255,6 @@
                             var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el nuevo timestamp después de reposicionar el marcador
                             actualizarPopup(latlng, timestamp);
                         }
-                        autoClose: false
                     });
                 }
             });
