@@ -188,8 +188,7 @@
                     var timestamps = []; // Crear un array para almacenar los timestamps
 
                     // Verificar si hay recorridos disponibles
-                    if (coordenadas.length === 0) {
-                                               
+                    if (coordenadas.length === 0) {                   
                         if (ruta) {
                             mymap.removeLayer(ruta);
                         }
@@ -201,7 +200,6 @@
                         if (marcadorFin) {
                             mymap.removeLayer(marcadorFin);
                         }
-
                         alert("No hay recorridos disponibles.");                        
                         return; 
                     }
@@ -238,7 +236,7 @@
                             html: '<i class="fa-solid fa-location-crosshairs fa-2xl" style="color: #3f5a8d;"></i>',
                         })
                     }).addTo(mymap);
-                    marcadorInicio.bindPopup("Desplazame al lugar requerido");
+                    marcadorInicio.bindPopup("Desplazame al lugar requerido").openPopup;
 
                     marcadorFin = L.marker(ultimoPunto, {
                         icon: L.divIcon({
@@ -246,7 +244,7 @@
                             html: '<i class="fa-solid fa-flag-checkered fa-2xl" style="color: #000000;"></i>',
                         })
                     }).addTo(mymap);
-                    marcadorFin.bindPopup("Fin de recorrido");
+                    marcadorFin.bindPopup("Fin de recorrido").openPopup;
 
                     marcadorInicio.timestamp = timestamps[0];
 
