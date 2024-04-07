@@ -225,8 +225,10 @@
                             html: '<i class="fa-solid fa-location-crosshairs fa-2xl" style="color: #3f5a8d;"></i>',
                         })
                     }).addTo(mymap);
-                    marcadorInicio.bindPopup("Desplazame al lugar requerido");
-                    marcadorInicio.openPopup();
+                    
+                    marcadorInicio.bindPopup("Desplazame al lugar requerido", {
+                        autoClose: false // Evita que se cierre automáticamente al abrir otro popup
+                    }).openPopup();
 
                     marcadorFin = L.marker(ultimoPunto, {
                         icon: L.divIcon({
@@ -235,7 +237,9 @@
                         })
                     }).addTo(mymap);
 
-                    marcadorFin.bindPopup("Fin de recorrido");
+                    marcadorFin.bindPopup("Fin de recorrido", {
+                        autoClose: false // Evita que se cierre automáticamente al abrir otro popup
+                    }).openPopup();
 
                     marcadorInicio.timestamp = timestamps[0];
 
