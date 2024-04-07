@@ -234,7 +234,9 @@
                             html: '<i class="fa-solid fa-flag-checkered fa-2xl" style="color: #000000;"></i>',
                         })
                     }).addTo(mymap);
+
                     marcadorFin.bindPopup("Fin de recorrido");
+                    marcadorFin.openPopup();
 
                     marcadorInicio.timestamp = timestamps[0];
 
