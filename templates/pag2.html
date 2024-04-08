@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://kit.fontawesome.com/8750339612.js" crossorigin="anonymous"></script>
     <title>Consulta Histórica</title>
     <!-- Estilos -->
     <style>
@@ -104,6 +105,9 @@
     <!-- Incluye la última versión de la librería de Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <!-- Incluye la biblioteca Leaflet.GeometryUtil -->
+    <script src="https://cdn.jsdelivr.net/npm/leaflet-geometryutil@0.9.0/leaflet.geometryutil.min.js"></script>
+
     <!-- Incluye Flatpickr para selección de fecha y hora -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
@@ -153,6 +157,7 @@
             enableTime: true,
             dateFormat: "Y-m-d H:i:S",
             time_24hr: true,
+            maxDate: "today",
             onClose: function(selectedDates) {
                 // Configurar la fecha mínima para el campo de fecha de fin
                 var minDate = selectedDates[0];
@@ -160,17 +165,29 @@
                     enableTime: true,
                     dateFormat: "Y-m-d H:i:S",
                     time_24hr: true,
-                    minDate: minDate
-                });
-            }
+                    minDate: minDate,
+                    maxDate: "today"
+                });               
+            }  
         });
 
         var ruta;
-        var marcador;
+        var marcadorInicio;
+        var marcadorFin;
 
         function obtenerCoordenadasHistoricas() {
             var inicio = $("#inicio").val();
             var fin = $("#fin").val();
+
+            if (ruta) {
+                mymap.removeLayer(ruta);
+            }
+            if (marcadorInicio) {
+                mymap.removeLayer(marcadorInicio);
+            }       
+            if (marcadorFin) {
+                mymap.removeLayer(marcadorFin);
+            }
 
             $.ajax({
                 url: '/consulta_historica',
@@ -180,41 +197,136 @@
                     // Tratar la respuesta del servidor y trazar la polilínea en el mapa
                     var coordenadas = data.coordenadas;
                     var historialCoords = [];
+                    var timestamps = []; // Crear un array para almacenar los timestamps
+
                     for (var i = 0; i < coordenadas.length; i++) {
                         var latitud = parseFloat(coordenadas[i].latitud);
                         var longitud = parseFloat(coordenadas[i].longitud);
+                        var timestamp = new Date(coordenadas[i].timestamp); // Obtener el timestamp de cada coordenada
                         historialCoords.push([latitud, longitud]);
+                        timestamps.push(timestamp); // Agregar el timestamp al array
                     }
 
-                    // Borrar polilínea y marcador existentes
                     if (ruta) {
-                        mymap.removeLayer(ruta); // Eliminar la polilínea anterior si existe
+                        mymap.removeLayer(ruta);
                     }
-                    if (marcador) {
-                        mymap.removeLayer(marcador); // Eliminar el marcador anterior si existe
+                    if (marcadorInicio) {
+                        mymap.removeLayer(marcadorInicio);
+                    }
+                    if (marcadorFin) {
+                        mymap.removeLayer(marcadorFin);
                     }
 
-                    // Trazar nueva ruta en el mapa
+                    if (coordenadas.length === 0) {
+                        alert("No hay recorridos disponibles.");
+                        return;
+                    }
+
                     ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
-
-                    // Obtener los límites de la polilínea
                     var bounds = ruta.getBounds();
-
-                    // Ajustar el zoom del mapa a los límites de la polilínea
                     mymap.fitBounds(bounds);
 
-                    // Agregar un marcador en el final de la ruta
+                    var primerPunto = historialCoords[0];
                     var ultimoPunto = historialCoords[historialCoords.length - 1];
-                    marcador = L.marker(ultimoPunto).addTo(mymap);
+
+                    marcadorInicio = L.marker(primerPunto, { 
+                        draggable: true,
+                        icon: L.divIcon({
+                            className: 'custom-marker',
+                            html: '<i class="fa-solid fa-location-crosshairs fa-2xl" style="color: #3f5a8d;"></i>',
+                        })
+                    }).addTo(mymap);
+
+                    marcadorInicio.bindPopup("Desplazame al lugar requerido", {
+                        autoClose: false // Evita que se cierre automáticamente al abrir otro popup
+                    }).openPopup();
+
+                    marcadorFin = L.marker(ultimoPunto, {
+                        icon: L.divIcon({
+                            className: 'custom-marker',
+                            html: '<i class="fa-solid fa-flag-checkered fa-2xl" style="color: #000000;"></i>',
+                        })
+                    }).addTo(mymap);
+
+                    marcadorFin.bindPopup("Fin de recorrido")
+
+                    marcadorInicio.timestamp = timestamps[0];
+
+                    marcadorInicio.on('drag', function(event) {
+                        var latlng = event.target.getLatLng();
+                        var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
+                        actualizarPopup(latlng, timestamp);
+                    });
+
+                    marcadorInicio.on('dragend', function(event) {
+                        // Si el marcador se encuentra fuera de la polilínea con una tolerancia de 100 metros, reposicionarlo al punto más cercano
+                        if (!puntoDentroPolilinea(event.target.getLatLng(), historialCoords, 10)) {
+                            var lat = encontrarPuntoMasCercano(event.target.getLatLng(), historialCoords);
+                            event.target.setLatLng(lat); // Reposicionar el marcador
+                            var latlng = event.target.getLatLng();
+                            var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el nuevo timestamp después de reposicionar el marcador
+                            actualizarPopup(latlng, timestamp);
+                        }
+                    });
                 }
             });
         }
 
+        // Verifica si un punto dado está dentro de una polilínea
+        function puntoDentroPolilinea(latlng, polilinea, tolerancia) {
+            for (var i = 0; i < polilinea.length; i++) {
+                var distancia = latlng.distanceTo(polilinea[i]);
+                if (distancia <= tolerancia) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        // Encuentra el punto más cercano a un punto dado dentro de una polilínea
+        function encontrarPuntoMasCercano(latlng, polilinea) {
+            var puntoMasCercano = polilinea[0];
+            var distanciaMinima = latlng.distanceTo(puntoMasCercano);
+
+            for (var i = 1; i < polilinea.length; i++) {
+                var distancia = latlng.distanceTo(polilinea[i]);
+                if (distancia < distanciaMinima) {
+                    distanciaMinima = distancia;
+                    puntoMasCercano = polilinea[i];
+                }
+            }
+
+            return puntoMasCercano;
+        }
+
+        // Función para encontrar el timestamp correspondiente a las coordenadas
+        function encontrarTimestamp(latlng, coordenadas) {
+            var tolerancia = 0.001; 
+
+            // Busca el timestamp correspondiente a las coordenadas
+            for (var i = 0; i < coordenadas.length; i++) {
+                var coordenada = coordenadas[i];
+                var latitudDiff = Math.abs(coordenada.latitud - latlng.lat);
+                var longitudDiff = Math.abs(coordenada.longitud - latlng.lng);
+                if (latitudDiff <= tolerancia && longitudDiff <= tolerancia) {
+                    return new Date(coordenada.timestamp); // Retornar el timestamp como objeto Date
+                }
+            }
+            return "Timestamp no encontrado"; 
+        }
+
+        // Actualizar el popup del marcador con el timestamp y la ubicación
+        function actualizarPopup(latlng, timestamp) {
+            var formattedTimestamp = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
+            marcadorInicio.timestamp = timestamp; // Guardar el timestamp en el marcador
+            marcadorInicio.bindPopup("Timestamp: " + formattedTimestamp + "<br> Ubicación: " + latlng.lat + ", " + latlng.lng).openPopup();
+        }
+        
         // Evento click del botón para consultar históricos
         $('#consultar-historicos-btn').click(function() {
             obtenerCoordenadasHistoricas();
         });
-
+        
     </script>
 </body>
 </html>
