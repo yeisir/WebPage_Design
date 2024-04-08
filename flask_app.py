@@ -68,14 +68,14 @@ def consultar_historial():
         # Realiza la conexión con la base de datos y ejecuta la consulta SQL
         conexion = mysql.connector.connect(**db_config)
         cursor = conexion.cursor()
-        consulta = ("SELECT Latitud, Longitud FROM coordenadas "
+        consulta = ("SELECT Latitud, Longitud, Timestamp FROM coordenadas "
                     "WHERE timestamp >= %s AND timestamp <= %s")
         cursor.execute(consulta, (inicio, fin))
         coordenadas = cursor.fetchall()
         conexion.close()
         
         # Prepara las coordenadas para enviarlas al frontend
-        coordenadas_json = [{'latitud': str(lat), 'longitud': str(lon)} for lat, lon in coordenadas]
+        coordenadas_json = [{'latitud': str(lat), 'longitud': str(lon), 'timestamp': str(ts)} for lat, lon, ts in coordenadas]
         
         # Devolver las coordenadas en formato JSON
         return jsonify({'coordenadas': coordenadas_json})
