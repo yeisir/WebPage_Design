@@ -147,7 +147,7 @@
         <div id="map" style="height: 400px;"></div>
     </div>
 
-    <input type="range" id="time-slider" min="0" max="100" value="0" style="width: 100%;">
+    <input type="range" id="time-slider" min="0" max="100" step="3" value="0" style="width: 100%;">
 
     <script>
     
@@ -334,7 +334,7 @@
         function actualizarPopup(latlng, timestamp) {
             var formattedTimestamp = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
             marcadorInicio.timestamp = timestamp; // Guardar el timestamp en el marcador
-            marcadorInicio.bindPopup("Timestamp: " + formattedTimestamp + "<br> Ubicación: " + latlng.lat + ", " + latlng.lng).openPopup();
+            marcadorInicio.bindPopup("Timestamp: " + formattedTimestamp).openPopup();
         }
         
         // Evento click del botón para consultar históricos
