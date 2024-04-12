@@ -176,15 +176,13 @@
             }  
         });
 
-        
+        var ruta;
         var marcadorInicio;
         var marcadorFin;
 
         function obtenerCoordenadasHistoricas() {
             var inicio = $("#inicio").val();
             var fin = $("#fin").val();
-
-            var ruta;
 
             if (ruta) {
                 mymap.removeLayer(ruta);
@@ -259,15 +257,20 @@
 
                     
 
-                    //trazar polilíneas para cada recorrido
-                    for (var i = 0; i < recorridos.length; i++) {
+                    // Función para trazar polilíneas para cada recorrido
+                    function trazarPolilineas(recorridos) {
+                        for (var i = 0; i < recorridos.length; i++) {
                             var coordendastransf = recorridos[i].map(function(coordenada) {
                                 return [parseFloat(coordenada.latitud), parseFloat(coordenada.longitud)];
-                            });  
+                            });
+                            
+                            
+                        }
+
+                        var ruta = L.polyline(coordendastransf, {color: 'red'}).addTo(mymap);
                     }
 
                     var ruta = L.polyline(coordendastransf, {color: 'red'}).addTo(mymap);
-                    
 
                     var primerPunto = historialCoords[0];
                     var ultimoPunto = historialCoords[historialCoords.length - 1];
