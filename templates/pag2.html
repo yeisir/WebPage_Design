@@ -96,6 +96,34 @@
             margin-top: 3px; /* Espacio superior */
             vertical-align: top;
         }
+        #time-slider {
+            width: 100%;
+            background-color: #cc3b62; /* Color de fondo rosa oscuro */
+            border: none; /* Sin borde */
+            border-radius: 5px; /* Bordes redondeados */
+            height: 10px; /* Altura del slider */
+            outline: none; /* Sin contorno */
+            -webkit-appearance: none; /* Quitar la apariencia predeterminada en WebKit */
+            appearance: none; /* Quitar la apariencia predeterminada */
+        }
+
+        #time-slider::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 10px;
+            background: #ffecf2; /* Color de fondo rosa claro */
+            border-radius: 5px; /* Bordes redondeados */
+        }
+
+        #time-slider::-webkit-slider-thumb {
+            -webkit-appearance: none; /* Quitar la apariencia predeterminada en WebKit */
+            appearance: none; /* Quitar la apariencia predeterminada */
+            width: 20px; /* Ancho del control */
+            height: 20px; /* Altura del control */
+            background: #cc3b62; /* Color de fondo rosa oscuro */
+            border-radius: 50%; /* Hacer el control redondo */
+            cursor: pointer; /* Cambiar el cursor al pasar sobre él */
+            margin-top: -5px; /* Alinear el control verticalmente */
+        }
         
     </style>
     <!-- Incluye jQuery -->
