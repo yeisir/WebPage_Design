@@ -179,7 +179,6 @@
         var rutaSegmento;
         var marcadorInicio;
         var marcadorFin;
-        var umbralTiempo;
 
         function obtenerCoordenadasHistoricas() {
             var inicio = $("#inicio").val();
@@ -233,9 +232,9 @@
                     var segmentoActual = [historialCoords[0]]; // Inicializar primer segmento con la primera coordenada
 
                     // Dividir coordenadas en segmentos basados en el umbral de tiempo
-                    for (var i = 1; i < historialCoords.length; i++) {
-                        var tiempoAnterior = historialCoords[i - 1][2].getTime();
-                        var tiempoActual = historialCoords[i][2].getTime();
+                    for (var i = 1; i < timestamps.length; i++) {
+                        var tiempoAnterior = timestamps[i - 1][2].getTime();
+                        var tiempoActual = timestamps[i][2].getTime();
                         if (tiempoActual - tiempoAnterior > umbralTiempo) {
                             segmentos.push(segmentoActual); // Agregar segmento actual a la lista de segmentos
                             segmentoActual = []; // Inicializar nuevo segmento
