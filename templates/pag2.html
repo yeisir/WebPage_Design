@@ -262,11 +262,9 @@
                         for (var i = 0; i < recorridos.length; i++) {
                             var historialCoords = recorridos[i].map(function(coordenada) {
                                 return [parseFloat(coordenada.latitud), parseFloat(coordenada.longitud)];
-                            
-                            var ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
-                            
                             });
-
+                            // Mueve esta línea dentro del bucle for
+                            var ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
                         }
                     }
 
