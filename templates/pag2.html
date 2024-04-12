@@ -227,25 +227,21 @@
                         return;
                     }
 
-                    // Definir umbral de tiempo en milisegundos (por ejemplo, 30 minutos)
-                    var umbralTiempo = 30 * 60 * 1000; 
-
-                    // Dividir las coordenadas en múltiples segmentos si el intervalo de tiempo entre ellas es mayor que el umbral
+                    var umbralTiempo = 30 * 60 * 1000; // Definir umbral de tiempo en milisegundos (por ejemplo, 30 minutos)
                     var segmentos = [];
-                    var segmentoActual = [];
-                    for (var i = 0; i < historialCoords.length; i++) {
-                        segmentoActual.push(historialCoords[i]);
-                        if (i < historialCoords.length - 1) {
-                            var tiempoActual = historialCoords[i][2].getTime();
-                            var tiempoSiguiente = historialCoords[i + 1][2].getTime();
-                            if (tiempoSiguiente - tiempoActual > umbralTiempo) {
-                                segmentos.push(segmentoActual);
-                                segmentoActual = [];
-                            }
-                        } else {
-                            segmentos.push(segmentoActual);
+                    var segmentoActual = [historialCoords[0]]; // Inicializar primer segmento con la primera coordenada
+
+                    // Dividir coordenadas en segmentos basados en el umbral de tiempo
+                    for (var i = 1; i < historialCoords.length; i++) {
+                        var tiempoAnterior = historialCoords[i - 1][2].getTime();
+                        var tiempoActual = historialCoords[i][2].getTime();
+                        if (tiempoActual - tiempoAnterior > umbralTiempo) {
+                            segmentos.push(segmentoActual); // Agregar segmento actual a la lista de segmentos
+                            segmentoActual = []; // Inicializar nuevo segmento
                         }
+                        segmentoActual.push(historialCoords[i]); // Agregar coordenada al segmento actual
                     }
+                    segmentos.push(segmentoActual); // Agregar el último segmento a la lista de segmentos
 
                     // Trazar polilíneas para cada segmento
                     for (var j = 0; j < segmentos.length; j++) {
