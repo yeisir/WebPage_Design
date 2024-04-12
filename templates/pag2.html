@@ -264,7 +264,7 @@
                             var coordendastransf = recorridos[i].map(function(coordenada) {
                                 return [parseFloat(coordenada.latitud), parseFloat(coordenada.longitud)];
                             });  
-                        }
+                    }
 
                     var ruta = L.polyline(coordendastransf, {color: 'red'}).addTo(mymap);
                     
