@@ -276,13 +276,15 @@
 
                     $('#time-slider').on('input', function() {
                         var sliderValue = parseFloat($(this).val());
-                        var index = Math.round((historialCoords.length - 1) * sliderValue / 100);
-                        var newPosition = historialCoords[index];
+                        var index = Math.round((timestamps.length - 1) * sliderValue / 100);
+                        var interval = Math.floor(timestamps.length / 100); // Intervalo de tiempo entre los puntos
+                        var newIndex = Math.floor(index / interval) * interval; // Redondear al intervalo más cercano
+                        var newPosition = historialCoords[newIndex];
                         marcadorInicio.setLatLng(newPosition);
-                        // Actualizar el popup del marcador con el nuevo timestamp y ubicación
-                        var timestamp = timestamps[index];
+                        // Actualizar el popup del marcador con el nuevo timestamp
+                        var timestamp = timestamps[newIndex];
                         actualizarPopup(newPosition, timestamp);
-                    });    
+                    });   
                 }
             });
         }
