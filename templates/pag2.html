@@ -138,6 +138,10 @@
             
         <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
         <button type="button" id="consultar-historicos-btn" class="btn-form">Consultar historial</button>
+        
+        <label for="time-slider">Tiempo:</label>
+        <input type="range" id="time-slider" min="0" max="1" step="0.01" value="0">
+    
     </form>
 
     <!-- Contenedor del mapa -->
@@ -268,6 +272,8 @@
                             actualizarPopup(latlng, timestamp);
                         }
                     });
+
+                    $('#time-slider').attr('max', historialCoords.length - 1);
                 }
             });
         }
@@ -325,6 +331,16 @@
         // Evento click del botón para consultar históricos
         $('#consultar-historicos-btn').click(function() {
             obtenerCoordenadasHistoricas();
+        });
+
+        $('#time-slider').on('input', function() {
+            var sliderValue = parseFloat($(this).val());
+            var index = Math.round(sliderValue);
+            var newPosition = historialCoords[index];
+            marcadorInicio.setLatLng(newPosition);
+            // Actualizar el popup del marcador con el nuevo timestamp y ubicación
+            var timestamp = timestamps[index];
+            actualizarPopup(newPosition, timestamp);
         });
         
     </script>
