@@ -160,7 +160,7 @@
         // Configuración de Flatpickr para los campos de fecha y hora
         flatpickr("#inicio", {
             enableTime: true,
-            dateFormat: "Y-m-d H:i:S",
+            dateFormat: "Y-m-d H:i",
             time_24hr: true,
             maxDate: "today",
             enableSeconds: false,
@@ -169,7 +169,7 @@
                 var minDate = selectedDates[0];
                 flatpickr("#fin", {
                     enableTime: true,
-                    dateFormat: "Y-m-d H:i:S",
+                    dateFormat: "Y-m-d H:i",
                     time_24hr: true,
                     minDate: minDate,
                     maxDate: "today"
