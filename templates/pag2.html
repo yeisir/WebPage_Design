@@ -255,18 +255,16 @@
                         return recorridos;
                     }
 
-                    var ruta;
-
                     // Función para trazar polilíneas para cada recorrido
                     function trazarPolilineas(recorridos) {
                         for (var i = 0; i < recorridos.length; i++) {
                             var historialCoords = recorridos[i].map(function(coordenada) {
                                 return [parseFloat(coordenada.latitud), parseFloat(coordenada.longitud)];
                             });
-                            // Mueve esta línea dentro del bucle for
-                            var ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
                         }
                     }
+
+                    var ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
 
                     var primerPunto = historialCoords[0];
                     var ultimoPunto = historialCoords[historialCoords.length - 1];
