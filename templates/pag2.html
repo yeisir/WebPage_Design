@@ -147,7 +147,7 @@
         <div id="map" style="height: 400px;"></div>
     </div>
 
-    <input type="range" id="time-slider" min="0" max="100" value="0" style="width: 100%;">
+    <input type="range" id="time-slider" min="0" max="0" value="0" style="width: 100%;">
 
     <script>
     
@@ -274,9 +274,16 @@
                         }
                     });
 
+                    var maxSliderValue = historialCoords.length - 1;
+                    $('#time-slider').attr('max', maxSliderValue);
+
+                    // Configurar el valor mínimo de la barra deslizante
+                    $('#time-slider').attr('min', 0);
+
+                    // Cuando el usuario interactúe con la barra deslizante
                     $('#time-slider').on('input', function() {
                         var sliderValue = parseFloat($(this).val());
-                        var index = Math.floor((historialCoords.length - 1) * sliderValue / 100); // Calcular el índice sin redondear
+                        var index = Math.round(sliderValue); // Obtener el índice correspondiente
                         var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
                         marcadorInicio.setLatLng(newPosition); // Actualizar la posición del marcador
 
