@@ -274,28 +274,22 @@
                         }
                     });
 
+                    // Ajustar el intervalo de tiempo a 3 segundos
+                    var intervalo = 3000; // 3 segundos en milisegundos
+
                     $('#time-slider').on('input', function() {
                         var sliderValue = parseFloat($(this).val());
                         var totalTime = timestamps[timestamps.length - 1] - timestamps[0]; // Tiempo total entre el primer y último timestamp
-                        var timePerPixel = totalTime / ($('#time-slider').width() - 1); // Tiempo representado por cada píxel de la barra deslizante
-                        var timeOffset = timePerPixel * ($('#time-slider').val() - $('#time-slider').attr('min')); // Tiempo representado por el valor actual de la barra deslizante
-                        var currentTime = timestamps[0] + timeOffset; // Timestamp correspondiente al valor actual de la barra deslizante
+                        var steps = Math.floor(totalTime / intervalo); // Calcular la cantidad de pasos necesarios para 3 segundos
+                        var index = Math.floor(steps * sliderValue / 100); // Calcular el índice del timestamp
+                        var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
+                        marcadorInicio.setLatLng(newPosition); // Actualizar la posición del marcador
 
-                        // Encontrar el índice del timestamp más cercano en el historial de coordenadas
-                        var index = 0;
-                        for (var i = 0; i < timestamps.length - 1; i++) {
-                            if (timestamps[i] <= currentTime && timestamps[i + 1] >= currentTime) {
-                                index = i;
-                                break;
-                            }
-                        }
-
-                        var newPosition = historialCoords[index];
-                        marcadorInicio.setLatLng(newPosition);
                         // Actualizar el popup del marcador con el nuevo timestamp
                         var timestamp = timestamps[index];
                         actualizarPopup(newPosition, timestamp);
-                    }); 
+                    });
+
                 }
             });
         }
