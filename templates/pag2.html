@@ -227,9 +227,43 @@
                         return;
                     }
 
-                    ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
-                    var bounds = ruta.getBounds();
-                    mymap.fitBounds(bounds);
+                    function dividirRecorridos(coordenadas) {
+                        var recorridos = [];
+                        var recorridoActual = [];
+
+                        for (var i = 0; i < coordenadas.length; i++) {
+                            if (i === 0) {
+                                recorridoActual.push(coordenadas[i]);
+                            } else {
+                                var tiempoTranscurrido = coordenadas[i].timestamp - recorridoActual[recorridoActual.length - 1].timestamp;
+
+                                // Si el tiempo transcurrido entre puntos es mayor que 10 minutos (600,000 milisegundos)
+                                if (tiempoTranscurrido > 600000) {
+                                    recorridos.push(recorridoActual);
+                                    recorridoActual = [coordenadas[i]];
+                                } else {
+                                    recorridoActual.push(coordenadas[i]);
+                                }
+                            }
+                        }
+
+                        // Agregar el último recorrido
+                        if (recorridoActual.length > 0) {
+                            recorridos.push(recorridoActual);
+                        }
+
+                        return recorridos;
+                    }
+
+                    // Función para trazar polilíneas para cada recorrido
+                    function trazarPolilineas(recorridos) {
+                        for (var i = 0; i < recorridos.length; i++) {
+                            var historialCoords = recorridos[i].map(function(coordenada) {
+                                return [parseFloat(coordenada.latitud), parseFloat(coordenada.longitud)];
+                            });
+                            var polyline = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
+                        }
+                    }
 
                     var primerPunto = historialCoords[0];
                     var ultimoPunto = historialCoords[historialCoords.length - 1];
