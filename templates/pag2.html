@@ -227,8 +227,33 @@
                         return;
                     }
 
-                    ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
-                    var bounds = ruta.getBounds();
+                    // Definir umbral de tiempo en milisegundos (por ejemplo, 30 minutos)
+                    var umbralTiempo = 30 * 60 * 1000; 
+
+                    // Dividir las coordenadas en múltiples segmentos si el intervalo de tiempo entre ellas es mayor que el umbral
+                    var segmentos = [];
+                    var segmentoActual = [];
+                    for (var i = 0; i < historialCoords.length; i++) {
+                        segmentoActual.push(historialCoords[i]);
+                        if (i < historialCoords.length - 1) {
+                            var tiempoActual = historialCoords[i][2].getTime();
+                            var tiempoSiguiente = historialCoords[i + 1][2].getTime();
+                            if (tiempoSiguiente - tiempoActual > umbralTiempo) {
+                                segmentos.push(segmentoActual);
+                                segmentoActual = [];
+                            }
+                        } else {
+                            segmentos.push(segmentoActual);
+                        }
+                    }
+
+                    // Trazar polilíneas para cada segmento
+                    for (var j = 0; j < segmentos.length; j++) {
+                        var rutaSegmento = L.polyline(segmentos[j].map(coord => [coord[0], coord[1]]), {color: 'red'}).addTo(mymap);
+                    }
+
+                    // Ajustar vista del mapa para mostrar todos los segmentos
+                    var bounds = L.latLngBounds(historialCoords.map(coord => [coord[0], coord[1]]));
                     mymap.fitBounds(bounds);
 
                     var primerPunto = historialCoords[0];
