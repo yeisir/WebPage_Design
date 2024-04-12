@@ -264,8 +264,10 @@
                                 return [parseFloat(coordenada.latitud), parseFloat(coordenada.longitud)];
                             });
                             
-                            var ruta = L.polyline(coordendastransf, {color: 'red'}).addTo(mymap);
+                            
                         }
+
+                        var ruta = L.polyline(coordendastransf, {color: 'red'}).addTo(mymap);
                     }
 
                     var primerPunto = historialCoords[0];
