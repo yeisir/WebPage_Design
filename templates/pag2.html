@@ -276,11 +276,9 @@
 
                     $('#time-slider').on('input', function() {
                         var sliderValue = parseFloat($(this).val());
-                        var index = Math.round((historialCoords.length - 1) * sliderValue / 100); // Calcular el índice del punto en la polilínea
+                        var index = Math.floor((historialCoords.length - 1) * sliderValue / 100); // Calcular el índice sin redondear
                         var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
                         marcadorInicio.setLatLng(newPosition); // Actualizar la posición del marcador
-
-                        $(this).val(index);
 
                         // Actualizar el popup del marcador con el nuevo timestamp
                         var timestamp = timestamps[index];
