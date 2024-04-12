@@ -276,10 +276,7 @@
 
                     $('#time-slider').on('input', function() {
                         var sliderValue = parseFloat($(this).val());
-                        var totalTime = timestamps[timestamps.length - 1] - timestamps[0]; // Tiempo total entre el primer y último timestamp
-                        var intervalo = 3000; // Intervalo de tiempo deseado en milisegundos (3 segundos)
-                        var steps = Math.floor(totalTime / intervalo); // Calcular la cantidad de pasos necesarios para 3 segundos
-                        var index = Math.floor(steps * sliderValue / 100); // Calcular el índice del timestamp
+                        var index = Math.round((historialCoords.length - 1) * sliderValue / 100); // Calcular el índice del punto en la polilínea
                         var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
                         marcadorInicio.setLatLng(newPosition); // Actualizar la posición del marcador
 
