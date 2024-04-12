@@ -176,7 +176,7 @@
             }  
         });
 
-        var polyline;
+        
         var marcadorInicio;
         var marcadorFin;
 
@@ -261,7 +261,7 @@
                             var historialCoords = recorridos[i].map(function(coordenada) {
                                 return [parseFloat(coordenada.latitud), parseFloat(coordenada.longitud)];
                             });
-                            var polyline = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
+                            polyline = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
                         }
                     }
 
