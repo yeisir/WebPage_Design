@@ -163,7 +163,7 @@
             dateFormat: "Y-m-d H:i",
             time_24hr: true,
             maxDate: "today",
-            enableSeconds: false,
+            minTime: "00:01",
             onClose: function(selectedDates) {
                 // Configurar la fecha mínima para el campo de fecha de fin
                 var minDate = selectedDates[0];
@@ -172,7 +172,8 @@
                     dateFormat: "Y-m-d H:i",
                     time_24hr: true,
                     minDate: minDate,
-                    maxDate: "today"
+                    maxDate: "today",
+                    maxTime: "23:59"
                 });               
             }  
         });
