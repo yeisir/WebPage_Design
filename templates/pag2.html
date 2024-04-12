@@ -147,7 +147,7 @@
         <div id="map" style="height: 400px;"></div>
     </div>
 
-    <input type="range" id="time-slider" min="0" max="100" value="0" step="0.1"style="width: 100%;">
+    <input type="range" id="time-slider" min="0" max="100" value="0" style="width: 100%;">
 
     <script>
     
@@ -276,15 +276,26 @@
 
                     $('#time-slider').on('input', function() {
                         var sliderValue = parseFloat($(this).val());
-                        var index = Math.round((timestamps.length - 1) * sliderValue / 100);
-                        var interval = Math.floor(timestamps.length / 100); // Intervalo de tiempo entre los puntos
-                        var newIndex = Math.floor(index / interval) * interval; // Redondear al intervalo más cercano
-                        var newPosition = historialCoords[newIndex];
+                        var totalTime = timestamps[timestamps.length - 1] - timestamps[0]; // Tiempo total entre el primer y último timestamp
+                        var timePerPixel = totalTime / ($('#time-slider').width() - 1); // Tiempo representado por cada píxel de la barra deslizante
+                        var timeOffset = timePerPixel * ($('#time-slider').val() - $('#time-slider').attr('min')); // Tiempo representado por el valor actual de la barra deslizante
+                        var currentTime = timestamps[0] + timeOffset; // Timestamp correspondiente al valor actual de la barra deslizante
+
+                        // Encontrar el índice del timestamp más cercano en el historial de coordenadas
+                        var index = 0;
+                        for (var i = 0; i < timestamps.length - 1; i++) {
+                            if (timestamps[i] <= currentTime && timestamps[i + 1] >= currentTime) {
+                                index = i;
+                                break;
+                            }
+                        }
+
+                        var newPosition = historialCoords[index];
                         marcadorInicio.setLatLng(newPosition);
                         // Actualizar el popup del marcador con el nuevo timestamp
-                        var timestamp = timestamps[newIndex];
+                        var timestamp = timestamps[index];
                         actualizarPopup(newPosition, timestamp);
-                    });   
+                    }); 
                 }
             });
         }
