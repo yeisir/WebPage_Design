@@ -176,7 +176,7 @@
             }  
         });
 
-        var rutaSegmento;
+        var ruta;
         var marcadorInicio;
         var marcadorFin;
 
@@ -227,29 +227,8 @@
                         return;
                     }
 
-                    var umbralTiempo = 30 * 60 * 1000; // Definir umbral de tiempo en milisegundos (por ejemplo, 30 minutos)
-                    var segmentos = [];
-                    var segmentoActual = [historialCoords[0]]; // Inicializar primer segmento con la primera coordenada
-
-                    // Dividir coordenadas en segmentos basados en el umbral de tiempo
-                    for (var i = 1; i < timestamps.length; i++) {
-                        var tiempoAnterior = timestamps[i - 1][2].getTime();
-                        var tiempoActual = timestamps[i][2].getTime();
-                        if (tiempoActual - tiempoAnterior > umbralTiempo) {
-                            segmentos.push(segmentoActual); // Agregar segmento actual a la lista de segmentos
-                            segmentoActual = []; // Inicializar nuevo segmento
-                        }
-                        segmentoActual.push(historialCoords[i]); // Agregar coordenada al segmento actual
-                    }
-                    segmentos.push(segmentoActual); // Agregar el último segmento a la lista de segmentos
-
-                    // Trazar polilíneas para cada segmento
-                    for (var j = 0; j < segmentos.length; j++) {
-                        var rutaSegmento = L.polyline(segmentos[j].map(coord => [coord[0], coord[1]]), {color: 'red'}).addTo(mymap);
-                    }
-
-                    // Ajustar vista del mapa para mostrar todos los segmentos
-                    var bounds = L.latLngBounds(historialCoords.map(coord => [coord[0], coord[1]]));
+                    ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
+                    var bounds = ruta.getBounds();
                     mymap.fitBounds(bounds);
 
                     var primerPunto = historialCoords[0];
