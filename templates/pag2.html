@@ -124,6 +124,23 @@
             cursor: pointer; /* Cambiar el cursor al pasar sobre él */
             margin-top: -5px; /* Alinear el control verticalmente */
         }
+
+        .swal2-title {
+            font-size: 20px; /* Tamaño de fuente del título */
+        }
+
+        .swal2-content {
+            font-size: 14px; /* Tamaño de fuente del contenido */
+        }
+
+        .swal2-icon {
+            color: #cc3b62; /* Color del icono */
+        }
+
+        .swal2-list {
+            text-align: left; /* Alinea la lista a la izquierda */
+            margin-left: 20px; /* Agrega un margen a la lista */
+        }
         
     </style>
     <!-- Incluye jQuery -->
@@ -195,9 +212,10 @@
         window.onload = function() {
             Swal.fire({
                 title: "¡Bienvenido a la consulta histórica!",
-                text: "Para usar la página, sigue estos pasos:\n\n1. Selecciona la fecha y hora de inicio en el primer campo.\n\n2. Selecciona la fecha y hora de fin en el segundo campo.\n\n3. Haz clic en el botón 'Consultar historial' para ver las coordenadas históricas del vehículo.\n\n4. Utiliza el control deslizante de tiempo para ver el historial de ubicaciones.\n\n¡Disfruta de tu consulta histórica!",
+                html: "<div class='step'>Paso 1: Selecciona la fecha y hora de inicio en el primer campo.</div><div class='step'>Paso 2: Selecciona la fecha y hora de fin en el segundo campo.</div><div class='step'>Paso 3: Haz clic en el botón 'Consultar historial' para ver las coordenadas históricas del vehículo.</div><div class='step'>Paso 4: Utiliza el control deslizante de tiempo para ver el historial de ubicaciones.</div>",
                 icon: "info",
-                confirmButtonText: "Entendido"
+                confirmButtonText: "Entendido",
+                confirmButtonColor: "#cc3b62" /* Color del botón de confirmación */
             });
         }    
 
