@@ -184,6 +184,10 @@
 
     <script>
 
+        window.onload = function() {
+            alert("¡Bienvenido a la consulta histórica!\n\nPara usar la página, sigue estos pasos:\n\n1. Selecciona la fecha y hora de inicio en el primer campo.\n\n2. Selecciona la fecha y hora de fin en el segundo campo.\n\n3. Haz clic en el botón 'Consultar historial' para ver las coordenadas históricas del vehículo.\n\n4. Utiliza el control deslizante de tiempo para ver el historial de ubicaciones.\n\n¡Disfruta de tu consulta histórica!");
+                };
+
         // Añadir capa de OpenStreetMap al mapa
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
