@@ -185,37 +185,7 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
 
-        var customControl = L.Control.extend({
-                options: {
-                    position: 'topright' // Posición del control dentro del mapa
-                },
-                onAdd: function(map) {
-                    var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control'); // Crea un contenedor para el control
-                    var button = L.DomUtil.create('a', 'leaflet-control-custom', container); // Crea el botón dentro del contenedor
-                    button.innerHTML = 'Ajustar Vista'; // Texto para el botón
-                    button.href = '#'; // Asigna un enlace ficticio para que el botón se comporte como un botón estándar
-                    button.title = 'Ajustar Vista para Marcadores'; // Texto emergente del botón
-
-                    // Maneja el evento click del botón
-                    L.DomEvent.on(button, 'click', function() {
-                        // Crea un área que contenga todos los marcadores
-                        var bounds = L.latLngBounds();
-
-                        // Extiende los límites del área para incluir todos los marcadores
-                        marcadores.forEach(function(marcador) {
-                            bounds.extend(marcador.getLatLng());
-                        });
-
-                        // Ajusta el zoom y la vista del mapa para que encaje con el área que contiene todos los marcadores
-                        map.fitBounds(bounds);
-                    });
-
-                    return container;
-                }
-            });
-
-        // Añade el control personalizado al mapa
-        mapa.addControl(new customControl());
+        
 
         // Configuración de Flatpickr para los campos de fecha y hora
         flatpickr("#inicio", {
@@ -406,6 +376,38 @@
             marcadorInicio.bindPopup("Timestamp: " + formattedTimestamp).openPopup();
         }
         
+        var customControl = L.Control.extend({
+            options: {
+                position: 'topright' // Posición del control dentro del mapa
+            },
+            onAdd: function(map) {
+                var container = L.DomUtil.create('div', 'leaflet-bar leaflet-control'); // Crea un contenedor para el control
+                var button = L.DomUtil.create('a', 'leaflet-control-custom', container); // Crea el botón dentro del contenedor
+                button.innerHTML = 'Ajustar Vista'; // Texto para el botón
+                button.href = '#'; // Asigna un enlace ficticio para que el botón se comporte como un botón estándar
+                button.title = 'Ajustar Vista para Marcadores'; // Texto emergente del botón
+
+                // Maneja el evento click del botón
+                L.DomEvent.on(button, 'click', function() {
+                    // Crea un área que contenga todos los marcadores
+                    var bounds = L.latLngBounds();
+
+                    // Extiende los límites del área para incluir todos los marcadores
+                    marcadores.forEach(function(marcador) {
+                        bounds.extend(marcador.getLatLng());
+                    });
+
+                    // Ajusta el zoom y la vista del mapa para que encaje con el área que contiene todos los marcadores
+                    map.fitBounds(bounds);
+                });
+
+                return container;
+            }
+        });
+
+        // Añade el control personalizado al mapa
+        mapa.addControl(new customControl());
+
         // Evento click del botón para consultar históricos
         $('#consultar-historicos-btn').click(function() {
             obtenerCoordenadasHistoricas();
