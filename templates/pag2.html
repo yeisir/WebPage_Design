@@ -140,6 +140,8 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
 </head>
 <body>
     <!-- Encabezado dentro de un cuadro con bordes cuadrados -->
@@ -191,8 +193,13 @@
         }).addTo(mymap);
 
         window.onload = function() {
-            alert("¡Bienvenido a la consulta histórica!\n\nPara usar la página, sigue estos pasos:\n\n1. Selecciona la fecha y hora de inicio en el primer campo.\n\n2. Selecciona la fecha y hora de fin en el segundo campo.\n\n3. Haz clic en el botón 'Consultar historial' para ver las coordenadas históricas del vehículo.\n\n4. Utiliza el control deslizante de tiempo para ver el historial de ubicaciones.\n\n¡Disfruta de tu consulta histórica!");
-                };
+            Swal.fire({
+                title: "¡Bienvenido a la consulta histórica!",
+                text: "Para usar la página, sigue estos pasos:\n\n1. Selecciona la fecha y hora de inicio en el primer campo.\n\n2. Selecciona la fecha y hora de fin en el segundo campo.\n\n3. Haz clic en el botón 'Consultar historial' para ver las coordenadas históricas del vehículo.\n\n4. Utiliza el control deslizante de tiempo para ver el historial de ubicaciones.\n\n¡Disfruta de tu consulta histórica!",
+                icon: "info",
+                confirmButtonText: "Entendido"
+            });
+        }    
 
         // Configuración de Flatpickr para los campos de fecha y hora
         flatpickr("#inicio", {
