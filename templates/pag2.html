@@ -175,6 +175,11 @@
     <!-- Contenedor del mapa -->
     <div id="map-container">
         <div id="map" style="height: 400px;"></div>
+
+        <div id="recenter-button" class="leaflet-bar leaflet-control" style="position: absolute; bottom: 30px; left: 30px; background-color: white; border-radius: 5px; padding: 5px; cursor: pointer;">
+            <i class="fas fa-crosshairs" style="color: #cc3b62;"></i>
+        </div>
+
     </div>
 
     <script>
@@ -380,6 +385,10 @@
         $('#consultar-historicos-btn').click(function() {
             obtenerCoordenadasHistoricas();
             $('#time-slider').val(0);
+        });
+
+        $('#recenter-button').click(function() {
+            mymap.setView(marcadorInicio.getLatLng());
         });
 
         
