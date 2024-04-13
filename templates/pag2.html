@@ -179,6 +179,12 @@
 
     <script>
 
+        // Añadir capa de OpenStreetMap al mapa
+        var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(mymap);
+
         var customControl = L.Control.extend({
                 options: {
                     position: 'topright' // Posición del control dentro del mapa
@@ -210,12 +216,6 @@
 
         // Añade el control personalizado al mapa
         mapa.addControl(new customControl());
-    
-        // Añadir capa de OpenStreetMap al mapa
-        var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(mymap);
 
         // Configuración de Flatpickr para los campos de fecha y hora
         flatpickr("#inicio", {
