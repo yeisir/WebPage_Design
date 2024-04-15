@@ -304,10 +304,30 @@
                         timestamps.push(timestamp); // Agregar el timestamp al array
                     }
 
-                    // Trazar los segmentos de recorrido en lugar de una sola polilínea
-                    for (var i = 1; i < historialCoords.length; i++) {
-                        var segmentCoords = [historialCoords[i - 1], historialCoords[i]];
-                        var segment = L.polyline(segmentCoords, { color: 'red' }).addTo(mymap);
+                    var segmentos = [];
+                    var segmentoActual = [];
+                    var distanciaLimite = 0.01; // Distancia límite en grados 
+
+                    for (var i = 1; i < historialCoords.length; i++){
+                        var latitudDiff = Math.abs(historialCoords[i][0] - historialCoords[i - 1][0]);
+                        var longitudDiff = Math.abs(historialCoords[i][1] - historialCoords[i - 1][1]);
+
+                        if (latitudDiff <= distanciaLimite && longitudDiff <= distanciaLimite){
+                            segmentoActual.push(historialCoords[i - 1]);
+                        } else {
+                            segmentoActual.push(historialCoords[i - 1]);
+                            segmentos.push(segmentoActual);
+                            segmentoActual = [];
+                        }
+                    }
+
+                    // Agregar el último segmento
+                    segmentoActual.push(historialCoords[historialCoords.length - 1]);
+                    segmentos.push(segmentoActual);
+
+                    for (var i = 0; i < segmentos.length; i++){
+                        var segmentoCoords = segmentos[i];
+                        var segment = L.polyline(segmentoCoords, { color: 'red' }).addTo(mymap);
                     }
 
                     if (ruta) {
