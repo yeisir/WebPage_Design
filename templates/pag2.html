@@ -291,6 +291,7 @@
                 type: 'POST',
                 data: {inicio: inicio, fin: fin},
                 success: function(data) {
+                    console.log("Respuesta del servidor recibida")
                     // Tratar la respuesta del servidor y trazar la polilínea en el mapa
                     var coordenadas = data.coordenadas;
                     var historialCoords = [];
@@ -329,6 +330,8 @@
                         var segmentoCoords = segmentos[i];
                         var segment = L.polyline(segmentoCoords, { color: 'red' }).addTo(mymap);
                     }
+
+                    console.log("ejecutado")
 
                     if (ruta) {
                         mymap.removeLayer(ruta);
