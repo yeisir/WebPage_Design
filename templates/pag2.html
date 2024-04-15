@@ -295,27 +295,13 @@
                     var coordenadas = data.coordenadas;
                     var historialCoords = [];
                     var timestamps = []; // Crear un array para almacenar los timestamps
-                    var lastPoit = null;
 
                     for (var i = 0; i < coordenadas.length; i++) {
                         var latitud = parseFloat(coordenadas[i].latitud);
                         var longitud = parseFloat(coordenadas[i].longitud);
                         var timestamp = new Date(coordenadas[i].timestamp); // Obtener el timestamp de cada coordenada
+                        historialCoords.push([latitud, longitud]);
                         timestamps.push(timestamp); // Agregar el timestamp al array
-
-                        var newPoint = L.latLng(latitud, longitud);
-
-                        if (lastPoint !== null){
-                            var distance = lastPoint.distanceTo(newPoint);
-
-                            if (distance <= 500){
-                                historialCoords.push([latitud, longitud]);
-                                lastPoint = newPoint;
-                            }
-                        } else {
-                            historialCoords.push([latitud, longitud]);
-                            lastPoint = newPoint;
-                        }
                     }
 
                     if (ruta) {
