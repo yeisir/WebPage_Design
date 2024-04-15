@@ -304,6 +304,12 @@
                         timestamps.push(timestamp); // Agregar el timestamp al array
                     }
 
+                    // Trazar los segmentos de recorrido en lugar de una sola polilínea
+                    for (var i = 1; i < historialCoords.length; i++) {
+                        var segmentCoords = [historialCoords[i - 1], historialCoords[i]];
+                        var segment = L.polyline(segmentCoords, { color: 'red' }).addTo(mymap);
+                    }
+
                     if (ruta) {
                         mymap.removeLayer(ruta);
                     }
