@@ -286,6 +286,14 @@
                 mymap.removeLayer(marcadorFin);
             }
 
+            // Obtener el último punto del historial
+            var ultimoPunto = null;
+            
+            if (ruta && ruta.getLatLngs().length > 0) {
+                var latLngs = ruta.getLatLngs();
+                ultimoPunto = latLngs[latLngs.length - 1];
+            }
+
             $.ajax({
                 url: '/consulta_historica',
                 type: 'POST',
@@ -317,6 +325,12 @@
                     if (coordenadas.length === 0) {
                         alert("No hay recorridos disponibles.");
                         return;
+                    }
+
+                    // Verificar la distancia entre el último punto y el nuevo punto
+                    if (ultimoPunto && mymap.distance(ultimoPunto, historialCoords[historialCoords.length - 1]) > 500) {
+                        rutaActual = L.polyline([], { color: 'red' }).addTo(mymap);
+                        trayectos.push(rutaActual);
                     }
 
                     ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
