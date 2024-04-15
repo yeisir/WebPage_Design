@@ -291,7 +291,6 @@
                 type: 'POST',
                 data: {inicio: inicio, fin: fin},
                 success: function(data) {
-                    console.log("Respuesta del servidor recibida")
                     // Tratar la respuesta del servidor y trazar la polilínea en el mapa
                     var coordenadas = data.coordenadas;
                     var historialCoords = [];
@@ -304,34 +303,6 @@
                         historialCoords.push([latitud, longitud]);
                         timestamps.push(timestamp); // Agregar el timestamp al array
                     }
-
-                    var segmentos = [];
-                    var segmentoActual = [];
-                    var distanciaLimite = 0.0001; // Distancia límite en grados 
-
-                    for (var i = 1; i < historialCoords.length; i++){
-                        var latitudDiff = Math.abs(historialCoords[i][0] - historialCoords[i - 1][0]);
-                        var longitudDiff = Math.abs(historialCoords[i][1] - historialCoords[i - 1][1]);
-
-                        if (latitudDiff <= distanciaLimite && longitudDiff <= distanciaLimite){
-                            segmentoActual.push(historialCoords[i - 1]);
-                        } else {
-                            segmentoActual.push(historialCoords[i - 1]);
-                            segmentos.push(segmentoActual);
-                            segmentoActual = [];
-                        }
-                    }
-
-                    // Agregar el último segmento
-                    segmentoActual.push(historialCoords[historialCoords.length - 1]);
-                    segmentos.push(segmentoActual);
-
-                    for (var i = 0; i < segmentos.length; i++){
-                        var segmentoCoords = segmentos[i];
-                        var segment = L.polyline(segmentoCoords, { color: 'red' }).addTo(mymap);
-                    }
-
-                    console.log("ejecutado")
 
                     if (ruta) {
                         mymap.removeLayer(ruta);
