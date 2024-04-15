@@ -286,14 +286,6 @@
                 mymap.removeLayer(marcadorFin);
             }
 
-            // Obtener el último punto del historial
-            var ultimoPunto = null;
-            
-            if (ruta && ruta.getLatLngs().length > 0) {
-                var latLngs = ruta.getLatLngs();
-                ultimoPunto = latLngs[latLngs.length - 1];
-            }
-
             $.ajax({
                 url: '/consulta_historica',
                 type: 'POST',
@@ -303,13 +295,27 @@
                     var coordenadas = data.coordenadas;
                     var historialCoords = [];
                     var timestamps = []; // Crear un array para almacenar los timestamps
+                    var lastPoit = null;
 
                     for (var i = 0; i < coordenadas.length; i++) {
                         var latitud = parseFloat(coordenadas[i].latitud);
                         var longitud = parseFloat(coordenadas[i].longitud);
                         var timestamp = new Date(coordenadas[i].timestamp); // Obtener el timestamp de cada coordenada
-                        historialCoords.push([latitud, longitud]);
                         timestamps.push(timestamp); // Agregar el timestamp al array
+
+                        var newPoint = L.latLng(latitud, longitud);
+
+                        if (lastPoint !== null){
+                            var distance = lastPoint.distanceTo(newPoint);
+
+                            if (distance <= 500){
+                                historialCoords.push([latitud, longitud]);
+                                lastPoint = newPoint;
+                            }
+                        } else {
+                            historialCoords.push([latitud, longitud]);
+                            lastPoint = newPoint;
+                        }
                     }
 
                     if (ruta) {
@@ -325,12 +331,6 @@
                     if (coordenadas.length === 0) {
                         alert("No hay recorridos disponibles.");
                         return;
-                    }
-
-                    // Verificar la distancia entre el último punto y el nuevo punto
-                    if (ultimoPunto && mymap.distance(ultimoPunto, historialCoords[historialCoords.length - 1]) > 500) {
-                        rutaActual = L.polyline([], { color: 'red' }).addTo(mymap);
-                        trayectos.push(rutaActual);
                     }
 
                     ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
@@ -382,12 +382,15 @@
 
                     var maxSliderValue = historialCoords.length - 1;
                     $('#time-slider').attr('max', maxSliderValue);
+                    
                     $('#time-slider').attr('min', 0);
+                    
                     $('#time-slider').on('input', function() {
                         var sliderValue = parseFloat($(this).val());
                         var index = Math.round(sliderValue); // Obtener el índice correspondiente
                         var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
                         marcadorInicio.setLatLng(newPosition); // Actualizar la posición del marcador
+                        
                         
                         var timestamp = timestamps[index];
                         actualizarPopup(newPosition, timestamp);
