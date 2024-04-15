@@ -302,10 +302,6 @@
                         var timestamp = new Date(coordenadas[i].timestamp); // Obtener el timestamp de cada coordenada
                         historialCoords.push([latitud, longitud]);
                         timestamps.push(timestamp); // Agregar el timestamp al array
-
-                        if (historialCoords.length === 0 || historialCoords[historialCoords.length - 1].distanceTo([latitud, longitud]) <= 500){
-                            historialCoords.push([latitud, longitud]);
-                        }
                     }
 
                     if (ruta) {
