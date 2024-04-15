@@ -302,6 +302,10 @@
                         var timestamp = new Date(coordenadas[i].timestamp); // Obtener el timestamp de cada coordenada
                         historialCoords.push([latitud, longitud]);
                         timestamps.push(timestamp); // Agregar el timestamp al array
+
+                        if (historialCoords.length === 0 || historialCoords[historialCoords.length - 1].distanceTo([latitud, longitud]) <= 500){
+                            historialCoords.push([latitud, longitud]);
+                        }
                     }
 
                     if (ruta) {
@@ -334,7 +338,7 @@
                         })
                     }).addTo(mymap);
 
-                    marcadorInicio.bindPopup("Desplazame al lugar requerido", {
+                    marcadorInicio.bindPopup("Desplázame al lugar requerido", {
                         autoClose: false // Evita que se cierre automáticamente al abrir otro popup
                     }).openPopup();
 
@@ -368,15 +372,12 @@
 
                     var maxSliderValue = historialCoords.length - 1;
                     $('#time-slider').attr('max', maxSliderValue);
-                    
                     $('#time-slider').attr('min', 0);
-                    
                     $('#time-slider').on('input', function() {
                         var sliderValue = parseFloat($(this).val());
                         var index = Math.round(sliderValue); // Obtener el índice correspondiente
                         var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
                         marcadorInicio.setLatLng(newPosition); // Actualizar la posición del marcador
-                        
                         
                         var timestamp = timestamps[index];
                         actualizarPopup(newPosition, timestamp);
