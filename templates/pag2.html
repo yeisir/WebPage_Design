@@ -43,6 +43,7 @@
         #map-container {
             width: 100%;
             margin-top: 20px;
+            position: relative;
         }
         #map {
             height: 400px;
@@ -50,6 +51,20 @@
             border: 2px solid #cc3b62; /* Rosa oscuro */
             margin-bottom: 20px;
         }
+
+        #recenter-button {
+            background-color: white;
+            border-radius: 5px;
+            padding: 5px;
+            cursor: pointer;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+        }
+        #recenter-button i {
+            color: #cc3b62; /* Color rosa oscuro */
+        }
+
         /* Estilos del botón */
         .btn-volver {
             background-color: #cc3b62; /* Color de fondo rosa oscuro */
@@ -96,6 +111,63 @@
             margin-top: 3px; /* Espacio superior */
             vertical-align: top;
         }
+        #time-slider {
+            width: 100%;
+            background-color: #cc3b62; /* Color de fondo rosa oscuro */
+            border: none; /* Sin borde */
+            border-radius: 5px; /* Bordes redondeados */
+            height: 10px; /* Altura del slider */
+            outline: none; /* Sin contorno */
+            -webkit-appearance: none; /* Quitar la apariencia predeterminada en WebKit */
+            appearance: none; /* Quitar la apariencia predeterminada */
+        }
+
+        #time-slider::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 10px;
+            background: #878787; /* Color de fondo rosa claro */
+            border-radius: 5px; /* Bordes redondeados */
+        }
+
+        #time-slider::-webkit-slider-thumb {
+            -webkit-appearance: none; /* Quitar la apariencia predeterminada en WebKit */
+            appearance: none; /* Quitar la apariencia predeterminada */
+            width: 20px; /* Ancho del control */
+            height: 20px; /* Altura del control */
+            background: #cc3b62; /* Color de fondo rosa oscuro */
+            border-radius: 50%; /* Hacer el control redondo */
+            cursor: pointer; /* Cambiar el cursor al pasar sobre él */
+            margin-top: -5px; /* Alinear el control verticalmente */
+        }
+
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
+
+        /* Estilo del mensaje */
+        .swal2-popup {
+            font-family: 'Roboto', sans-serif; /* Aplica la fuente personalizada */
+            max-width: 400px; /* Ancho máximo del cuadro de mensaje */
+            font-size: 14px; /* Tamaño de fuente */
+        }
+
+        .swal2-title {
+            font-size: 20px; /* Tamaño de fuente del título */
+            color: #cc3b62; /* Color del título */
+        }
+
+        .swal2-content {
+            font-size: 11px; /* Tamaño de fuente del contenido */
+            color: #333; /* Color del contenido */
+        }
+
+        .swal2-icon {
+            color: #fda2ba; /* Color del icono */
+        }
+
+        /* Botón de confirmación */
+        .swal2-confirm {
+            background-color: #cc3b62; /* Color de fondo del botón */
+            color: white; /* Color del texto del botón */
+        }
         
     </style>
     <!-- Incluye jQuery -->
@@ -111,6 +183,8 @@
     <!-- Incluye Flatpickr para selección de fecha y hora -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
 </head>
 <body>
@@ -138,35 +212,58 @@
             
         <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
         <button type="button" id="consultar-historicos-btn" class="btn-form">Consultar historial</button>
+    
+    
     </form>
+
+    <input type="range" id="time-slider" min="0" max="0" value="0" style="width: 100%;">
 
     <!-- Contenedor del mapa -->
     <div id="map-container">
         <div id="map" style="height: 400px;"></div>
+
+        <div id="recenter-button" class="leaflet-bar leaflet-control">
+            <i class="fas fa-crosshairs"></i>
+        </div>
+
     </div>
+
     <script>
-    
+
         // Añadir capa de OpenStreetMap al mapa
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
 
+        window.onload = function() {
+            Swal.fire({
+                title: "¡Bienvenido a la consulta histórica!",
+                html: "Paso 1: Selecciona la fecha y hora de inicio en el primer campo.<br><br>Paso 2: Selecciona la fecha y hora de fin en el segundo campo.<br><br>Paso 3: Haz clic en el botón 'Consultar historial' para ver las coordenadas históricas del vehículo.<br><br>Paso 4: Utiliza el control deslizante de tiempo para ver el historial de ubicaciones.",
+                icon: "info",
+                iconColor: "#fda2ba",
+                confirmButtonText: "Entendido",
+                confirmButtonColor: "#cc3b62" // Color del botón de confirmación
+            });
+        }    
+
         // Configuración de Flatpickr para los campos de fecha y hora
         flatpickr("#inicio", {
             enableTime: true,
-            dateFormat: "Y-m-d H:i:S",
+            dateFormat: "Y-m-d H:i",
             time_24hr: true,
             maxDate: "today",
+            defaultDate: "07:00",
             onClose: function(selectedDates) {
                 // Configurar la fecha mínima para el campo de fecha de fin
                 var minDate = selectedDates[0];
                 flatpickr("#fin", {
                     enableTime: true,
-                    dateFormat: "Y-m-d H:i:S",
+                    dateFormat: "Y-m-d H:i",
                     time_24hr: true,
                     minDate: minDate,
-                    maxDate: "today"
+                    maxDate: "today",
+                    defaultDate: "23:59",
                 });               
             }  
         });
@@ -237,7 +334,7 @@
                         })
                     }).addTo(mymap);
 
-                    marcadorInicio.bindPopup("Desplazame al lugar requerido", {
+                    marcadorInicio.bindPopup("Desplázame al lugar requerido", {
                         autoClose: false // Evita que se cierre automáticamente al abrir otro popup
                     }).openPopup();
 
@@ -268,6 +365,23 @@
                             actualizarPopup(latlng, timestamp);
                         }
                     });
+
+                    var maxSliderValue = historialCoords.length - 1;
+                    $('#time-slider').attr('max', maxSliderValue);
+                    
+                    $('#time-slider').attr('min', 0);
+                    
+                    $('#time-slider').on('input', function() {
+                        var sliderValue = parseFloat($(this).val());
+                        var index = Math.round(sliderValue); // Obtener el índice correspondiente
+                        var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
+                        marcadorInicio.setLatLng(newPosition); // Actualizar la posición del marcador
+                        
+                        
+                        var timestamp = timestamps[index];
+                        actualizarPopup(newPosition, timestamp);
+                    });
+
                 }
             });
         }
@@ -319,13 +433,19 @@
         function actualizarPopup(latlng, timestamp) {
             var formattedTimestamp = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
             marcadorInicio.timestamp = timestamp; // Guardar el timestamp en el marcador
-            marcadorInicio.bindPopup("Timestamp: " + formattedTimestamp + "<br> Ubicación: " + latlng.lat + ", " + latlng.lng).openPopup();
+            marcadorInicio.bindPopup("Timestamp: " + formattedTimestamp).openPopup();
         }
         
         // Evento click del botón para consultar históricos
         $('#consultar-historicos-btn').click(function() {
             obtenerCoordenadasHistoricas();
+            $('#time-slider').val(0);
         });
+
+        $('#recenter-button').click(function() {
+            mymap.setView(marcadorInicio.getLatLng());
+        });
+
         
     </script>
 </body>
