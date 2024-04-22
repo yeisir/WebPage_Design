@@ -57,6 +57,27 @@
             text-align: center;
             margin-top: 50px;
         }
+        .rueda-rpm {
+            width: 100px;
+            height: 100px;
+            background-color: #f0f0f0;
+            border-radius: 50%;
+            border: 10px solid #cc3b62;
+            position: relative;
+            margin: auto;
+            margin-top: 20px;
+        }
+        .aguja {
+            width: 4px;
+            height: 50px;
+            background-color: #cc3b62;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: bottom center;
+            transform: translateX(-50%) rotate(0deg);
+            transition: transform 0.5s ease;
+        }
         table {
             width: 100%;
             border-collapse: collapse;
@@ -87,21 +108,14 @@
 
     <div class="rpm" id="rpmDisplay">0 RPM</div>
 
-    <table>
+    <div class="rueda-rpm">
+        <div class="aguja"></div>
+    </div>
+
+    <table id="rpmTable">
         <tr>
-            <th>Columna 1</th>
-            <th>Columna 2</th>
-            <th>Columna 3</th>
-        </tr>
-        <tr>
-            <td>Dato 1</td>
-            <td>Dato 2</td>
-            <td>Dato 3</td>
-        </tr>
-        <tr>
-            <td>Dato 4</td>
-            <td>Dato 5</td>
-            <td>Dato 6</td>
+            <th>TimeStamp</th>
+            <th>RPM</th>
         </tr>
     </table>
 
@@ -117,6 +131,19 @@
 
             // Mostrar las RPM actualizadas en el elemento con id "rpmDisplay"
             document.getElementById("rpmDisplay").textContent = currentRPM + " RPM";
+
+            // Rotar la aguja de la rueda RPM
+            var aguja = document.querySelector(".aguja");
+            var rotationAngle = currentRPM * (180 / 8000); // 8000 RPM equivale a 180 grados de rotación
+            aguja.style.transform = "translateX(-50%) rotate(" + rotationAngle + "deg)";
+
+            // Agregar nueva fila a la tabla de RPM
+            var table = document.getElementById("rpmTable");
+            var row = table.insertRow(-1); // Insertar nueva fila al final
+            var timeStampCell = row.insertCell(0);
+            var rpmCell = row.insertCell(1);
+            timeStampCell.textContent = new Date().toLocaleTimeString(); // Agregar timestamp
+            rpmCell.textContent = currentRPM; // Agregar valor de RPM
 
             // Llamar a esta función nuevamente después de 1 segundo (1000 milisegundos)
             setTimeout(updateRPM, 1000);
