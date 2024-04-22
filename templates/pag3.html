@@ -57,6 +57,16 @@
             text-align: center;
             margin-top: 50px;
         }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        th, td {
+            border: 1px solid #cc3b62;
+            padding: 8px;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -74,6 +84,26 @@
     <form action="/velocidad" method="post">
         <button type="submit" class="btn-historico">Ir a consulta de historicos</button>
     </form>
+
+    <div class="rpm" id="rpmDisplay">0 RPM</div>
+
+    <table>
+        <tr>
+            <th>Columna 1</th>
+            <th>Columna 2</th>
+            <th>Columna 3</th>
+        </tr>
+        <tr>
+            <td>Dato 1</td>
+            <td>Dato 2</td>
+            <td>Dato 3</td>
+        </tr>
+        <tr>
+            <td>Dato 4</td>
+            <td>Dato 5</td>
+            <td>Dato 6</td>
+        </tr>
+    </table>
 
     <script>
         // Simulando el cambio de RPM (puedes cambiar esto con datos reales)
