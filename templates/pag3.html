@@ -76,7 +76,7 @@
             left: 50%;
             transform-origin: bottom center;
             transform: translateX(-50%) rotate(0deg);
-            transition: transform 0.5s ease;
+            transition: transform 0.5s cubic-bezier(0.4, 2, 0.2, 1);
         }
         table {
             width: 100%;
@@ -120,13 +120,12 @@
     </table>
 
     <script>
-        // Simulando el cambio de RPM (puedes cambiar esto con datos reales)
+        
         var currentRPM = 0;
 
         // Función para actualizar el display de RPM
         function updateRPM() {
-            // Aquí podrías obtener el valor de RPM desde algún sensor o fuente de datos en tiempo real
-            // Por ahora, simplemente aumentamos las RPM en 100 cada segundo para simular un cambio
+            
             currentRPM += 100;
 
             // Mostrar las RPM actualizadas en el elemento con id "rpmDisplay"
