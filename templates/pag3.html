@@ -6,16 +6,25 @@
     <title>Revoluciones por Minuto</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            margin: 0;
+            background-color: #ffecf2; /* Rosa claro */
+            color: #cc3b62; /* Rosa oscuro */
+            font-family: 'Arial Black', sans-serif; /* Fuente más atractiva */
             padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
+            margin: 0; /* Eliminar el margen predeterminado del cuerpo */
         }
         h1 {
-            text-align: center;
+            display: none; /* Oculta el título "Coordenadas" */
+        }
+        .header-container {
+            background-color: white; /* Fondo blanco */
+            border-radius: 7px; /* Bordes no-redondeados */
+            border: 2px solid #cc3b62; /* Rosa oscuro */
+            padding: 10px 20px; /* Menor espacio de relleno arriba y abajo, mayor espacio de relleno a los lados */
+            margin-bottom: 20px;
+            margin-right: 50px;
+            width: calc(75% - 20px); /* Ancho del cuadro de bienvenida */
+            float: left; /* Alineación a la izquierda */
+            font-size: 17.5px;
         }
         .rpm {
             font-size: 36px;
@@ -25,9 +34,11 @@
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>Revoluciones por Minuto del Carro</h1>
-        <div class="rpm" id="rpmDisplay">0 RPM</div>
+    <div class="header-container">
+        <header>
+            <h1>¡Bienvenido!</h1>
+            <p>¡Bienvenido a Road Track! Aquí podrás seguir en tiempo real las RPM de tu vehículo.</p>
+        </header>
     </div>
 
     <script>
