@@ -85,12 +85,8 @@ def consultar_historial():
 
 @app.route('/velocidad', methods=['POST'])
 def consultar_velocidad():
-    # Redirige a la página 3
-    return redirect(url_for('mostrar_pagina3'))
-
-@app.route('/pagina3')
-def mostrar_pagina3():
     return render_template('pag3.html')
+
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)
