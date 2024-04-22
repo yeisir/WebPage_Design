@@ -83,6 +83,10 @@ def consultar_historial():
     # Si no hay valores para inicio y fin, solo muestra la página
     return render_template('pag2.html')
 
+@app.route('/velocidad', methods=['POST'])
+def consultar_velocidad():
+    return render_template('pag3.html')
+
 
 if __name__ == '__main__':
     socketio.run(app, debug=True, host='0.0.0.0', port=5000)
