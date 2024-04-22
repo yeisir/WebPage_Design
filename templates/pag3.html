@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Revoluciones por Minuto</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        h1 {
+            text-align: center;
+        }
+        .rpm {
+            font-size: 36px;
+            text-align: center;
+            margin-top: 50px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Revoluciones por Minuto del Carro</h1>
+        <div class="rpm" id="rpmDisplay">0 RPM</div>
+    </div>
+
+    <script>
+        // Simulando el cambio de RPM (puedes cambiar esto con datos reales)
+        var currentRPM = 0;
+
+        // Función para actualizar el display de RPM
+        function updateRPM() {
+            // Aquí podrías obtener el valor de RPM desde algún sensor o fuente de datos en tiempo real
+            // Por ahora, simplemente aumentamos las RPM en 100 cada segundo para simular un cambio
+            currentRPM += 100;
+
+            // Mostrar las RPM actualizadas en el elemento con id "rpmDisplay"
+            document.getElementById("rpmDisplay").textContent = currentRPM + " RPM";
+
+            // Llamar a esta función nuevamente después de 1 segundo (1000 milisegundos)
+            setTimeout(updateRPM, 1000);
+        }
+
+        // Llamar a la función para iniciar la actualización de RPM
+        updateRPM();
+    </script>
+</body>
+</html>
