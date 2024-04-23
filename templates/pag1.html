@@ -48,12 +48,12 @@
             box-sizing: border-box; /* Incluye el borde en el cálculo del ancho */
             background-color: white; /* Fondo blanco */
         }
-        #map-container {
+        .map-container {
             width: 70%;
             height: 75vh;
             margin-top: 20px;
         }
-        #map {
+        .map {
             width: 100%;
             height: 100%;
             border-radius: 10px;
@@ -232,6 +232,11 @@
         // Escucha el evento 'update_coords' del servidor WebSocket
         socket.on('update_coords', function(data) {
             actualizarUbicacion(data);
+        });
+
+        // Escucha el evento 'update_vehicle_data' del servidor WebSocket
+        socket.on('update_vehicle_data', function(data) {
+            actualizarDatosVehiculo(data);
         });
     </script>
 </body>
