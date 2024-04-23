@@ -68,6 +68,23 @@
             border-radius: 10px;
             border: 2px solid #cc3b62;
             float: right;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+        }
+        #speedometer,
+        #rpm {
+            width: 80%;
+            max-width: 100px; 
+            margin-bottom: 10px;
+        }
+        #speedometer-value,
+        #rpm-value {
+            text-align: center;
+            margin-top: 10px;
+            font-size: 18px;
         }
         #data-container h2 {
             text-align: center;
@@ -75,12 +92,9 @@
             margin-bottom: 5px;
             font-size: 20px;
         }
-        .speedometer-value{
-            margin-bottom: 0px;
-        }
         .gauge-value {
             text-align: center;
-            font-size: 15px;
+            font-size: 17px;
             margin-top: 0px;
         }
         #speedometer svg path:nth-child(3) {
