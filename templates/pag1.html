@@ -49,15 +49,62 @@
             background-color: white; /* Fondo blanco */
         }
         #map-container {
-            width: 100%;
-            height: 70vh;
+            width: 70%; /* Ancho del mapa */
+            height: 75vh;
             margin-top: 20px;
+            float: left; /* Alineación a la izquierda */
         }
         #map {
             width: 100%;
             height: 100%;
             border-radius: 10px;
             border: 2px solid #cc3b62; /* Rosa oscuro */
+        }
+        .data-container {
+            width: 28%; /* Ancho del contenedor de datos */
+            margin-left: 2%; /* Espacio entre los contenedores */
+            float: left; /* Alineación a la izquierda */
+        }
+        .data-container h2 {
+            text-align: center; /* Alineación centrada */
+        }
+        .data {
+            text-align: center; /* Alineación centrada */
+            font-size: 24px; /* Tamaño de la letra */
+            margin-top: 20px; /* Espacio superior */
+        }
+        /*revisar
+        .gauge {
+            width: 100px; /* Ancho del medidor */
+            height: 100px; /* Altura del medidor */
+            margin: 0 auto; /* Centrar horizontalmente */
+        }
+        .gauge > .dial {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 2px solid #cc3b62; /* Rosa oscuro */
+            position: relative;
+        }
+        .gauge > .dial > .needle {
+            width: 2px; /* Ancho de la aguja */
+            height: 50%;
+            background-color: #cc3b62; /* Rosa oscuro */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform-origin: 50% 100%;
+            transform: translate(-50%, -100%) rotate(0deg);
+            transition: transform 0.5s;
+        }
+        .gauge > .dial > .value {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 20px; /* Tamaño de la letra */
+            font-weight: bold; /* Texto en negrita */
+            color: #cc3b62; /* Rosa oscuro */
         }
         /* Estilos del botón */
         .btn-consulta {
@@ -93,6 +140,26 @@
         <div class="coord-data">Longitud: <span id="longitud"></span></div>
         <div class="coord-data">Altitud: <span id="altitud"></span></div>
         <div class="coord-data">Timestamp: <span id="timestamp"></span></div>
+    </div>
+
+    /revisar
+    <!-- Contenedor de datos de velocidad y RPMs -->
+    <div class="data-container">
+        <h2>Datos del Vehículo</h2>
+        <div class="data">Velocidad: <span id="velocidad">0</span> km/h</div>
+        <div class="gauge">
+            <div class="dial">
+                <div class="needle"></div>
+                <div class="value" id="velocidad-gauge">0</div>
+            </div>
+        </div>
+        <div class="data">RPMs: <span id="rpms">0</span></div>
+        <div class="gauge">
+            <div class="dial">
+                <div class="needle"></div>
+                <div class="value" id="rpms-gauge">0</div>
+            </div>
+        </div>
     </div>
 
     <!-- Mapa -->
@@ -138,6 +205,26 @@
             // Centra el mapa en la nueva posición
             mymap.panTo([data.latitud, data.longitud]);
         }
+
+        //revisar
+        // Código JavaScript para obtener y actualizar la velocidad y los RPMs del vehículo
+        function actualizarDatosVehiculo(data) {
+            document.getElementById('velocidad').innerText = data.velocidad;
+            document.getElementById('rpms').innerText = data.rpms;
+
+            // Actualiza el medidor de velocidad
+            var velocidadGauge = document.getElementById('velocidad-gauge');
+            var velocidadValue = data.velocidad * 1.8; // Convertir la velocidad de km/h a grados (180 km/h equivale a 180 grados)
+            velocidadGauge.innerText = data.velocidad;
+            velocidadGauge.parentElement.querySelector('.needle').style.transform = 'translate(-50%, -100%) rotate(' + velocidadValue + 'deg)';
+
+            // Actualiza el medidor de RPMs
+            var rpmsGauge = document.getElementById('rpms-gauge');
+            var rpmsValue = (data.rpms / 7000) * 180; // Convertir las RPMs a grados (7000 RPM equivale a 180 grados)
+            rpmsGauge.innerText = data.rpms;
+            rpmsGauge.parentElement.querySelector('.needle').style.transform = 'translate(-50%, -100%) rotate(' + rpmsValue + 'deg)';
+        }
+
         // Conexión con el servidor WebSocket
         socket.on('connect', function() {
             console.log('Conexión establecida correctamente con el servidor WebSocket');
@@ -146,6 +233,11 @@
         // Escucha el evento 'update_coords' del servidor WebSocket
         socket.on('update_coords', function(data) {
             actualizarUbicacion(data);
+        });
+
+        // Escucha el evento 'update_vehicle_data' del servidor WebSocket
+        socket.on('update_vehicle_data', function(data) {
+            actualizarDatosVehiculo(data);
         });
     </script>
 </body>
