@@ -80,8 +80,12 @@
         .gauge-value {
             text-align: center;
             font-size: 20px;
-            margin-top: 10px;
             margin-botom: 5px;
+        }
+        .data-value{
+            text-align: center;
+            margin-top: 5px; 
+            font-size: 20px;
         }
         #speedometer svg path:nth-child(3) {
             fill: #a6a6a6; 
@@ -134,10 +138,12 @@
     <div id="data-container">
         <h2>Datos del vehículo</h2>
         <div id="speedometer" class="gauge-container">
-            <div id="speedometer-value" class="gauge-value">0 km/h</div>
+            <div id="speedometer-value" class="gauge-value">50 km/h</div>
+            <div id="speed-value" class="data-value"></div>
         </div>
         <div id="rpm" class="gauge-container">
             <div id="rpm-value" class="gauge-value">0 rpm</div>
+            <div id="rpm-data-value" class="data-value"></div>
         </div>
     </div>
 
