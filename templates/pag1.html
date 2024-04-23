@@ -161,7 +161,6 @@
             min: 0,
             max: 200,
             title: "Velocidad",
-            label: "km/h",
             gaugeWidthScale: 0.5,
             counter: true,
             pointer: true,
@@ -172,9 +171,9 @@
                 color: "#cc3b62"
             },
             shadowOpacity: 1,
-            bgcolor: "#757575",
             relativeGaugeSize: true
         });
+        document.getElementById('speedometer').style.backgroundColor = "#757575";
 
         var rpmGauge = new JustGage({
             id: "rpm",
