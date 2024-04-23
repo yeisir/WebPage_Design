@@ -73,6 +73,13 @@
             text-align: center;
             margin-top: 10px;
         }
+        .gauge-container {
+            margin-bottom: 20px;
+        }
+        .gauge-value {
+            font-size: 20px;
+            margin-top: 10px;
+        }
         /* Estilos del botón */
         .btn-consulta {
             background-color: #cc3b62; /* Color de fondo rosa oscuro */
@@ -117,12 +124,20 @@
     <!-- Contenedor de información -->
     <div id="data-container">
         <h2>Datos del vehículo</h2>
+        <div id="speedometer" class="gauge-container">
+            <div id="speedometer-value" class="gauge-value">0 km/h</div>
+        </div>
+        <div id="rpm" class="gauge-container">
+            <div id="rpm-value" class="gauge-value">0 rpm</div>
+        </div>
     </div>
 
     <!-- Incluye la última versión de la librería de Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/4.3.2/socket.io.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.4/raphael-min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.4.0/justgage.min.js"></script>
     <script>
         // Código JavaScript para inicializar el mapa Leaflet
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
@@ -138,8 +153,59 @@
             })
         }).addTo(mymap);
 
+        // Código JavaScript para inicializar los medidores de aguja
+        var speedometer = new JustGage({
+            id: "speedometer",
+            value: 0,
+            min: 0,
+            max: 200,
+            title: "Velocidad",
+            label: "km/h",
+            gaugeWidthScale: 0.5,
+            counter: true,
+            pointer: true,
+            pointerOptions: {
+                toplength: -15,
+                bottomlength: 10,
+                bottomwidth: 12,
+                color: "#8e0000"
+            },
+            relativeGaugeSize: true
+        });
+
+        var rpmGauge = new JustGage({
+            id: "rpm",
+            value: 0,
+            min: 0,
+            max: 8000,
+            title: "RPM",
+            label: "rpm",
+            gaugeWidthScale: 0.5,
+            counter: true,
+            pointer: true,
+            pointerOptions: {
+                toplength: -15,
+                bottomlength: 10,
+                bottomwidth: 12,
+                color: "#8e0000"
+            },
+            relativeGaugeSize: true
+        });
+
         // Inicialización de la conexión con el servidor WebSocket
         const socket = io();
+
+        // Función para actualizar los valores de los medidores
+        function actualizarMedidores(velocidad, rpm) {
+            document.getElementById('speedometer-value').innerText = velocidad + " km/h";
+            document.getElementById('rpm-value').innerText = rpm + " rpm";
+            speedometer.refresh(velocidad);
+            rpmGauge.refresh(rpm);
+        }
+
+        // Datos provisionales
+        var velocidad_provisional = 60; // km/h
+        var rpm_provisional = 3000; // rpm
 
         // Código JavaScript para obtener y actualizar la ubicación del vehículo
         function actualizarUbicacion(data) {
@@ -165,6 +231,7 @@
         // Escucha el evento 'update_coords' del servidor WebSocket
         socket.on('update_coords', function(data) {
             actualizarUbicacion(data);
+            actualizarMedidores(velocidad_provisional, rpm_provisional);
         });
     </script>
 </body>
