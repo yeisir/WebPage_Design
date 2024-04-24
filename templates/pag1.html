@@ -212,6 +212,10 @@
         // Inicialización de la conexión con el servidor WebSocket
         const socket = io();
 
+        // Datos provisionales
+        var velocidad_provisional = 0; 
+        var rpm_provisional = 0; 
+
         // Función para actualizar los valores de los medidores
         function actualizarMedidores(velocidad, rpm) {
             document.getElementById('speedometer-value').innerText = velocidad + " km/h";
@@ -219,11 +223,7 @@
             speedometer.refresh(velocidad);
             rpmGauge.refresh(rpm);
         }
-
-        // Datos provisionales
-        var velocidad_provisional = 60; // km/h
-        var rpm_provisional = 3000; // rpm
-
+        
         // Código JavaScript para obtener y actualizar la ubicación del vehículo
         function actualizarUbicacion(data) {
             document.getElementById('longitud').innerText = data.longitud;
@@ -248,6 +248,8 @@
         // Escucha el evento 'update_coords' del servidor WebSocket
         socket.on('update_coords', function(data) {
             actualizarUbicacion(data);
+            velocidad_provisional = Math.floor(Math.random() * (60 - 40 + 1)) + 40; // Genera un valor aleatorio 
+            rpm_provisional = Math.floor(Math.random() * (3000 - 2000 + 1)) + 2000; // Genera un valor aleatorio 
             actualizarMedidores(velocidad_provisional, rpm_provisional);
         });
     </script>
