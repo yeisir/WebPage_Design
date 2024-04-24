@@ -251,10 +251,17 @@
         // Escucha el evento 'update_coords' del servidor WebSocket
         socket.on('update_coords', function(data) {
             actualizarUbicacion(data);
+            //velocidad_provisional = Math.floor(Math.random() * (60 - 40 + 1)) + 40; // Genera un valor aleatorio 
+            //rpm_provisional = Math.floor(Math.random() * (3000 - 2000 + 1)) + 2000; // Genera un valor aleatorio 
+            //actualizarMedidores(velocidad_provisional, rpm_provisional);
+        });
+        
+        // Simula la llegada de datos y actualiza los medidores automáticamente cada 3 segundos
+        setInterval(function() {
             velocidad_provisional = Math.floor(Math.random() * (60 - 40 + 1)) + 40; // Genera un valor aleatorio 
             rpm_provisional = Math.floor(Math.random() * (3000 - 2000 + 1)) + 2000; // Genera un valor aleatorio 
             actualizarMedidores(velocidad_provisional, rpm_provisional);
-        });
+        }, 3000);
     </script>
 </body>
 </html>
