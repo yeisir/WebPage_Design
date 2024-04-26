@@ -34,7 +34,7 @@ def index():
     else:
         return render_template('pag1.html')
 
-@app.route('/recibir_udp', methods=['POST'])
+@app.route('/recibir_coordenadas', methods=['POST'])
 def recibir_udp():
     data = request.json
     print("Datos recibidos en la solicitud POST:", data)
