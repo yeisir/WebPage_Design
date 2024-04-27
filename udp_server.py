@@ -14,7 +14,7 @@ def enviar_datos_al_flask(datos):
     }
 
     # Convertir a JSON y enviar
-    url = 'http://127.0.0.1:5000/recibir_udp'
+    url = 'http://127.0.0.1:5000/recibir_coordenadas'
     headers = {'Content-Type': 'application/json'}
     response_post = requests.post(url, json=datos_formateados, headers=headers)
     print("Respuesta POST:", response_post.text)
