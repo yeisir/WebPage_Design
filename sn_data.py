@@ -5,14 +5,14 @@ import json
 
 def enviar_datos_al_flask(datos):
     # Formatear los datos
-    latitud, longitud, altitud, timestamp = [line.split(': ')[1] for line in datos.split('\n') if line]
+    latitud, longitud, altitud, timestamp, rpm = [line.split(': ')[1] for line in datos.split('\n') if line]
     datos_formateados = {
         'latitud': float(latitud),
         'longitud': float(longitud),
         'altitud': float(altitud),
         'timestamp': timestamp,
         #'speed': float(speed),  
-        #'rpm': float(rpm), 
+        'rpm': float(rpm), 
     }
 
     # Convertir a JSON y enviar
