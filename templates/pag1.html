@@ -210,7 +210,7 @@
             id: "speedometer",
             value: 0,
             min: 0,
-            max: 200,
+            max: 3000,
             title: "Velocidad",
             gaugeWidthScale: 0.4,
             counter: true,
@@ -227,7 +227,6 @@
 
         var rpmGauge = new JustGage({
             id: "rpm",
-            value: 0,
             min: 0,
             max: 8000,
             title: "RPM",
@@ -273,6 +272,8 @@
             document.getElementById('timestamp2').innerText = data.timestamp;
            
             document.getElementById('rpm-value').innerText = data.rpm;
+            document.getElementById('rpm').innerText = data.rpm;
+            
 
             // Actualiza la posición del marcador en el mapa
             //marker.setLatLng([data.latitud, data.longitud]);
