@@ -73,7 +73,7 @@ def recibir_udp():
 
     # Insertar los datos en la base de datos MySQL
     cursor = db.cursor()
-    insert_query = "INSERT INTO coordenadas (latitud, longitud, altitud, timestamp, rpm) VALUES (%s, %s, %s, %s, %s)"
+    insert_query = "INSERT INTO datos (latitud, longitud, altitud, timestamp, rpm) VALUES (%s, %s, %s, %s, %s)"
     data_tuple = (latitud, longitud, altitud, timestamp, rpm)
     cursor.execute(insert_query, data_tuple)
     db.commit()
