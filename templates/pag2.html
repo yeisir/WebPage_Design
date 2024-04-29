@@ -372,9 +372,7 @@
         var marcadorInicio;
         var marcadorFin;
 
-        var ruta2;
-        var marcadorInicio2;
-        var marcadorFin2;
+        
 
         function obtenerCoordenadasHistoricas() {
             var inicio = $("#inicio").val();
@@ -490,6 +488,10 @@
             });
         }
 
+        var ruta2;
+        var marcadorInicio2;
+        var marcadorFin2;
+
         function obtenerCoordenadasHistoricas2() {
             var inicio = $("#inicio2").val();
             var fin = $("#fin2").val();
@@ -571,22 +573,6 @@
 
                     marcadorInicio2.timestamp = timestamps[0];
 
-                    marcadorInicio2.on('drag', function(event) {
-                        var latlng = event.target.getLatLng();
-                        var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
-                        actualizarPopup2(newPosition, timestamp, rpm);
-                    });
-
-                    marcadorInicio2.on('dragend', function(event) {
-                        // Si el marcador se encuentra fuera de la polilínea con una tolerancia de 100 metros, reposicionarlo al punto más cercano
-                        if (!puntoDentroPolilinea(event.target.getLatLng(), historialCoords, 10)) {
-                            var lat = encontrarPuntoMasCercano(event.target.getLatLng(), historialCoords);
-                            event.target.setLatLng(lat); // Reposicionar el marcador
-                            var latlng = event.target.getLatLng();
-                            var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el nuevo timestamp después de reposicionar el marcador
-                            actualizarPopup2(newPosition, timestamp, rpm);
-                        }
-                    });
 
                     var maxSliderValue2 = historialCoords.length - 1;
                     $('#time-slider2').attr('max', maxSliderValue2);
