@@ -348,6 +348,26 @@
             }  
         });
 
+        flatpickr("#inicio2", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            time_24hr: true,
+            maxDate: "today",
+            defaultDate: "01:00",
+            onClose: function(selectedDates) {
+                // Configurar la fecha mínima para el campo de fecha de fin
+                var minDate = selectedDates[0];
+                flatpickr("#fin2", {
+                    enableTime: true,
+                    dateFormat: "Y-m-d H:i",
+                    time_24hr: true,
+                    minDate: minDate,
+                    maxDate: "today",
+                    defaultDate: "23:00",
+                });               
+            }  
+        });
+
         var ruta;
         var marcadorInicio;
         var marcadorFin;
@@ -565,11 +585,11 @@
                     });
 
                     var maxSliderValue = historialCoords.length - 1;
-                    $('#time-slider').attr('max', maxSliderValue);
+                    $('#time-slider2').attr('max', maxSliderValue);
                     
-                    $('#time-slider').attr('min', 0);
+                    $('#time-slider2').attr('min', 0);
                     
-                    $('#time-slider').on('input', function() {
+                    $('#time-slider2').on('input', function() {
                         var sliderValue = parseFloat($(this).val());
                         var index = Math.round(sliderValue); // Obtener el índice correspondiente
                         var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
