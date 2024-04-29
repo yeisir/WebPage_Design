@@ -510,19 +510,19 @@
                 data: {inicio: inicio, fin: fin},
                 success: function(data) {
                     // Tratar la respuesta del servidor y trazar la polilínea en el mapa
-                    var coordenadas2 = data.coordenadas;
-                    var historialCoords2 = [];
-                    var timestamps2 = []; // Crear un array para almacenar los timestamps
+                    var coordenadas = data.coordenadas;
+                    var historialCoords = [];
+                    var timestamps = []; // Crear un array para almacenar los timestamps
                     var rpms = [];
 
 
                     for (var i = 0; i < coordenadas.length; i++) {
-                        var latitud2 = parseFloat(coordenadas2[i].latitud);
-                        var longitud2 = parseFloat(coordenadas2[i].longitud);
-                        var timestamps2 = new Date(coordenadas2[i].timestamp); // Obtener el timestamp de cada coordenada
-                        var rpm = parseFloat(coordenadas2[i].rpm);
-                        historialCoords2.push([latitud, longitud]);
-                        timestamps2.push(timestamps); // Agregar el timestamp al array
+                        var latitud = parseFloat(coordenadas[i].latitud);
+                        var longitud = parseFloat(coordenadas[i].longitud);
+                        var timestamp = new Date(coordenadas[i].timestamp); // Obtener el timestamp de cada coordenada
+                        var rpm = parseFloat(coordenadas[i].rpm);
+                        historialCoords.push([latitud, longitud]);
+                        timestamps.push(timestamp); // Agregar el timestamp al array
                         rpms.push(rpm);
                     }
 
@@ -541,12 +541,12 @@
                         return;
                     }
 
-                    ruta2 = L.polyline(historialCoords2, {color: 'purple'}).addTo(mymap);
-                    var bounds2 = ruta2.getBounds();
+                    ruta2 = L.polyline(historialCoords, {color: 'purple'}).addTo(mymap);
+                    var bounds2 = ruta.getBounds();
                     mymap.fitBounds(bounds2);
 
-                    var primerPunto2 = historialCoords2[0];
-                    var ultimoPunto2 = historialCoords2[historialCoords.length - 1];
+                    var primerPunto = historialCoords[0];
+                    var ultimoPunto = historialCoords[historialCoords.length - 1];
 
                     marcadorInicio2 = L.marker(primerPunto, { 
                         draggable: true,
@@ -569,21 +569,21 @@
 
                     marcadorFin2.bindPopup("Fin de recorrido")
 
-                    marcadorInicio2.timestamp2 = timestamps2[0];
+                    marcadorInicio2.timestamp = timestamps[0];
 
                     marcadorInicio2.on('drag', function(event) {
                         var latlng = event.target.getLatLng();
-                        var timestamp2 = encontrarTimestamp(latlng, coordenadas2); // Obtener el timestamp del marcador
-                        actualizarPopup2(newPosition, timestamp2, rpm);
+                        var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
+                        actualizarPopup2(newPosition, timestamp, rpm);
                     });
 
                     marcadorInicio2.on('dragend', function(event) {
                         // Si el marcador se encuentra fuera de la polilínea con una tolerancia de 100 metros, reposicionarlo al punto más cercano
-                        if (!puntoDentroPolilinea(event.target.getLatLng(), historialCoords2, 10)) {
-                            var lat = encontrarPuntoMasCercano(event.target.getLatLng(), historialCoords2);
+                        if (!puntoDentroPolilinea(event.target.getLatLng(), historialCoords, 10)) {
+                            var lat = encontrarPuntoMasCercano(event.target.getLatLng(), historialCoords);
                             event.target.setLatLng(lat); // Reposicionar el marcador
                             var latlng = event.target.getLatLng();
-                            var timestamp = encontrarTimestamp(latlng, coordenadas2); // Obtener el nuevo timestamp después de reposicionar el marcador
+                            var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el nuevo timestamp después de reposicionar el marcador
                             actualizarPopup2(newPosition, timestamp, rpm);
                         }
                     });
