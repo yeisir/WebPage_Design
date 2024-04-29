@@ -227,7 +227,7 @@
 
         var rpmGauge = new JustGage({
             id: "rpm",
-            value: data.rpm,
+            value: 0,
             min: 0,
             max: 8000,
             title: "RPM",
@@ -272,10 +272,7 @@
             document.getElementById('altitud2').innerText = data.altitud;
             document.getElementById('timestamp2').innerText = data.timestamp;
            
-            //document.getElementById('rpm-value').innerText = data.rpm;
-            rpmGauge.refresh(data.rpm);
-
-          
+            document.getElementById('rpm-value').innerText = data.rpm;
 
             // Actualiza la posición del marcador en el mapa
             //marker.setLatLng([data.latitud, data.longitud]);
