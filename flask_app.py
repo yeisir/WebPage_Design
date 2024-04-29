@@ -59,7 +59,7 @@ def recibir_udp():
     return 'Datos recibidos y procesados correctamente'
 
 @app.route('/recibir_data', methods=['POST'])
-def recibir_udp():
+def recibir_elm():
     data = request.json
     print("Datos recibidos en la solicitud POST:", data)
 
