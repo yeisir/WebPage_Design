@@ -162,10 +162,10 @@
 
      <!-- Contenedor de coordenadas -->
      <div class="container2">
-        <div class="coord-data2">Latitud: <span id="latitud"></span></div>
-        <div class="coord-data2">Longitud: <span id="longitud"></span></div>
-        <div class="coord-data2">Altitud: <span id="altitud"></span></div>
-        <div class="coord-data2">Timestamp: <span id="timestamp"></span></div>
+        <div class="coord-data2">Latitud: <span id="latitud2"></span></div>
+        <div class="coord-data2">Longitud: <span id="longitud2"></span></div>
+        <div class="coord-data2">Altitud: <span id="altitud2"></span></div>
+        <div class="coord-data2">Timestamp: <span id="timestamp2"></span></div>
     </div>
 
     <!-- Mapa -->
@@ -264,6 +264,23 @@
             // Centra el mapa en la nueva posición
             mymap.panTo([data.latitud, data.longitud]);
         }
+
+        function actualizarUbicacion2(data) {
+            document.getElementById('longitud2').innerText = data.longitud;
+            document.getElementById('latitud2').innerText = data.latitud;
+            document.getElementById('altitud2').innerText = data.altitud;
+            document.getElementById('timestamp2').innerText = data.timestamp;
+
+            // Actualiza la posición del marcador en el mapa
+            //marker.setLatLng([data.latitud, data.longitud]);
+
+            // Agrega la posición a la polylinea para trazar la ruta
+            //polyline.addLatLng([data.latitud, data.longitud]);
+
+            // Centra el mapa en la nueva posición
+            //mymap.panTo([data.latitud, data.longitud]);
+        }
+        
         // Conexión con el servidor WebSocket
         socket.on('connect', function() {
             console.log('Conexión establecida correctamente con el servidor WebSocket');
@@ -272,6 +289,10 @@
         // Escucha el evento 'update_coords' del servidor WebSocket
         socket.on('update_coords', function(data) {
             actualizarUbicacion(data);
+        });
+
+        socket.on('up_datos', function(data) {
+            actualizarUbicacion2(data);
         });
     </script>
 </body>
