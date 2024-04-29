@@ -3,7 +3,7 @@ import requests
 import json
 
 
-def enviar_datos_al_flask(datos):
+def enviar_datos(datos):
     # Formatear los datos
     latitud, longitud, altitud, timestamp, rpm = [line.split(': ')[1] for line in datos.split('\n') if line]
     datos_formateados = {
@@ -35,7 +35,7 @@ def main():
             print("Datos recibidos:", datos_decodificados)
 
             # Enviar los datos al servidor Flask
-            enviar_datos_al_flask(datos_decodificados)
+            enviar_datos(datos_decodificados)
 
 if __name__ == "__main__":
     main()
