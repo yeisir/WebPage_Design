@@ -227,7 +227,7 @@
             id: "speedometer",
             value: 0,
             min: 0,
-            max: 3000,
+            max: 200,
             title: "Velocidad",
             gaugeWidthScale: 0.4,
             counter: true,
@@ -271,6 +271,11 @@
             document.getElementById('latitud').innerText = data.latitud;
             document.getElementById('altitud').innerText = data.altitud;
             document.getElementById('timestamp').innerText = data.timestamp;
+
+            var velocidad = 40;
+            var rpm = 2500;
+            speedometer.refresh(velocidad);
+            rpmGauge.refresh(rpm);
 
             // Actualiza la posición del marcador en el mapa
             marker.setLatLng([data.latitud, data.longitud]);
