@@ -5,6 +5,7 @@ import json
 
 def enviar_datos(datos):
     # Formatear los datos
+    #Divide la cadena datos en líneas utilizando split('\n'), Itera sobre cada línea.
     latitud, longitud, altitud, timestamp, rpm = [line.split(': ')[1] for line in datos.split('\n') if line]
     datos_formateados = {
         'latitud': float(latitud),
