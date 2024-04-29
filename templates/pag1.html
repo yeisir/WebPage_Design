@@ -31,8 +31,6 @@
         }
         .coord-icon1 {
             float: left;
-            display: flex;
-            align-items: center;
             margin-right: 0px;
         }
         .container {
@@ -58,7 +56,7 @@
             border: 2px solid #cc3b62; /* Rosa oscuro */
             padding: 8px;
             margin-bottom: 8px;
-            width: 20%; /* Ancho de los cuadros */
+            width: 21%; /* Ancho de los cuadros */
             margin-left: 2%; /* Espacio entre los cuadros */
             box-sizing: border-box; /* Incluye el borde en el cálculo del ancho */
             background-color: #fcf2f6;
@@ -158,9 +156,12 @@
         <button type="submit" class="btn-consulta">Ir a consulta de históricos</button>
     </form>
 
+    <div class="coord-icon1">
+        <i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i>
+    </div>
+    
     <!-- Contenedor de coordenadas -->
     <div class="container">
-        <div class="coord-icon1"><i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i></div>
         <div class="coord-data">Latitud: <span id="latitud"></span></div>
         <div class="coord-data">Longitud: <span id="longitud"></span></div>
         <div class="coord-data">Altitud: <span id="altitud"></span></div>
