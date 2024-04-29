@@ -123,7 +123,7 @@ def consultar_datos():
         # Realiza la conexión con la base de datos y ejecuta la consulta SQL
         conexion = mysql.connector.connect(**db_config)
         cursor = conexion.cursor()
-        consulta = ("SELECT Latitud, Longitud, Timestamp, RPM FROM coordenadas " # Agregar RPM a la consulta
+        consulta = ("SELECT Latitud, Longitud, Timestamp, RPM FROM datos " # Agregar RPM a la consulta
                     "WHERE timestamp >= %s AND timestamp <= %s")
         cursor.execute(consulta, (inicio, fin))
         registros = cursor.fetchall()
