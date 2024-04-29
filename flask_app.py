@@ -82,9 +82,9 @@ def recibir_elm():
     print("Datos:", {'latitud': latitud, 'longitud': longitud, 'altitud': altitud, 'timestamp': timestamp, 'rpm': rpm})
 
     # Emitir los datos al cliente WebSocket
-    #socketio.emit('update_data', {'latitud': latitud, 'longitud': longitud, 'altitud': altitud, 'timestamp': timestamp, 'speed': speed, 'rpm': rpm})
-    #print("Datos enviados al cliente WebSocket:", {'latitud': latitud, 'longitud': longitud, 'altitud': altitud, 'timestamp': timestamp,  'speed': speed, 'rpm': rpm})
-    #return 'Datos recibidos y procesados correctamente'
+    socketio.emit('update_data', {'latitud': latitud, 'longitud': longitud, 'altitud': altitud, 'timestamp': timestamp, 'speed': speed, 'rpm': rpm})
+    print("Datos enviados al cliente WebSocket:", {'latitud': latitud, 'longitud': longitud, 'altitud': altitud, 'timestamp': timestamp,  'speed': speed, 'rpm': rpm})
+    return 'Datos recibidos y procesados correctamente'
 
 
 
