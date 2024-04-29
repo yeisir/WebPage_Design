@@ -177,6 +177,44 @@
             })
         }).addTo(mymap);
 
+        // Código JavaScript para inicializar los medidores de aguja
+        var speedometer = new JustGage({
+            id: "speedometer",
+            value: 0,
+            min: 0,
+            max: 200,
+            title: "Velocidad",
+            gaugeWidthScale: 0.4,
+            counter: true,
+            pointer: true,
+            pointerOptions: {
+                toplength: -16,
+                bottomlength: 50,
+                bottomwidth: 2,
+                color: "#cc3b62"
+            },
+            labelFontColor: "#030303",
+            relativeGaugeSize: true
+        });
+
+        var rpmGauge = new JustGage({
+            id: "rpm",
+            value: 0,
+            min: 0,
+            max: 8000,
+            title: "RPM",
+            gaugeWidthScale: 0.4,
+            counter: true,
+            pointer: true,
+            pointerOptions: {
+                toplength: -16,
+                bottomlength: 50,
+                bottomwidth: 2,
+                color: "#cc3b62"
+            },
+            labelFontColor: "#030303",
+            relativeGaugeSize: true
+        });
 
         // Inicialización de la conexión con el servidor WebSocket
         const socket = io();
