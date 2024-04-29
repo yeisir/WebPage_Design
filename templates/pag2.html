@@ -580,9 +580,9 @@
                     $('#time-slider2').attr('min', 0);
                     
                     $('#time-slider2').on('input', function() {
-                        var sliderValue2 = parseFloat($(this).val());
-                        var index2 = Math.round(sliderValue); // Obtener el índice correspondiente
-                        var newPosition2 = historialCoords[index]; // Obtener la nueva posición del marcador
+                        var sliderValue = parseFloat($(this).val());
+                        var index = Math.round(sliderValue); // Obtener el índice correspondiente
+                        var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
                         marcadorInicio2.setLatLng(newPosition2); // Actualizar la posición del marcador
                         
                         
