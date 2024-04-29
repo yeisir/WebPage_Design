@@ -35,7 +35,7 @@ def main():
             print("Datos recibidos:", datos_decodificados)
 
             # Enviar los datos al servidor Flask
-            #enviar_datos_al_flask(datos_decodificados)
+            enviar_datos_al_flask(datos_decodificados)
 
 if __name__ == "__main__":
     main()
