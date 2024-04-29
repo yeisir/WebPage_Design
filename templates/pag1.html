@@ -311,7 +311,9 @@
             actualizarUbicacion(data);
             var velocidad_provisional = Math.floor(Math.random() * (60 - 40 + 1)) + 40;
             var rpm_provisional = Math.floor(Math.random() * (3000 - 2000 + 1)) + 2000;
-            actualizarMedidores(velocidad_provisional, rpm_provisional);
+            speedometer.refresh(velocidad_provisional);
+            rpmGauge.refresh(rpm_provisional);
+            actualizarMedidores(speedometer, rpmGauge);
         });
 
         socket.on('up_datos', function(data) {
