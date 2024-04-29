@@ -372,6 +372,10 @@
         var marcadorInicio;
         var marcadorFin;
 
+        var ruta2;
+        var marcadorInicio2;
+        var marcadorFin2;
+
         function obtenerCoordenadasHistoricas() {
             var inicio = $("#inicio").val();
             var fin = $("#fin").val();
@@ -490,14 +494,14 @@
             var inicio = $("#inicio2").val();
             var fin = $("#fin2").val();
 
-            if (ruta) {
-                mymap.removeLayer(ruta);
+            if (ruta2) {
+                mymap.removeLayer(ruta2);
             }
-            if (marcadorInicio) {
-                mymap.removeLayer(marcadorInicio);
+            if (marcadorInicio2) {
+                mymap.removeLayer(marcadorInicio2);
             }       
-            if (marcadorFin) {
-                mymap.removeLayer(marcadorFin);
+            if (marcadorFin2) {
+                mymap.removeLayer(marcadorFin2);
             }
 
             $.ajax({
@@ -522,14 +526,14 @@
                         rpms.push(rpm);
                     }
 
-                    if (ruta) {
-                        mymap.removeLayer(ruta);
+                    if (ruta2) {
+                        mymap.removeLayer(ruta2);
                     }
-                    if (marcadorInicio) {
-                        mymap.removeLayer(marcadorInicio);
+                    if (marcadorInicio2) {
+                        mymap.removeLayer(marcadorInicio2);
                     }
-                    if (marcadorFin) {
-                        mymap.removeLayer(marcadorFin);
+                    if (marcadorFin2) {
+                        mymap.removeLayer(marcadorFin2);
                     }
 
                     if (coordenadas.length === 0) {
@@ -537,14 +541,14 @@
                         return;
                     }
 
-                    ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
-                    var bounds = ruta.getBounds();
-                    mymap.fitBounds(bounds);
+                    ruta2 = L.polyline(historialCoords, {color: 'purple'}).addTo(mymap);
+                    var bounds2 = ruta.getBounds();
+                    mymap.fitBounds(bounds2);
 
                     var primerPunto = historialCoords[0];
                     var ultimoPunto = historialCoords[historialCoords.length - 1];
 
-                    marcadorInicio = L.marker(primerPunto, { 
+                    marcadorInicio2 = L.marker(primerPunto, { 
                         draggable: true,
                         icon: L.divIcon({
                             className: 'custom-marker',
@@ -552,28 +556,28 @@
                         })
                     }).addTo(mymap);
 
-                    marcadorInicio.bindPopup("Desplázame al lugar requerido", {
+                    marcadorInicio2.bindPopup("Desplázame al lugar requerido", {
                         autoClose: false // Evita que se cierre automáticamente al abrir otro popup
                     }).openPopup();
 
-                    marcadorFin = L.marker(ultimoPunto, {
+                    marcadorFin2 = L.marker(ultimoPunto, {
                         icon: L.divIcon({
                             className: 'custom-marker',
                             html: '<i class="fa-solid fa-flag-checkered fa-2xl" style="color: #000000;"></i>',
                         })
                     }).addTo(mymap);
 
-                    marcadorFin.bindPopup("Fin de recorrido")
+                    marcadorFin2.bindPopup("Fin de recorrido")
 
-                    marcadorInicio.timestamp = timestamps[0];
+                    marcadorInicio2.timestamp = timestamps[0];
 
-                    marcadorInicio.on('drag', function(event) {
+                    marcadorInicio2.on('drag', function(event) {
                         var latlng = event.target.getLatLng();
                         var timestamp = encontrarTimestamp(latlng, coordenadas); // Obtener el timestamp del marcador
                         actualizarPopup2(newPosition, timestamp, rpm);
                     });
 
-                    marcadorInicio.on('dragend', function(event) {
+                    marcadorInicio2.on('dragend', function(event) {
                         // Si el marcador se encuentra fuera de la polilínea con una tolerancia de 100 metros, reposicionarlo al punto más cercano
                         if (!puntoDentroPolilinea(event.target.getLatLng(), historialCoords, 10)) {
                             var lat = encontrarPuntoMasCercano(event.target.getLatLng(), historialCoords);
@@ -584,21 +588,21 @@
                         }
                     });
 
-                    var maxSliderValue = historialCoords.length - 1;
-                    $('#time-slider2').attr('max', maxSliderValue);
+                    var maxSliderValue2 = historialCoords.length - 1;
+                    $('#time-slider2').attr('max', maxSliderValue2);
                     
                     $('#time-slider2').attr('min', 0);
                     
                     $('#time-slider2').on('input', function() {
-                        var sliderValue = parseFloat($(this).val());
-                        var index = Math.round(sliderValue); // Obtener el índice correspondiente
-                        var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
-                        marcadorInicio.setLatLng(newPosition); // Actualizar la posición del marcador
+                        var sliderValue2 = parseFloat($(this).val());
+                        var index2 = Math.round(sliderValue); // Obtener el índice correspondiente
+                        var newPosition2 = historialCoords[index]; // Obtener la nueva posición del marcador
+                        marcadorInicio2.setLatLng(newPosition2); // Actualizar la posición del marcador
                         
                         
-                        var timestamp = timestamps[index];
-                        var rpm = rpms[index]; // Obtener las RPM correspondientes al índice
-                        actualizarPopup2(newPosition, timestamp, rpm);
+                        var timestamp2 = timestamps[index];
+                        var rpm2 = rpms[index]; // Obtener las RPM correspondientes al índice
+                        actualizarPopup2(newPosition2, timestamp2, rpm2);
 
                     });
 
@@ -657,10 +661,10 @@
         }
 
         function actualizarPopup2(latlng, timestamp, rpm) {
-            var formattedTimestamp = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
-            marcadorInicio.timestamp = timestamp; // Guardar el timestamp en el marcador
-            marcadorInicio.rpm = rpm; // Guardar las RPM en el marcador
-            marcadorInicio.bindPopup("Timestamp: " + formattedTimestamp + "<br>RPM: " + rpm).openPopup();
+            var formattedTimestamp2 = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
+            marcadorInicio2.timestamp = timestamp; // Guardar el timestamp en el marcador
+            marcadorInicio2.rpm = rpm; // Guardar las RPM en el marcador
+            marcadorInicio2.bindPopup("Timestamp: " + formattedTimestamp + "<br>RPM: " + rpm).openPopup();
         }
 
         
