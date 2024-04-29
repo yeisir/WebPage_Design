@@ -273,8 +273,8 @@
             document.getElementById('timestamp2').innerText = data.timestamp;
            
             document.getElementById('rpm-value').innerText = data.rpm;
-            document.getElementById('rpm').innerText = data.rpm;
             
+            rpmGauge.refresh(data.rpm);
 
             // Actualiza la posición del marcador en el mapa
             //marker.setLatLng([data.latitud, data.longitud]);
