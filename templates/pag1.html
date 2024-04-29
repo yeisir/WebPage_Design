@@ -40,6 +40,9 @@
             margin-top: 30px; /* Dejar espacio debajo del encabezado */
             width: 100%;
         }
+        .coord-icon2 {
+            float: left;
+        }
         .container2 {
             display: flex;
             flex-wrap: wrap;
@@ -157,7 +160,7 @@
     
     <!-- Contenedor de coordenadas -->
     <div class="container">
-         <div class="coord-icon1"><i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i></div>
+        <div class="coord-icon1"><i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i></div>
         <div class="coord-data">Latitud: <span id="latitud"></span></div>
         <div class="coord-data">Longitud: <span id="longitud"></span></div>
         <div class="coord-data">Altitud: <span id="altitud"></span></div>
@@ -166,10 +169,11 @@
 
      <!-- Contenedor de coordenadas -->
      <div class="container2">
-        <div class="coord-data2">Latitud: <span id="latitud2"></span></div>
-        <div class="coord-data2">Longitud: <span id="longitud2"></span></div>
-        <div class="coord-data2">Altitud: <span id="altitud2"></span></div>
-        <div class="coord-data2">Timestamp: <span id="timestamp2"></span></div>
+         <div class="coord-icon1"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;"></i></div>
+         <div class="coord-data2">Latitud: <span id="latitud2"></span></div>
+         <div class="coord-data2">Longitud: <span id="longitud2"></span></div>
+         <div class="coord-data2">Altitud: <span id="altitud2"></span></div>
+         <div class="coord-data2">Timestamp: <span id="timestamp2"></span></div>
     </div>
 
     <!-- Mapa -->
@@ -213,7 +217,7 @@
         //var marker2 = L.marker([0, 0], {
             //icon: L.divIcon({
                 //className: 'custom-marker',
-                //html: <i class="fa-solid fa-car-side fa-2xl" style="color: #000000;"></i>,
+                //html: '<i class="fa-solid fa-car-side fa-2xl" style="color: #000000;"></i>',
             //})
         //}).addTo(mymap);
 
