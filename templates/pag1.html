@@ -8,7 +8,7 @@
     <!-- Estilos -->
     <style>
         body {
-            background-color: #fcfafb; /* Rosa claro */
+            background-color: #fcfafb; 
             color: #cc3b62; /* Rosa oscuro */
             font-family: 'Arial Black', sans-serif; /* Fuente más atractiva */
             padding: 20px;
@@ -28,6 +28,10 @@
             float: left; /* Alineación a la izquierda */
             font-size: 17.5px;
             text-align: center;
+        }
+        .coord-icon1 {
+            float: left;
+            margin-right: 5px;
         }
         .container {
             display: flex;
@@ -55,7 +59,7 @@
             width: 23%; /* Ancho de los cuadros */
             margin-right: 2%; /* Espacio entre los cuadros */
             box-sizing: border-box; /* Incluye el borde en el cálculo del ancho */
-            background-color: #fcfafb; /* Fondo blanco */
+            background-color: #fcf2f6;
         }
         .coord-data2 {
             font-family: 'Arial Rounded MT Bold', sans-serif; /* Fuente más atractiva */
@@ -67,7 +71,7 @@
             width: 23%; /* Ancho de los cuadros */
             margin-right: 2%; /* Espacio entre los cuadros */
             box-sizing: border-box; /* Incluye el borde en el cálculo del ancho */
-            background-color: #fcfafb; /* Fondo blanco */
+            background-color: #fcf2f6; 
         }
         #map-container {
             width: 75%;
@@ -154,7 +158,8 @@
 
     <!-- Contenedor de coordenadas -->
     <div class="container">
-        <div class="coord-data"></i> Latitud: <span id="latitud"></span></div>
+        <div class="coord-icon1"><i class="fa-solid fa-truck fa-2x" style="color: #000000;"></i></div>
+        <div class="coord-data">Latitud: <span id="latitud"></span></div>
         <div class="coord-data">Longitud: <span id="longitud"></span></div>
         <div class="coord-data">Altitud: <span id="altitud"></span></div>
         <div class="coord-data">Timestamp: <span id="timestamp"></span></div>
