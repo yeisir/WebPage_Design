@@ -244,6 +244,7 @@
             relativeGaugeSize: true
         });
 
+
         // Inicialización de la conexión con el servidor WebSocket
         const socket = io();
     
@@ -270,26 +271,11 @@
             document.getElementById('latitud2').innerText = data.latitud;
             document.getElementById('altitud2').innerText = data.altitud;
             document.getElementById('timestamp2').innerText = data.timestamp;
-            document.getElementById('rpm-value').innerText = data.rpm;
+           
+            //document.getElementById('rpm-value').innerText = data.rpm;
+            rpmGauge.refresh(data.rpm);
 
-            var rpmGauge = new JustGage({
-                id: "rpm",
-                value: data.rpm,
-                min: 0,
-                max: 8000,
-                title: "RPM",
-                gaugeWidthScale: 0.4,
-                counter: true,
-                pointer: true,
-                pointerOptions: {
-                    toplength: -16,
-                    bottomlength: 50,
-                    bottomwidth: 2,
-                    color: "#cc3b62"
-                },
-                labelFontColor: "#030303",
-                relativeGaugeSize: true
-            });
+          
 
             // Actualiza la posición del marcador en el mapa
             //marker.setLatLng([data.latitud, data.longitud]);
