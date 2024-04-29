@@ -114,7 +114,7 @@ def consultar_historial():
     return render_template('pag2.html')
 
 @app.route('/consulta_data', methods=['POST'])
-def consultar_historial():
+def consultar_datos():
     inicio = request.form.get('inicio')
     fin = request.form.get('fin')
     
