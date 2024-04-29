@@ -272,12 +272,6 @@
             document.getElementById('altitud').innerText = data.altitud;
             document.getElementById('timestamp').innerText = data.timestamp;
 
-            // Definir velocidad y rpm fijas
-            var velocidad = 40;
-            var rpm = 2500;
-            speedometer.refresh(velocidad);
-            rpmGauge.refresh(rpm);
-
             // Actualiza la posición del marcador en el mapa
             marker.setLatLng([data.latitud, data.longitud]);
 
