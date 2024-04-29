@@ -144,7 +144,7 @@
     <div class="header-container">
         <header>
             <h1><¡Bienvenido!</h1>
-            <p><i class="fa-solid fa-map-location-dot fa-2xl" style="color: #cc3b62; margin-right: 5px" ></i>¡Bienvenido a Road Track! Aquí podrás seguir en tiempo real la ubicación del vehículo.</p>
+            <p><i class="fa-solid fa-map-location-dot fa-2xl" style="color: #cc3b62;" ></i>¡Bienvenido a Road Track! Aquí podrás seguir en tiempo real la ubicación del vehículo.</p>
         </header>
     </div>
 
@@ -197,21 +197,21 @@
             attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
         }).addTo(mymap);
 
-        var polyline1 = L.polyline([]).addTo(mymap);
-        var marker1 = L.marker([0, 0], {
+        var polyline = L.polyline([]).addTo(mymap);
+        var marker = L.marker([0, 0], {
             icon: L.divIcon({
                 className: 'custom-marker',
                 html: '<i class="fa-solid fa-truck fa-2xl" style="color: #000000;"></i>',
             })
         }).addTo(mymap);
 
-        var polyline2 = L.polyline([]).addTo(mymap);
-        var marker2 = L.marker([0, 0], {
-            icon: L.divIcon({
-                className: 'custom-marker',
-                html: <i class="fa-solid fa-car-side fa-2xl" style="color: #000000;"></i>,
-            })
-        }).addTo(mymap);
+        //var polyline2 = L.polyline([]).addTo(mymap);
+        //var marker2 = L.marker([0, 0], {
+            //icon: L.divIcon({
+                //className: 'custom-marker',
+                //html: <i class="fa-solid fa-car-side fa-2xl" style="color: #000000;"></i>,
+            //})
+        //}).addTo(mymap);
 
         // Código JavaScript para inicializar los medidores de aguja
         var speedometer = new JustGage({
@@ -265,10 +265,10 @@
             document.getElementById('timestamp').innerText = data.timestamp;
 
             // Actualiza la posición del marcador en el mapa
-            marker1.setLatLng([data.latitud, data.longitud]);
+            marker.setLatLng([data.latitud, data.longitud]);
 
             // Agrega la posición a la polylinea para trazar la ruta
-            polyline1.addLatLng([data.latitud, data.longitud]);
+            polyline.addLatLng([data.latitud, data.longitud]);
 
             // Centra el mapa en la nueva posición
             mymap.panTo([data.latitud, data.longitud]);
@@ -284,13 +284,13 @@
             rpmGauge.refresh(data.rpm);
 
             // Actualiza la posición del marcador en el mapa
-            marker2.setLatLng([data.latitud, data.longitud]);
+            //marker2.setLatLng([data.latitud, data.longitud]);
 
             // Agrega la posición a la polylinea para trazar la ruta
-            polyline2.addLatLng([data.latitud, data.longitud]);
+            //polyline2.addLatLng([data.latitud, data.longitud]);
 
             // Centra el mapa en la nueva posición
-            mymap.panTo([data.latitud, data.longitud]);
+            //mymap.panTo([data.latitud, data.longitud]);
         }
         
         // Conexión con el servidor WebSocket
