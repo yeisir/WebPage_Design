@@ -38,7 +38,6 @@
             border: 2px solid #cc3b62; /* Rosa oscuro */
             border-radius: 10px; /* Bordes redondeados */
             cursor: pointer; /* Cursor de puntero al pasar sobre él */
-            display: inline-flex; /* Para que el botón se comporte como un elemento en línea */
             width: calc(5% - 20px);
             height: 5vh;
             margin-top: 20px;
@@ -55,11 +54,15 @@
             border-radius: 10px; /* Bordes redondeados */
             cursor: pointer; /* Cursor de puntero al pasar sobre él */
             text-decoration: none; /* Eliminar subrayado del enlace */
-            display: inline-flex; /* Para que el botón se comporte como un elemento en línea */
             margin-top: 20px; /* Espacio superior */
             font-size: 15px;
             width: calc(12% - 20px);
             float: right;
+        }
+        .buttons-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
         .container {
             display: flex;
@@ -243,26 +246,26 @@
         </header>
     </div>
 
-    <button class="btn-1" id="btnToggle"><i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i></button>
-    <div id="contenidoAdicional" style="display: none;">
-        Este es el contenido adicional que se mostrará al hacer clic en el botón.
-    </div>
-    
-    <button class="btn-2" id="btnToggle"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;"></i></button>
-    <div id="contenidoAdicional" style="display: none;">
-        Este es el contenido adicional que se mostrará al hacer clic en el botón.
+    <div class="buttons-container">
+        <button class="btn-1" id="btnToggle"><i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i></button>
+        <div id="contenidoAdicional" style="display: none;">
+            Este es el contenido adicional que se mostrará al hacer clic en el botón 1.
+        </div>
+
+        <button class="btn-2" id="btnToggle"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;"></i></button>
+        <div id="contenidoAdicional" style="display: none;">
+            Este es el contenido adicional que se mostrará al hacer clic en el botón 2.
+        </div>
+
+        <button class="btn-3" id="btnToggle"><i class="fa-solid fa-car fa-lg" style="color: #000000; margin-right: 5px;"></i><i class="fa-solid fa-truck-front fa-lg" style="color: #000000;"></i></button>
+        <div id="contenidoAdicional" style="display: none;">
+            Este es el contenido adicional que se mostrará al hacer clic en el botón 3.
+        </div>
     </div>
 
-    <button class="btn-3" id="btnToggle"><i class="fa-solid fa-car fa-lg" style="color: #000000; margin-right: 5px;"></i><i class="fa-solid fa-truck-front fa-lg" style="color: #000000;"></i></button>
-    <div id="contenidoAdicional" style="display: none;">
-        Este es el contenido adicional que se mostrará al hacer clic en el botón.
-    </div>
-
-    <div style="align-items: center; justify-content: center; ">
-        <form action="/tiempo_real" method="post">
-            <button type="submit" class="btn-volver">Ir a tiempo real</button>
-        </form>
-    </div>
+    <form action="/tiempo_real" method="post">
+        <button type="submit" class="btn-volver">Ir a tiempo real</button>
+    </form>
 
     <!-- Formulario para consultar históricos -->
     <form class="consulta-form">
