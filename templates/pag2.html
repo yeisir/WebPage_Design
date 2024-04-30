@@ -24,7 +24,7 @@
             padding: 10px 20px; /* Menor espacio de relleno arriba y abajo, mayor espacio de relleno a los lados */
             margin-bottom: 20px;
             margin-right: 80px;
-            width: calc(75% - 20px);
+            width: calc(72% - 20px);
             float: left;
             text-align: center;
             font-size: 16.5px;
@@ -63,7 +63,6 @@
         #recenter-button i {
             color: #cc3b62; /* Color rosa oscuro */
         }
-
         /* Estilos del botón */
          .btn-volver {
             background-color: #cc3b62; /* Color de fondo rosa oscuro */
@@ -121,14 +120,12 @@
             -webkit-appearance: none; /* Quitar la apariencia predeterminada en WebKit */
             appearance: none; /* Quitar la apariencia predeterminada */
         }
-
         #time-slider::-webkit-slider-runnable-track {
             width: 100%;
             height: 10px;
             background: #878787; /* Color de fondo rosa claro */
             border-radius: 5px; /* Bordes redondeados */
         }
-
         #time-slider::-webkit-slider-thumb {
             -webkit-appearance: none; /* Quitar la apariencia predeterminada en WebKit */
             appearance: none; /* Quitar la apariencia predeterminada */
@@ -141,7 +138,6 @@
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-
 
         /* Estilos para el formulario */
         .consulta-form2 {
@@ -186,14 +182,12 @@
             -webkit-appearance: none; /* Quitar la apariencia predeterminada en WebKit */
             appearance: none; /* Quitar la apariencia predeterminada */
         }
-
         #time-slider2::-webkit-slider-runnable-track {
             width: 100%;
             height: 10px;
             background: #878787; /* Color de fondo rosa claro */
             border-radius: 5px; /* Bordes redondeados */
         }
-
         #time-slider2::-webkit-slider-thumb {
             -webkit-appearance: none; /* Quitar la apariencia predeterminada en WebKit */
             appearance: none; /* Quitar la apariencia predeterminada */
@@ -204,28 +198,23 @@
             cursor: pointer; /* Cambiar el cursor al pasar sobre él */
             margin-top: -5px; /* Alinear el control verticalmente */
         }
-
         /* Estilo del mensaje */
         .swal2-popup {
             font-family: 'Roboto', sans-serif; /* Aplica la fuente personalizada */
             max-width: 400px; /* Ancho máximo del cuadro de mensaje */
             font-size: 14px; /* Tamaño de fuente */
         }
-
         .swal2-title {
             font-size: 20px; /* Tamaño de fuente del título */
             color: #cc3b62; /* Color del título */
         }
-
         .swal2-content {
             font-size: 11px; /* Tamaño de fuente del contenido */
             color: #333; /* Color del contenido */
         }
-
         .swal2-icon {
             color: #fda2ba; /* Color del icono */
         }
-
         /* Botón de confirmación */
         .swal2-confirm {
             background-color: #cc3b62; /* Color de fondo del botón */
@@ -276,11 +265,8 @@
         <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
         <button type="button" id="consultar-historicos-btn" class="btn-form">Consultar historial</button>
     
-    
     </form>
-
     <!-- Formulario para consultar históricos2 -->
-
     <form class="consulta-form2">
         <!-- Campo de entrada para la fecha de inicio -->
         <label for="inicio">Fecha y hora de inicio:</label>
@@ -293,9 +279,7 @@
         <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
         <button type="button" id="consultar-historicos-btn2" class="btn-form2">Consultar historial</button>
     
-    
     </form>
-
     <input type="range" id="time-slider" min="0" max="0" value="0" style="width: 100%;">
     <input type="range" id="time-slider2" min="0" max="0" value="0" style="width: 100%;">
 
@@ -306,11 +290,8 @@
         <div id="recenter-button" class="leaflet-bar leaflet-control">
             <i class="fas fa-crosshairs"></i>
         </div>
-
     </div>
-
     <script>
-
         // Añadir capa de OpenStreetMap al mapa
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -372,9 +353,7 @@
         var ruta;
         var marcadorInicio;
         var marcadorFin;
-
         
-
         function obtenerCoordenadasHistoricas() {
             var inicio = $("#inicio").val();
             var fin = $("#fin").val();
@@ -406,7 +385,7 @@
                         historialCoords.push([latitud, longitud]);
                         timestamps.push(timestamp); // Agregar el timestamp al array
                     }
-
+                    
                     if (ruta) {
                         mymap.removeLayer(ruta);
                     }
@@ -416,7 +395,6 @@
                     if (marcadorFin) {
                         mymap.removeLayer(marcadorFin);
                     }
-
                     if (coordenadas.length === 0) {
                         alert("No hay recorridos disponibles.");
                         return;
@@ -518,7 +496,6 @@
                     var timestamps = []; // Crear un array para almacenar los timestamps
                     var rpms = [];
 
-
                     for (var i = 0; i < coordenadas.length; i++) {
                         var latitud = parseFloat(coordenadas[i].latitud);
                         var longitud = parseFloat(coordenadas[i].longitud);
@@ -538,7 +515,6 @@
                     if (marcadorFin2) {
                         mymap.removeLayer(marcadorFin2);
                     }
-
                     if (coordenadas.length === 0) {
                         alert("No hay recorridos disponibles.");
                         return;
@@ -670,8 +646,6 @@
         $('#recenter-button').click(function() {
             mymap.setView(marcadorInicio.getLatLng());
         });
-
-        
     </script>
 </body>
 </html>
