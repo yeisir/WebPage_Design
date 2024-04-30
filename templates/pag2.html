@@ -243,32 +243,34 @@
         </header>
     </div>
 
-    <div style="justify-content: center; align-items: center;">
-        <div>
-            <button class="btn-1" id="btnToggle"><i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i></button>
-            <div id="contenidoAdicional1" style="display: none;">
-                Este es el contenido adicional que se mostrará al hacer clic en el botón.
-            </div>
+    <div style="display: flex; justify-content: center; align-items: center;">
+    <div style="margin-right: 20px;">
+        <button class="btn-1" id="btnToggle"><i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i></button>
+        <div id="contenidoAdicional1" style="display: none;">
+            Este es el contenido adicional que se mostrará al hacer clic en el botón.
         </div>
-
-        <div>
-            <button class="btn-2" id="btnToggle"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;"></i></button>
-            <div id="contenidoAdicional2" style="display: none;">
-                Este es el contenido adicional que se mostrará al hacer clic en el botón.
-            </div>
-        </div>
-
-        <div>
-            <button class="btn-3" id="btnToggle"><i class="fa-solid fa-car fa-lg" style="color: #000000; margin-right: 5px;"></i><i class="fa-solid fa-truck-front fa-lg" style="color: #000000;"></i></button>
-            <div id="contenidoAdicional3" style="display: none;">
-                Este es el contenido adicional que se mostrará al hacer clic en el botón.
-            </div>
-        </div>
-
-        <form action="/tiempo_real" method="post">
-            <button type="submit" class="btn-volver">Ir a tiempo real</button>
-        </form>
     </div>
+
+    <div style="margin-right: 20px;">
+        <button class="btn-2" id="btnToggle"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;"></i></button>
+        <div id="contenidoAdicional2" style="display: none;">
+            Este es el contenido adicional que se mostrará al hacer clic en el botón.
+        </div>
+    </div>
+
+    <div style="margin-right: 20px;">
+        <button class="btn-3" id="btnToggle"><i class="fa-solid fa-car fa-lg" style="color: #000000; margin-right: 5px;"></i><i class="fa-solid fa-truck-front fa-lg" style="color: #000000;"></i></button>
+        <div id="contenidoAdicional3" style="display: none;">
+            Este es el contenido adicional que se mostrará al hacer clic en el botón.
+        </div>
+    </div>
+</div>
+
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+    <form action="/tiempo_real" method="post">
+        <button type="submit" class="btn-volver">Ir a tiempo real</button>
+    </form>
+</div>
     
     <!-- Formulario para consultar históricos -->
     <form class="consulta-form">
