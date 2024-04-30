@@ -32,7 +32,7 @@
         header {
             margin: 0; /* Eliminar el margen del encabezado */
         }
-        .btn-1 {
+        .btn-1, .btn-2, .btn-3 {
             background-color: #fcf2f6; /* Color de fondo rosa oscuro */
             padding: 10px 20px; /* Espacio de relleno */
             border: 2px solid #cc3b62; /* Rosa oscuro */
@@ -42,29 +42,7 @@
             width: calc(5% - 20px);
             margin-top: 20px;
             margin-right: 0.5%;
-            text-align: center;
-        }
-        .btn-2 {
-            background-color: #fcf2f6; /* Color de fondo rosa oscuro */
-            padding: 10px 20px; /* Espacio de relleno */
-            border: 2px solid #cc3b62; /* Rosa oscuro */
-            border-radius: 10px; /* Bordes redondeados */
-            cursor: pointer; /* Cursor de puntero al pasar sobre él */
-            display: inline-block; /* Para que el botón se comporte como un elemento en línea */
-            width: calc(5% - 20px);
-            margin-top: 20px;
-            margin-right: 0.5%;
-        }
-        .btn-3 {
-            background-color: #fcf2f6; /* Color de fondo rosa oscuro */
-            padding: 10px 20px; /* Espacio de relleno */
-            border: 2px solid #cc3b62; /* Rosa oscuro */
-            border-radius: 10px; /* Bordes redondeados */
-            cursor: pointer; /* Cursor de puntero al pasar sobre él */
-            display: inline-block; /* Para que el botón se comporte como un elemento en línea */
-            width: calc(5% - 20px);
-            margin-top: 20px;
-            margin-right: 0.5%;
+            item-align: center;
         }
         .container {
             display: flex;
@@ -113,7 +91,7 @@
             width: calc(10% - 20px);
         }
         /* Estilos para el formulario */
-        .consulta-form {
+        .consulta-form, .consulta-form2 {
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
@@ -133,7 +111,7 @@
             width: calc(27% - 10px);
             margin-right: 10px;
         }
-        .btn-form {
+        .btn-form, .btn-form2 {
             background-color: #cc3b62; /* Color de fondo rosa oscuro */
             color: white; /* Color del texto blanco */
             padding: 10px 20px; /* Espacio de relleno */
@@ -174,15 +152,8 @@
 
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
 
-        /* Estilos para el formulario */
-        .consulta-form2 {
-            margin-bottom: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            width: 100%;
-        }
-        .consulta-form2 label {
+        /* Estilos para el formulario2 */
+       .consulta-form2 label {
             display: block;
             margin-bottom: 5px;
             margin-right: 7px;
@@ -194,18 +165,6 @@
             box-sizing: border-box;
             width: calc(27% - 10px);
             margin-right: 10px;
-        }
-        .btn-form2 {
-            background-color: #cc3b62; /* Color de fondo rosa oscuro */
-            color: white; /* Color del texto blanco */
-            padding: 10px 20px; /* Espacio de relleno */
-            border: none; /* Sin borde */
-            border-radius: 10px; /* Bordes redondeados */
-            cursor: pointer; /* Cursor de puntero al pasar sobre él */
-            text-decoration: none; /* Eliminar subrayado del enlace */
-            display: inline-block; /* Para que el botón se comporte como un elemento en línea */
-            margin-top: 3px; /* Espacio superior */
-            vertical-align: top;
         }
         #time-slider2 {
             width: 100%;
@@ -293,7 +252,7 @@
         Este es el contenido adicional que se mostrará al hacer clic en el botón.
     </div>
 
-    <button class="btn-3" id="btnToggle"><i class="fa-solid fa-truck fa-xl" style="color: #000000; margin-right:5px;"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;"></i></button>
+    <button class="btn-3" id="btnToggle"><i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i></button>
     <div id="contenidoAdicional" style="display: none;">
         Este es el contenido adicional que se mostrará al hacer clic en el botón.
     </div>
