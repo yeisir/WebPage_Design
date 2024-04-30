@@ -243,7 +243,8 @@
         </header>
     </div>
 
-   <button class="btn-1" id="btnToggle"><i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i></button>
+    <div style="display: flex; justify-content: center;">
+    <button class="btn-1" id="btnToggle"><i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i></button>
     <div id="contenidoAdicional" style="display: none;">
         Este es el contenido adicional que se mostrará al hacer clic en el botón.
     </div>
@@ -257,13 +258,15 @@
     <div id="contenidoAdicional" style="display: none;">
         Este es el contenido adicional que se mostrará al hacer clic en el botón.
     </div>
+</div>
 
-    <div style="align-items: center; justify-content: center; ">
-        <form action="/tiempo_real" method="post">
-            <button type="submit" class="btn-volver">Ir a tiempo real</button>
-        </form>
-    </div>
+<div style="display: flex; justify-content: center; margin-top: 20px;">
+    <form action="/tiempo_real" method="post">
+        <button type="submit" class="btn-volver">Ir a tiempo real</button>
+    </form>
+</div>
 
+    
     <!-- Formulario para consultar históricos -->
     <form class="consulta-form">
         <!-- Campo de entrada para la fecha de inicio -->
