@@ -32,6 +32,14 @@
         header {
             margin: 0; /* Eliminar el margen del encabezado */
         }
+        .title {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 15px;
+            width: 100%;
+        }
         .btn-1, .btn-2, .btn-3 {
             background-color: #fcf2f6; /* Color de fondo rosa oscuro */
             padding: 10px 20px; /* Espacio de relleno */
@@ -237,7 +245,7 @@
 
 </head>
 <body>
-    <!-- Encabezado dentro de un cuadro con bordes cuadrados -->
+    <div class="title">
     <div class="header-container">
         <header>
             <h1>Consulta Histórica</h1><p>Gracias por visitar la consulta histórica! Aquí podrás visualizar las coordenadas históricas del vehículo.</p>
@@ -264,6 +272,7 @@
             <button type="submit" class="btn-volver">Ir a tiempo real</button>
         </form>
     </div>    
+    </div>
     
     <!-- Formulario para consultar históricos -->
     <form class="consulta-form">
