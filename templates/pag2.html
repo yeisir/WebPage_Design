@@ -23,11 +23,13 @@
             border: 2px solid #cc3b62; /* Rosa oscuro */
             padding: 10px 20px; /* Menor espacio de relleno arriba y abajo, mayor espacio de relleno a los lados */
             margin-bottom: 20px;
-            margin-right: 1.5%;
+            margin-right: 1%;
             width: calc(72% - 20px);
             float: left;
             text-align: center;
             font-size: 16.5px;
+            display: flex; 
+            justify-content: space-between;
         }
         header {
             margin: 0; /* Eliminar el margen del encabezado */
@@ -40,7 +42,6 @@
             cursor: pointer; /* Cursor de puntero al pasar sobre él */
             display: inline-block; /* Para que el botón se comporte como un elemento en línea */
             width: calc(5% - 20px);
-            margin-bottom: 30px;
         }
         .container {
             display: flex;
@@ -258,7 +259,7 @@
         </header>
     </div>
 
-    <button class="btn-1" id="btnToggle"><i class="fa-solid fa-car-side fa-lg" style="color: #000000;"></i></button>
+    <button class="btn-1" id="btnToggle"><i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i></button>
     <div id="contenidoAdicional" style="display: none;">
         Este es el contenido adicional que se mostrará al hacer clic en el botón.
     </div>
