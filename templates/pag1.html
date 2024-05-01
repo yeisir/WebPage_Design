@@ -29,6 +29,15 @@
             font-size: 17.5px;
             text-align: center;
         }
+        .title {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-top: 5px;
+            width: 100%;
+            margin-right: 3%;
+        }
         .coord-icon1 {
             float: left;
             margin-top: 6.5px;
@@ -140,7 +149,7 @@
             border-radius: 10px; /* Bordes redondeados */
             cursor: pointer; /* Cursor de puntero al pasar sobre él */
             text-decoration: none; /* Eliminar subrayado del enlace */
-            display: inline-block; /* Para que el botón se comporte como un elemento en línea */
+            display: flex; /* Para que el botón se comporte como un elemento en línea */
             width: calc(20% - 20px);
             margin-top: 20px; /* Espacio superior */
             margin-right: 3.5%;
@@ -150,17 +159,19 @@
     </style>
 </head>
 <body>
-    <!-- Encabezado dentro de un cuadro con bordes cuadrados -->
-    <div class="header-container">
-        <header>
-            <h1><¡Bienvenido!</h1>
-            <p><i class="fa-solid fa-map-location-dot fa-2xl" style="color: #cc3b62; margin-right: 5px;" ></i>¡Bienvenido a Road Track! Aquí podrás seguir en tiempo real la ubicación del vehículo.</p>
-        </header>
-    </div>
+    <div class="title">
+        <!-- Encabezado dentro de un cuadro con bordes cuadrados -->
+        <div class="header-container">
+            <header>
+                <h1><¡Bienvenido!</h1>
+                <p><i class="fa-solid fa-map-location-dot fa-2xl" style="color: #cc3b62; margin-right: 5px;" ></i>¡Bienvenido a Road Track! Aquí podrás seguir en tiempo real la ubicación del vehículo.</p>
+            </header>
+        </div>
 
-    <form action="/consulta_historica" method="post">
-        <button type="submit" class="btn-consulta">Ir a consulta de históricos</button>
-    </form>
+        <form action="/consulta_historica" method="post">
+            <button type="submit" class="btn-consulta">Ir a consulta de históricos</button>
+        </form>
+    </div>
     
     <!-- Contenedor de coordenadas -->
     <div class="container">
