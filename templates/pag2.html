@@ -253,11 +253,10 @@
             </header>
         </div>
 
-       <button class="btn-1" id="btnToggle1"><i class="fa-solid fa-truck fa-xl" style="color: #000000;" onclick="mostrarCuestionario1()" ></i></button>
-        <div id="contenidoAdicional" style="display: none;">
-            Este es el contenido adicional que se mostrará al hacer clic en el botón.
-        </div>
-    
+        <button class="btn-1" id="btnToggle" onclick="mostrarCuestionario1();">
+            <i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i>
+        </button>
+        
         <button class="btn-2" id="btnToggle2"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;"></i></button>
         <div id="contenidoAdicional" style="display: none;">
             Este es el contenido adicional que se mostrará al hacer clic en el botón.
@@ -319,7 +318,7 @@
     <script>
 
         function mostrarCuestionario1() {
-            var cuestionario = document.getElementById("cuestionario1");
+            var cuestionario1 = document.getElementById("cuestionario1");
             cuestionario.style.display = "block";
             if (cuestionario.style.display === "none") {
             cuestionario.style.display = "block";
