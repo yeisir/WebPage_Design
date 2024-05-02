@@ -554,6 +554,10 @@
 
                     marker = L.marker(primero, { 
                         draggable: true,
+                        icon: L.divIcon({
+                            className: 'custom-marker',
+                            html: '<i class="fa-solid fa-location-crosshairs fa-2xl" style="color: #3f5a8d;"></i>',
+                        })
                     }).addTo(mymap);
 
                     marker.bindPopup("Desplázame al lugar requerido", {
@@ -561,6 +565,10 @@
                     }).openPopup();
 
                     markend = L.marker(end, {
+                        icon: L.divIcon({
+                            className: 'custom-marker',
+                            html: '<i class="fa-solid fa-flag-checkered fa-2xl" style="color: #000000;"></i>',
+                        })
                     }).addTo(mymap);
 
                     markend.bindPopup("Fin de recorrido")
