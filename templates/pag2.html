@@ -253,10 +253,8 @@
             </header>
         </div>
 
-       <button class="btn-1" id="btnToggle"><i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i></button>
+        <button class="btn-1" id="btnToggle"><i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i></button>
         <div id="contenidoAdicional" style="display: none;">
-            Este es el contenido adicional que se mostrará al hacer clic en el botón.
-        </div>
     
         <button class="btn-2" id="btnToggle"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;"></i></button>
         <div id="contenidoAdicional" style="display: none;">
@@ -315,6 +313,33 @@
         </div>
     </div>
     <script>
+
+        $(document).ready(function() {
+                $('#btnToggle').click(function() {
+                    $('#contenidoAdicional').toggle(); // Muestra u oculta el contenido adicional al hacer clic en el botón
+
+                    // Configuración de Flatpickr para los campos de fecha y hora
+                    flatpickr("#inicio", {
+                        enableTime: true,
+                        dateFormat: "Y-m-d H:i",
+                        time_24hr: true,
+                        maxDate: "today",
+                        defaultDate: "01:00",
+                        onClose: function(selectedDates) {
+                            // Configurar la fecha mínima para el campo de fecha de fin
+                            var minDate = selectedDates[0];
+                            flatpickr("#fin", {
+                                enableTime: true,
+                                dateFormat: "Y-m-d H:i",
+                                time_24hr: true,
+                                minDate: minDate,
+                                maxDate: "today",
+                                defaultDate: "23:00",
+                            });               
+                        }  
+                    });
+                });
+            });
         // Añadir capa de OpenStreetMap al mapa
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -332,26 +357,6 @@
             });
         }    
 
-        // Configuración de Flatpickr para los campos de fecha y hora
-        flatpickr("#inicio", {
-            enableTime: true,
-            dateFormat: "Y-m-d H:i",
-            time_24hr: true,
-            maxDate: "today",
-            defaultDate: "01:00",
-            onClose: function(selectedDates) {
-                // Configurar la fecha mínima para el campo de fecha de fin
-                var minDate = selectedDates[0];
-                flatpickr("#fin", {
-                    enableTime: true,
-                    dateFormat: "Y-m-d H:i",
-                    time_24hr: true,
-                    minDate: minDate,
-                    maxDate: "today",
-                    defaultDate: "23:00",
-                });               
-            }  
-        });
 
         flatpickr("#inicio2", {
             enableTime: true,
