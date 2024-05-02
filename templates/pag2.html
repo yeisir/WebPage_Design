@@ -360,15 +360,13 @@
     <script>
 
         function mostrarCuestionario1() {
-            var cuestionario = document.getElementById("cuestionario1");
-            if (cuestionario.style.display === "none") {
-                    cuestionario.style.display = "block";
+            var cuestionario1 = document.getElementById("cuestionario1");
+            if (cuestionario1.style.display === "none") {
+                    cuestionario1.style.display = "block";
             } else {
-                    cuestionario.style.display = "none";
+                    cuestionario1.style.display = "none";
             }
-            var V2 = document.getElementById("cuestionario2");
-            var V3 = document.getElementById("cuestionario3");
-            flatpickr("#inicio2", {
+            flatpickr("#inicio", {
                 enableTime: true,
                 dateFormat: "Y-m-d H:i",
                 time_24hr: true,
@@ -377,7 +375,7 @@
                 onClose: function(selectedDates) {
                     // Configurar la fecha mínima para el campo de fecha de fin
                     var minDate = selectedDates[0];
-                    flatpickr("#fin2", {
+                    flatpickr("#fin", {
                         enableTime: true,
                         dateFormat: "Y-m-d H:i",
                         time_24hr: true,
