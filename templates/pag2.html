@@ -253,8 +253,10 @@
             </header>
         </div>
 
-        <button class="btn-1" id="btnToggle"><i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i></button>
+       <button class="btn-1" id="btnToggle"><i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i></button>
         <div id="contenidoAdicional" style="display: none;">
+            Este es el contenido adicional que se mostrará al hacer clic en el botón.
+        </div>
     
         <button class="btn-2" id="btnToggle"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;"></i></button>
         <div id="contenidoAdicional" style="display: none;">
@@ -313,7 +315,6 @@
         </div>
     </div>
     <script>
-
         // Añadir capa de OpenStreetMap al mapa
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
