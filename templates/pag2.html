@@ -457,6 +457,75 @@
 
         }
 
+        function mostrarCuestionario3() {
+            var cuestionario3 = document.getElementById("cuestionario3");
+            if (cuestionario3.style.display === "none") {
+                    cuestionario3.style.display = "block";
+            } else {
+                    cuestionario3.style.display = "none";
+            }
+
+            flatpickr("#inicio", {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+                time_24hr: true,
+                maxDate: "today",
+                defaultDate: "01:00",
+                onClose: function(selectedDates) {
+                    // Configurar la fecha mínima para el campo de fecha de fin
+                    var minDate = selectedDates[0];
+                    flatpickr("#fin", {
+                        enableTime: true,
+                        dateFormat: "Y-m-d H:i",
+                        time_24hr: true,
+                        minDate: minDate,
+                        maxDate: "today",
+                        defaultDate: "23:00",
+                    });               
+                }  
+            });
+
+            flatpickr("#inicio2", {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+                time_24hr: true,
+                maxDate: "today",
+                defaultDate: "01:00",
+                onClose: function(selectedDates) {
+                    // Configurar la fecha mínima para el campo de fecha de fin
+                    var minDate = selectedDates[0];
+                    flatpickr("#fin2", {
+                        enableTime: true,
+                        dateFormat: "Y-m-d H:i",
+                        time_24hr: true,
+                        minDate: minDate,
+                        maxDate: "today",
+                        defaultDate: "23:00",
+                    });               
+                }  
+            });
+            if (ruta) {
+                mymap.removeLayer(ruta);
+            }
+            if (marcadorInicio) {
+                mymap.removeLayer(marcadorInicio);
+            }       
+            if (marcadorFin) {
+                mymap.removeLayer(marcadorFin);
+            }
+
+            if (ruta2) {
+                mymap.removeLayer(ruta2);
+            }
+            if (marker) {
+                mymap.removeLayer(marker);
+            }       
+            if (markend) {
+                mymap.removeLayer(markend);
+            }
+
+        }
+
         // Añadir capa de OpenStreetMap al mapa
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
