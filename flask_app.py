@@ -115,17 +115,17 @@ def consultar_historial():
 
 @app.route('/consulta_data', methods=['POST'])
 def consultar_datos():
-    inicio = request.form.get('inicio')
-    fin = request.form.get('fin')
+    inicio2 = request.form.get('inicio')
+    fin2 = request.form.get('fin')
     
     # Verifica si hay valores para inicio y fin
-    if inicio is not None and fin is not None:
+    if inicio2 is not None and fin2 is not None:
         # Realiza la conexión con la base de datos y ejecuta la consulta SQL
         conexion = mysql.connector.connect(**db_config)
         cursor = conexion.cursor()
         consulta = ("SELECT Latitud, Longitud, Timestamp, RPM FROM datos " # Agregar RPM a la consulta
                     "WHERE timestamp >= %s AND timestamp <= %s")
-        cursor.execute(consulta, (inicio, fin))
+        cursor.execute(consulta, (inicio2, fin2))
         registros = cursor.fetchall()
         conexion.close()
         

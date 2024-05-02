@@ -495,8 +495,8 @@
         var markend;
 
         function obtenerCoordenadasHistoricas2() {
-            var inicio = $("#inicio2").val();
-            var fin = $("#fin2").val();
+            var inicio2 = $("#inicio2").val();
+            var fin2 = $("#fin2").val();
 
             if (ruta2) {
                 mymap.removeLayer(ruta2);
@@ -511,7 +511,7 @@
             $.ajax({
                 url: '/consulta_data',
                 type: 'POST',
-                data: {inicio: inicio, fin: fin},
+                data: {inicio2: inicio2, fin2: fin2},
                 success: function(data) {
                     // Tratar la respuesta del servidor y trazar la polilínea en el mapa
                     var coordenadas = data.coordenadas;
