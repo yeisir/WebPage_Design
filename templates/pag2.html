@@ -339,35 +339,16 @@
     <script>
 
         function mostrarCuestionario1() {
-                var cuestionario = document.getElementById("cuestionario1");
-                var contenidoAdicional = document.getElementById("contenidoAdicional1");
-                if (cuestionario.style.display === "none") {
+            var cuestionario = document.getElementById("cuestionario1");
+            var contenidoAdicional = document.getElementById("contenidoAdicional1");
+            if (cuestionario.style.display === "none") {
                     cuestionario.style.display = "block";
                     contenidoAdicional.style.display = "block";
-                } else {
+            } else {
                     cuestionario.style.display = "none";
                     contenidoAdicional.style.display = "none";
-                }
             }
-        // Añadir capa de OpenStreetMap al mapa
-        var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
-        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
-        }).addTo(mymap);
-
-        window.onload = function() {
-            Swal.fire({
-                title: "¡Bienvenido a la consulta histórica!",
-                html: "Paso 1: Selecciona la fecha y hora de inicio en el primer campo.<br><br>Paso 2: Selecciona la fecha y hora de fin en el segundo campo.<br><br>Paso 3: Haz clic en el botón 'Consultar historial' para ver las coordenadas históricas del vehículo.<br><br>Paso 4: Utiliza el control deslizante de tiempo para ver el historial de ubicaciones.",
-                icon: "info",
-                iconColor: "#fda2ba",
-                confirmButtonText: "Entendido",
-                confirmButtonColor: "#cc3b62" // Color del botón de confirmación
-            });
-        }    
-
-        // Configuración de Flatpickr para los campos de fecha y hora
-        flatpickr("#inicio", {
+            flatpickr("#inicio", {
             enableTime: true,
             dateFormat: "Y-m-d H:i",
             time_24hr: true,
@@ -386,6 +367,27 @@
                 });               
             }  
         });
+
+        }
+        // Añadir capa de OpenStreetMap al mapa
+        var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+        }).addTo(mymap);
+
+        window.onload = function() {
+            Swal.fire({
+                title: "¡Bienvenido a la consulta histórica!",
+                html: "Paso 1: Selecciona la fecha y hora de inicio en el primer campo.<br><br>Paso 2: Selecciona la fecha y hora de fin en el segundo campo.<br><br>Paso 3: Haz clic en el botón 'Consultar historial' para ver las coordenadas históricas del vehículo.<br><br>Paso 4: Utiliza el control deslizante de tiempo para ver el historial de ubicaciones.",
+                icon: "info",
+                iconColor: "#fda2ba",
+                confirmButtonText: "Entendido",
+                confirmButtonColor: "#cc3b62" // Color del botón de confirmación
+            });
+        }    
+
+        // Configuración de Flatpickr para los campos de fecha y hora
+        
 
         flatpickr("#inicio2", {
             enableTime: true,
