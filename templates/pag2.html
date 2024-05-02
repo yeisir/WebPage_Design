@@ -256,7 +256,23 @@
         <button class="btn-1" id="btnToggle" onclick="mostrarCuestionario1();">
             <i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i>
         </button>
-        
+
+        <div id="cuestionario1" style="display: none;"></div>
+            <form class="consulta-form">
+                <!-- Campo de entrada para la fecha de inicio -->
+                <label for="inicio">Fecha y hora de inicio:</label>
+                <input type="text" id="inicio" name="inicio" data-input>
+
+                <!-- Campo de entrada para la fecha de fin -->
+                <label for="fin">Fecha y hora de fin:</label>
+                <input type="text" id="fin" name="fin" data-input>
+                    
+                <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
+                <button type="button" id="consultar-historicos-btn" class="btn-form">Consultar historial</button>
+            
+            </form>
+        </div>
+
         <button class="btn-2" id="btnToggle2"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;"></i></button>
         <div id="contenidoAdicional" style="display: none;">
             Este es el contenido adicional que se mostrará al hacer clic en el botón.
@@ -275,21 +291,7 @@
     </div>
     
     <!-- Formulario para consultar históricos -->
-    <div id="cuestionario1" style="display: none;"></div>
-        <form class="consulta-form">
-            <!-- Campo de entrada para la fecha de inicio -->
-            <label for="inicio">Fecha y hora de inicio:</label>
-            <input type="text" id="inicio" name="inicio" data-input>
-
-            <!-- Campo de entrada para la fecha de fin -->
-            <label for="fin">Fecha y hora de fin:</label>
-            <input type="text" id="fin" name="fin" data-input>
-                
-            <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
-            <button type="button" id="consultar-historicos-btn" class="btn-form">Consultar historial</button>
-        
-        </form>
-    </div>
+    
     <!-- Formulario para consultar históricos2 -->
     <form class="consulta-form2">
         <!-- Campo de entrada para la fecha de inicio -->
