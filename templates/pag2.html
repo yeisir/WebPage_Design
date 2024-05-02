@@ -287,6 +287,8 @@
             </form>
 
             <input type="range" id="time-slider" min="0" max="0" value="0" style="width: 100%;">
+       
+       
         </div>
 
         <div id="cuestionario2" style="display: none;">
@@ -303,6 +305,9 @@
                 <button type="button" id="consultar-historicos-btn2" class="btn-form2">Consultar historial</button>
             
             </form>
+
+            <input type="range" id="time-slider2" min="0" max="0" value="0" style="width: 100%;">
+
         </div>
 
         <div id="cuestionario3" style="display: none;">
@@ -332,13 +337,17 @@
                 <button type="button" id="consultar-historicos-btn2" class="btn-form2">Consultar historial</button>
             
             </form>
+
+            <input type="range" id="time-slider" min="0" max="0" value="0" style="width: 100%;">
+            <input type="range" id="time-slider2" min="0" max="0" value="0" style="width: 100%;">
+
         </div>
         
     </div>
     
    
     
-    <input type="range" id="time-slider2" min="0" max="0" value="0" style="width: 100%;">
+    
 
     <!-- Contenedor del mapa -->
     <div id="map-container">
@@ -363,25 +372,7 @@
                 var cuestionarioVisible = document.getElementById(cuestionarioVisibleId);
                 cuestionarioVisible.style.display = "none";
             }
-            flatpickr("#inicio", {
-                enableTime: true,
-                dateFormat: "Y-m-d H:i",
-                time_24hr: true,
-                maxDate: "today",
-                defaultDate: "01:00",
-                onClose: function(selectedDates) {
-                    // Configurar la fecha mínima para el campo de fecha de fin
-                    var minDate = selectedDates[0];
-                    flatpickr("#fin", {
-                        enableTime: true,
-                        dateFormat: "Y-m-d H:i",
-                        time_24hr: true,
-                        minDate: minDate,
-                        maxDate: "today",
-                        defaultDate: "23:00",
-                    });               
-                }  
-            });
+            
 
         }
 
