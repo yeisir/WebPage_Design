@@ -115,8 +115,8 @@ def consultar_historial():
 
 @app.route('/consulta_data', methods=['POST'])
 def consultar_datos():
-    inicio2 = request.form.get('inicio')
-    fin2 = request.form.get('fin')
+    inicio2 = request.form.get('inicio2')
+    fin2 = request.form.get('fin2')
     
     # Verifica si hay valores para inicio y fin
     if inicio2 is not None and fin2 is not None:
