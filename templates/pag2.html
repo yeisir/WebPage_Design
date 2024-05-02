@@ -274,14 +274,51 @@
         </div>
     
     
-        <button class="btn-2" id="btnToggle2"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;"></i></button>
-        <div id="contenidoAdicional" style="display: none;">
-            Este es el contenido adicional que se mostrará al hacer clic en el botón.
+        <button class="btn-2" id="btnToggle2"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;" onclick="mostrarCuestionario2();"></i></button>
+        <div id="cuestionario2" style="display: none;">
+            <form class="consulta-form2">
+                <!-- Campo de entrada para la fecha de inicio -->
+                <label for="inicio">Fecha y hora de inicio:</label>
+                <input type="text" id="inicio2" name="inicio" data-input>
+        
+                <!-- Campo de entrada para la fecha de fin -->
+                <label for="fin">Fecha y hora de fin:</label>
+                <input type="text" id="fin2" name="fin" data-input>
+                    
+                <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
+                <button type="button" id="consultar-historicos-btn2" class="btn-form2">Consultar historial</button>
+            
+            </form>
         </div>
 
-        <button class="btn-3" id="btnToggle3"><i class="fa-solid fa-car fa-lg" style="color: #000000; margin-right: 5px;"></i><i class="fa-solid fa-truck-front fa-lg" style="color: #000000;"></i></button>
-        <div id="contenidoAdicional" style="display: none;">
-            Este es el contenido adicional que se mostrará al hacer clic en el botón.
+        <button class="btn-3" id="btnToggle3"><i class="fa-solid fa-car fa-lg" style="color: #000000; margin-right: 5px;"></i><i class="fa-solid fa-truck-front fa-lg" style="color: #000000;" onclick="mostrarCuestionario3();"></i></button>
+        <div id="cuestionario3" style="display: none;">
+            <form class="consulta-form">
+                <!-- Campo de entrada para la fecha de inicio -->
+                <label for="inicio">Fecha y hora de inicio:</label>
+                <input type="text" id="inicio" name="inicio" data-input>                       
+                <!-- Campo de entrada para la fecha de fin -->
+                <label for="fin">Fecha y hora de fin:</label>
+                <input type="text" id="fin" name="fin" data-input>
+                        
+                <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
+                <button type="button" id="consultar-historicos-btn" class="btn-form">Consultar historial</button>
+                
+            </form>
+
+            <form class="consulta-form2">
+                <!-- Campo de entrada para la fecha de inicio -->
+                <label for="inicio">Fecha y hora de inicio:</label>
+                <input type="text" id="inicio2" name="inicio" data-input>
+        
+                <!-- Campo de entrada para la fecha de fin -->
+                <label for="fin">Fecha y hora de fin:</label>
+                <input type="text" id="fin2" name="fin" data-input>
+                    
+                <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
+                <button type="button" id="consultar-historicos-btn2" class="btn-form2">Consultar historial</button>
+            
+            </form>
         </div>
 
         <div style="align-items: center; justify-content: center; ">
@@ -294,19 +331,7 @@
     <!-- Formulario para consultar históricos -->
     
     <!-- Formulario para consultar históricos2 -->
-    <form class="consulta-form2">
-        <!-- Campo de entrada para la fecha de inicio -->
-        <label for="inicio">Fecha y hora de inicio:</label>
-        <input type="text" id="inicio2" name="inicio" data-input>
-
-        <!-- Campo de entrada para la fecha de fin -->
-        <label for="fin">Fecha y hora de fin:</label>
-        <input type="text" id="fin2" name="fin" data-input>
-            
-        <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
-        <button type="button" id="consultar-historicos-btn2" class="btn-form2">Consultar historial</button>
-    
-    </form>
+   
     <input type="range" id="time-slider" min="0" max="0" value="0" style="width: 100%;">
     <input type="range" id="time-slider2" min="0" max="0" value="0" style="width: 100%;">
 
@@ -328,24 +353,53 @@
                     cuestionario.style.display = "none";
             }
             flatpickr("#inicio", {
-            enableTime: true,
-            dateFormat: "Y-m-d H:i",
-            time_24hr: true,
-            maxDate: "today",
-            defaultDate: "01:00",
-            onClose: function(selectedDates) {
-                // Configurar la fecha mínima para el campo de fecha de fin
-                var minDate = selectedDates[0];
-                flatpickr("#fin", {
-                    enableTime: true,
-                    dateFormat: "Y-m-d H:i",
-                    time_24hr: true,
-                    minDate: minDate,
-                    maxDate: "today",
-                    defaultDate: "23:00",
-                });               
-            }  
-        });
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+                time_24hr: true,
+                maxDate: "today",
+                defaultDate: "01:00",
+                onClose: function(selectedDates) {
+                    // Configurar la fecha mínima para el campo de fecha de fin
+                    var minDate = selectedDates[0];
+                    flatpickr("#fin", {
+                        enableTime: true,
+                        dateFormat: "Y-m-d H:i",
+                        time_24hr: true,
+                        minDate: minDate,
+                        maxDate: "today",
+                        defaultDate: "23:00",
+                    });               
+                }  
+            });
+
+        }
+
+        function mostrarCuestionario2() {
+            var cuestionario = document.getElementById("cuestionario2");
+            if (cuestionario.style.display === "none") {
+                    cuestionario.style.display = "block";
+            } else {
+                    cuestionario.style.display = "none";
+            }
+            flatpickr("#inicio2", {
+                enableTime: true,
+                dateFormat: "Y-m-d H:i",
+                time_24hr: true,
+                maxDate: "today",
+                defaultDate: "01:00",
+                onClose: function(selectedDates) {
+                    // Configurar la fecha mínima para el campo de fecha de fin
+                    var minDate = selectedDates[0];
+                    flatpickr("#fin2", {
+                        enableTime: true,
+                        dateFormat: "Y-m-d H:i",
+                        time_24hr: true,
+                        minDate: minDate,
+                        maxDate: "today",
+                        defaultDate: "23:00",
+                    });               
+                }  
+            });
 
         }
         // Añadir capa de OpenStreetMap al mapa
@@ -368,25 +422,7 @@
         // Configuración de Flatpickr para los campos de fecha y hora
         
 
-        flatpickr("#inicio2", {
-            enableTime: true,
-            dateFormat: "Y-m-d H:i",
-            time_24hr: true,
-            maxDate: "today",
-            defaultDate: "01:00",
-            onClose: function(selectedDates) {
-                // Configurar la fecha mínima para el campo de fecha de fin
-                var minDate = selectedDates[0];
-                flatpickr("#fin2", {
-                    enableTime: true,
-                    dateFormat: "Y-m-d H:i",
-                    time_24hr: true,
-                    minDate: minDate,
-                    maxDate: "today",
-                    defaultDate: "23:00",
-                });               
-            }  
-        });
+        
 
         var ruta;
         var marcadorInicio;
