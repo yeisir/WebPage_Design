@@ -321,6 +321,13 @@
         function mostrarCuestionario1() {
             var cuestionario = document.getElementById("cuestionario1");
             cuestionario.style.display = "block";
+            if (cuestionario.style.display === "none") {
+            cuestionario.style.display = "block";
+            contenido.style.display = "block";
+            } else {
+                cuestionario.style.display = "none";
+                contenido.style.display = "none";
+            }
         }
         // Añadir capa de OpenStreetMap al mapa
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
