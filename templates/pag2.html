@@ -491,8 +491,8 @@
         }
 
         var ruta2;
-        var marcadorInicio2;
-        var marcadorFin2;
+        var marker;
+        var markend;
 
         function obtenerCoordenadasHistoricas2() {
             var inicio = $("#inicio2").val();
@@ -501,11 +501,11 @@
             if (ruta2) {
                 mymap.removeLayer(ruta2);
             }
-            if (marcadorInicio2) {
-                mymap.removeLayer(marcadorInicio2);
+            if (marker) {
+                mymap.removeLayer(marker);
             }       
-            if (marcadorFin2) {
-                mymap.removeLayer(marcadorFin2);
+            if (markend) {
+                mymap.removeLayer(markend);
             }
 
             $.ajax({
@@ -518,6 +518,7 @@
                     var historialCoords = [];
                     var timestamps = []; // Crear un array para almacenar los timestamps
                     var rpms = [];
+
 
                     for (var i = 0; i < coordenadas.length; i++) {
                         var latitud = parseFloat(coordenadas[i].latitud);
@@ -532,12 +533,13 @@
                     if (ruta2) {
                         mymap.removeLayer(ruta2);
                     }
-                    if (marcadorInicio2) {
-                        mymap.removeLayer(marcadorInicio2);
+                    if (marker) {
+                        mymap.removeLayer(marker);
+                    }       
+                    if (markend) {
+                        mymap.removeLayer(markend);
                     }
-                    if (marcadorFin2) {
-                        mymap.removeLayer(marcadorFin2);
-                    }
+
                     if (coordenadas.length === 0) {
                         alert("No hay recorridos disponibles.");
                         return;
@@ -547,10 +549,10 @@
                     var bounds2 = ruta.getBounds();
                     mymap.fitBounds(bounds2);
 
-                    var primerPunto = historialCoords[0];
-                    var ultimoPunto = historialCoords[historialCoords.length - 1];
+                    var primero = historialCoords[0];
+                    var end = historialCoords[historialCoords.length - 1];
 
-                    marcadorInicio2 = L.marker(primerPunto, { 
+                    marker = L.marker(primero, { 
                         draggable: true,
                         icon: L.divIcon({
                             className: 'custom-marker',
@@ -558,20 +560,20 @@
                         })
                     }).addTo(mymap);
 
-                    marcadorInicio2.bindPopup("Desplázame al lugar requerido", {
+                    marker.bindPopup("Desplázame al lugar requerido", {
                         autoClose: false // Evita que se cierre automáticamente al abrir otro popup
                     }).openPopup();
 
-                    marcadorFin2 = L.marker(ultimoPunto, {
+                    markend = L.marker(end, {
                         icon: L.divIcon({
                             className: 'custom-marker',
                             html: '<i class="fa-solid fa-flag-checkered fa-2xl" style="color: #000000;"></i>',
                         })
                     }).addTo(mymap);
 
-                    marcadorFin2.bindPopup("Fin de recorrido")
+                    markend.bindPopup("Fin de recorrido")
 
-                    marcadorInicio2.timestamp = timestamps[0];
+                    marker.timestamp = timestamps[0];
 
 
                     var maxSliderValue2 = historialCoords.length - 1;
@@ -583,19 +585,18 @@
                         var sliderValue = parseFloat($(this).val());
                         var index = Math.round(sliderValue); // Obtener el índice correspondiente
                         var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
-                        marcadorInicio2.setLatLng(newPosition2); // Actualizar la posición del marcador
+                        marker.setLatLng(newPosition2); // Actualizar la posición del marcador
                         
                         
-                        var timestamp2 = timestamps[index];
-                        var rpm2 = rpms[index]; // Obtener las RPM correspondientes al índice
-                        actualizarPopup2(newPosition2, timestamp2, rpm2);
+                        var timestamp = timestamps[index];
+                        var rpm = rpms[index]; // Obtener las RPM correspondientes al índice
+                        actualizarPopup2(newPosition, timestamp, rpm);
 
                     });
 
                 }
             });
         }
-
         // Verifica si un punto dado está dentro de una polilínea
         function puntoDentroPolilinea(latlng, polilinea, tolerancia) {
             for (var i = 0; i < polilinea.length; i++) {
