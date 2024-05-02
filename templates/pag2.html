@@ -648,10 +648,10 @@
         }
 
         function actualizarPopup2(latlng, timestamp, rpm) {
-            var formattedTimestamp2 = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
-            marcadorInicio2.timestamp = timestamp; // Guardar el timestamp en el marcador
-            marcadorInicio2.rpm = rpm; // Guardar las RPM en el marcador
-            marcadorInicio2.bindPopup("Timestamp: " + formattedTimestamp + "<br>RPM: " + rpm).openPopup();
+            var formattedTimestamp = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
+            marker.timestamp = timestamp; // Guardar el timestamp en el marcador
+            marker.rpm = rpm; // Guardar las RPM en el marcador
+            marker.bindPopup("Timestamp: " + formattedTimestamp + "<br>RPM: " + rpm).openPopup();
         }
 
         
