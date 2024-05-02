@@ -582,15 +582,15 @@
                     $('#time-slider2').attr('min', 0);
                     
                     $('#time-slider2').on('input', function() {
-                        var sliderValue2 = parseFloat($(this).val());
-                        var index2 = Math.round(sliderValue2); // Obtener el índice correspondiente
-                        var newPosition2 = historialCoords[index2]; // Obtener la nueva posición del marcador
-                        marker.setLatLng(newPosition2); // Actualizar la posición del marcador
+                        var sliderValue = parseFloat($(this).val());
+                        var index = Math.round(sliderValue); // Obtener el índice correspondiente
+                        var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
+                        marker.setLatLng(newPosition); // Actualizar la posición del marcador
                         
                         
                         var timestamp = timestamps[index];
                         var rpm = rpms[index]; // Obtener las RPM correspondientes al índice
-                        actualizarPopup2(newPosition2, timestamp, rpm);
+                        actualizarPopup2(newPosition, timestamp, rpm);
 
                     });
 
