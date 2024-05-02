@@ -273,7 +273,20 @@
         </div>    
     </div>
     
-   
+    <!-- Formulario para consultar históricos -->
+    <form class="consulta-form">
+        <!-- Campo de entrada para la fecha de inicio -->
+        <label for="inicio">Fecha y hora de inicio:</label>
+        <input type="text" id="inicio" name="inicio" data-input>
+
+        <!-- Campo de entrada para la fecha de fin -->
+        <label for="fin">Fecha y hora de fin:</label>
+        <input type="text" id="fin" name="fin" data-input>
+            
+        <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
+        <button type="button" id="consultar-historicos-btn" class="btn-form">Consultar historial</button>
+    
+    </form>
     <!-- Formulario para consultar históricos2 -->
     <form class="consulta-form2">
         <!-- Campo de entrada para la fecha de inicio -->
@@ -301,32 +314,6 @@
     </div>
     <script>
 
-        $(document).ready(function() {
-                $('#btnToggle').click(function() {
-                    $('#contenidoAdicional').toggle(); // Muestra u oculta el contenido adicional al hacer clic en el botón
-
-                    // Configuración de Flatpickr para los campos de fecha y hora
-                    flatpickr("#inicio", {
-                        enableTime: true,
-                        dateFormat: "Y-m-d H:i",
-                        time_24hr: true,
-                        maxDate: "today",
-                        defaultDate: "01:00",
-                        onClose: function(selectedDates) {
-                            // Configurar la fecha mínima para el campo de fecha de fin
-                            var minDate = selectedDates[0];
-                            flatpickr("#fin", {
-                                enableTime: true,
-                                dateFormat: "Y-m-d H:i",
-                                time_24hr: true,
-                                minDate: minDate,
-                                maxDate: "today",
-                                defaultDate: "23:00",
-                            });               
-                        }  
-                    });
-                });
-            });
         // Añadir capa de OpenStreetMap al mapa
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -344,6 +331,26 @@
             });
         }    
 
+        // Configuración de Flatpickr para los campos de fecha y hora
+        flatpickr("#inicio", {
+            enableTime: true,
+            dateFormat: "Y-m-d H:i",
+            time_24hr: true,
+            maxDate: "today",
+            defaultDate: "01:00",
+            onClose: function(selectedDates) {
+                // Configurar la fecha mínima para el campo de fecha de fin
+                var minDate = selectedDates[0];
+                flatpickr("#fin", {
+                    enableTime: true,
+                    dateFormat: "Y-m-d H:i",
+                    time_24hr: true,
+                    minDate: minDate,
+                    maxDate: "today",
+                    defaultDate: "23:00",
+                });               
+            }  
+        });
 
         flatpickr("#inicio2", {
             enableTime: true,
