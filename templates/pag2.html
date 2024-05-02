@@ -257,7 +257,21 @@
         <button class="btn-1" id="btnToggle1" onclick="mostrarCuestionario1();">
          <i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i>
         </button>
+    
+    
+        <button class="btn-2" id="btnToggle2"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;" onclick="mostrarCuestionario2();"></i></button>
+        
        
+
+        <button class="btn-3" id="btnToggle3"><i class="fa-solid fa-car fa-lg" style="color: #000000; margin-right: 5px;"></i><i class="fa-solid fa-truck-front fa-lg" style="color: #000000;" onclick="mostrarCuestionario3();"></i></button>
+        
+
+        <div style="align-items: center; justify-content: center; ">
+            <form action="/tiempo_real" method="post">
+                <button type="submit" class="btn-volver">Ir a tiempo real</button>
+            </form>
+        </div>  
+        
         <div id="cuestionario1" style="display: none;">
             <form class="consulta-form">
                 <!-- Campo de entrada para la fecha de inicio -->
@@ -272,10 +286,7 @@
                 
             </form>
         </div>
-    
-    
-        <button class="btn-2" id="btnToggle2"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;" onclick="mostrarCuestionario2();"></i></button>
-        
+
         <div id="cuestionario2" style="display: none;">
             <form class="consulta-form2">
                 <!-- Campo de entrada para la fecha de inicio -->
@@ -292,7 +303,6 @@
             </form>
         </div>
 
-        <button class="btn-3" id="btnToggle3"><i class="fa-solid fa-car fa-lg" style="color: #000000; margin-right: 5px;"></i><i class="fa-solid fa-truck-front fa-lg" style="color: #000000;" onclick="mostrarCuestionario3();"></i></button>
         <div id="cuestionario3" style="display: none;">
             <form class="consulta-form">
                 <!-- Campo de entrada para la fecha de inicio -->
@@ -321,12 +331,7 @@
             
             </form>
         </div>
-
-        <div style="align-items: center; justify-content: center; ">
-            <form action="/tiempo_real" method="post">
-                <button type="submit" class="btn-volver">Ir a tiempo real</button>
-            </form>
-        </div>    
+        
     </div>
     
     <!-- Formulario para consultar históricos -->
@@ -352,6 +357,12 @@
                     cuestionario.style.display = "block";
             } else {
                     cuestionario.style.display = "none";
+            }
+            var V2 = document.getElementById("cuestionario2");
+            var V3 = document.getElementById("cuestionario3");
+            if (V2 && V3 !== cuestionario) {
+                var cuestionarioVisible = document.getElementById(cuestionarioVisibleId);
+                cuestionarioVisible.style.display = "none";
             }
             flatpickr("#inicio", {
                 enableTime: true,
@@ -403,7 +414,7 @@
             });
 
         }
-        
+
         // Añadir capa de OpenStreetMap al mapa
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
