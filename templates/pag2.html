@@ -892,7 +892,7 @@
                         
                         var timestamp = timestamps[index];
                         var rpm = rpms[index]; // Obtener las RPM correspondientes al índice
-                        actualizarPopup2(newPosition, timestamp, rpm);
+                        actualizarPopup3(newPosition, timestamp, rpm);
 
                     });
 
@@ -912,6 +912,13 @@
             marker.timestamp = timestamp; // Guardar el timestamp en el marcador
             marker.rpm = rpm; // Guardar las RPM en el marcador
             marker.bindPopup("Timestamp: " + formattedTimestamp + "<br>RPM: " + rpm).openPopup();
+        }
+
+        function actualizarPopup3(latlng, timestamp, rpm) {
+            var formattedTimestamp = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
+            mark.timestamp = timestamp; // Guardar el timestamp en el marcador
+            mark.rpm = rpm; // Guardar las RPM en el marcador
+            mark.bindPopup("Timestamp: " + formattedTimestamp + "<br>RPM: " + rpm).openPopup();
         }
 
         
