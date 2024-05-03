@@ -413,20 +413,20 @@
 
         function mostrarCuestionario1() {
             var cuestionario1 = document.getElementById("cuestionario1");
+            var btnToggle1 = document.getElementById("btnToggle1");
 
             // Si hay un cuestionario activo, ocúltalo
             if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
-                document.querySelector('.btn.active').classList.remove('active');
+                btnToggle1.classList.add("active");
             }
 
             // Muestra el nuevo cuestionario
             cuestionario1.style.display = "block";
+            btnToggle1.classList.remove("active");
 
             // Actualiza el cuestionario activo
             cuestionarioActivo = cuestionario1;
-
-            document.getElementById('btnToggle1').classList.add('active');
 
             clean();
             limpiarFechas();
