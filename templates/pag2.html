@@ -826,28 +826,21 @@
                     $('#time-slider3').attr('max', maxSliderValue3);
                     $('#time-slider3').attr('min', 0);
 
-                    $('#time-slider').on('input', function() {
+                    $('#time-slider3').on('input', function() {
                         var sliderValue = parseFloat($(this).val());
                         var index = Math.round(sliderValue);
 
-                        if (index < historialCoords.length) {
-                            var newPosition = historialCoords[index];
-                            mark.setLatLng(newPosition);
-                            mark2.setLatLng(newPosition);
-                            var timestamp = timestamps1[index];
-                            actualizarPopup3(mark, newPosition, timestamp);
-                            actualizarPopup3(mark2, newPosition, timestamp, rpm);
+                        var newPosition1 = historialCoords[index]; // Obtener la nueva posición del marcador
+                        var timestamp1 = timestamps[index];
+                        mark.setLatLng(newPosition1); // Actualizar la posición del marcador
+                        actualizarPopup3(newPosition1, timestamp1);
 
-                        } else {
-                            var newPosition = datosCoords[index - historialCoords.length];
-                            mark.setLatLng(newPosition);
-                            mark2.setLatLng(newPosition);
-                            var timestamp = timestamps2[index - historialCoords.length];
-                            var rpm = rpms[index - historialCoords.length];
-                            actualizarPopup3(mark, newPosition, timestamp);
-                            actualizarPopup3(mark2, newPosition, timestamp, rpm);
-
-                        }
+                        var newPosition2 = datosCoords[index]; // Obtener la nueva posición del marcador
+                        mark2.setLatLng(newPosition2); // Actualizar la posición del marcador
+                        
+                        var timestamp2 = timestamps2[index];
+                        var rpm = rpms[index]; // Obtener las RPM correspondientes al índice
+                        actualizarPopup3(newPosition2, timestamp2, rpm);
                     });
 
                 }
@@ -871,9 +864,14 @@
 
         function actualizarPopup3(marker, latlng, timestamp, rpm) {
             var formattedTimestamp = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
-            marker.timestamp = timestamp; // Guardar el timestamp en el marcador
-            marker.rpm = rpm; // Guardar las RPM en el marcador
-            marker.bindPopup("Timestamp: " + formattedTimestamp + "<br>RPM: " + rpm).openPopup();
+            mark.timestamp = timestamp; // Guardar el timestamp en el marcador
+
+            var formattedTimestamp2 = timestamp1.toLocaleString(); // Formatear el timestamp como una cadena legible
+            mark2.timestamp1 = timestamp1; // Guardar el timestamp en el marcador
+            mark2.rpm = rpm; // Guardar las RPM en el marcador
+
+            mark.bindPopup("Timestamp: " + formattedTimestamp).openPopup();
+            mark2.bindPopup("Timestamp: " + formattedTimestamp2 + "<br>RPM: " + rpm).openPopup();
         }
 
 
