@@ -497,17 +497,14 @@
 
         function mostrarCuestionario3() {
             var cuestionario3 = document.getElementById("cuestionario3");
-            var button3 = document.getElementById("btnToggle3");
 
             // Si hay un cuestionario activo, ocúltalo
             if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
-                button3.classList.remove("active");
             }
 
             // Muestra el nuevo cuestionario
             cuestionario3.style.display = "block";
-            button3.classList.add("active");
 
             // Actualiza el cuestionario activo
             cuestionarioActivo = cuestionario3;
@@ -534,8 +531,6 @@
                     });               
                 }  
             });
-            document.querySelector(".btn-2.active").classList.remove("active");
-            document.querySelector(".btn-1.active").classList.remove("active"); 
         }
         
         // Añadir capa de OpenStreetMap al mapa
