@@ -365,7 +365,7 @@
         var cuestionarioActivo = null;
 
         function mostrarCuestionario1() {
-            var cuestionario = document.getElementById(cuestionarioId);
+            var cuestionario = document.getElementById("cuestionario1");
 
             // Si hay un cuestionario activo, ocúltalo
             if (cuestionarioActivo) {
@@ -421,12 +421,18 @@
         }
 
         function mostrarCuestionario2() {
-            var cuestionario2 = document.getElementById("cuestionario2");
-            if (cuestionario2.style.display === "none") {
-                    cuestionario2.style.display = "block";
-            } else {
-                    cuestionario2.style.display = "none";
+            var cuestionario = document.getElementById("cuestionario2");
+
+            // Si hay un cuestionario activo, ocúltalo
+            if (cuestionarioActivo) {
+                cuestionarioActivo.style.display = "none";
             }
+
+            // Muestra el nuevo cuestionario
+            cuestionario.style.display = "block";
+
+            // Actualiza el cuestionario activo
+            cuestionarioActivo = cuestionario;
             flatpickr("#inicio2", {
                 enableTime: true,
                 dateFormat: "Y-m-d H:i",
