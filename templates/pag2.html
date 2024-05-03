@@ -829,11 +829,11 @@
 
                     $('#time-slider3').on('input', function() {
                         var sliderValue = parseFloat($(this).val());
-                        var index = Math.round(sliderValue);
-
+                        var index = Math.round(sliderValue); // Obtener el índice correspondiente
                         var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
-                        var timestamp = timestamps[index];
                         mark.setLatLng(newPosition); // Actualizar la posición del marcador
+                        
+                        var timestamp = timestamps[index];
                         actualizarPopup3(newPosition, timestamp);
                     });
 
