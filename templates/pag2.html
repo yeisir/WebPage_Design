@@ -316,36 +316,45 @@
 
         <div id="cuestionario3" style="display: none;">
             
-            <form class="consulta-form">
-                <!-- Campo de entrada para la fecha de inicio -->
-                <label for="inicio">Fecha y hora de inicio:</label>
-                <input type="text" id="inicio" name="inicio" data-input>                       
-                <!-- Campo de entrada para la fecha de fin -->
-                <label for="fin">Fecha y hora de fin:</label>
-                <input type="text" id="fin" name="fin" data-input>
-                        
-                <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
-                <button type="button" id="consultar-historicos-btn" class="btn-form">Consultar historial</button>
-                
-            </form>
-
-            <form class="consulta-form2">
-                <!-- Campo de entrada para la fecha de inicio -->
-                <label for="inicio">Fecha y hora de inicio:</label>
-                <input type="text" id="inicio2" name="inicio" data-input>
-        
-                <!-- Campo de entrada para la fecha de fin -->
-                <label for="fin">Fecha y hora de fin:</label>
-                <input type="text" id="fin2" name="fin" data-input>
+            <div id="31" style="display: none;">
+                <form class="consulta-form">
+                    <!-- Campo de entrada para la fecha de inicio -->
+                    <label for="inicio">Fecha y hora de inicio:</label>
+                    <input type="text" id="inicio" name="inicio" data-input>                       
+                    <!-- Campo de entrada para la fecha de fin -->
+                    <label for="fin">Fecha y hora de fin:</label>
+                    <input type="text" id="fin" name="fin" data-input>
+                            
+                    <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
+                    <button type="button" id="consultar-historicos-btn" class="btn-form">Consultar historial</button>
                     
-                <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
-                <button type="button" id="consultar-historicos-btn2" class="btn-form2">Consultar historial</button>
+                </form>
+    
+                <input type="range" id="time-slider" min="0" max="0" value="0" style="width: 100%;">
+           
+           
+            </div>
+
+            <div id="32" style="display: none;">
+                <form class="consulta-form2">
+                    <!-- Campo de entrada para la fecha de inicio -->
+                    <label for="inicio">Fecha y hora de inicio:</label>
+                    <input type="text" id="inicio2" name="inicio" data-input>
             
-            </form>
+                    <!-- Campo de entrada para la fecha de fin -->
+                    <label for="fin">Fecha y hora de fin:</label>
+                    <input type="text" id="fin2" name="fin" data-input>
+                        
+                    <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
+                    <button type="button" id="consultar-historicos-btn2" class="btn-form2">Consultar historial</button>
+                
+                </form>
+    
+                <input type="range" id="time-slider2" min="0" max="0" value="0" style="width: 100%;">
+    
+            </div>
 
-            <input type="range" id="time-slider" min="0" max="0" value="0" style="width: 100%;">
-            <input type="range" id="time-slider2" min="0" max="0" value="0" style="width: 100%;">
-
+           
         </div>
 
     </div>
@@ -477,14 +486,18 @@
 
         function mostrarCuestionario3() {
             var cuestionario3 = document.getElementById("cuestionario3");
+            var form1 = document.getElementById("31");
+            var form2 = document.getElementById("32");
 
             // Si hay un cuestionario activo, ocúltalo
             if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
             }
 
-            // Muestra el nuevo cuestionario
+            // Muestra el nuevo cuestionario y los formularios internos
             cuestionario3.style.display = "block";
+            form1.style.display = "block";
+            form2.style.display = "block";
 
             // Actualiza el cuestionario activo
             cuestionarioActivo = cuestionario3;
