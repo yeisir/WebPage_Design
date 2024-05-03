@@ -397,6 +397,37 @@
     </div>
     <script>
 
+        function clean() {
+
+            if (ruta) {
+                mymap.removeLayer(ruta);
+            }
+            if (marcadorInicio) {
+                mymap.removeLayer(marcadorInicio);
+            }
+            if (marcadorFin) {
+                mymap.removeLayer(marcadorFin);
+            }
+            if (ruta2) {
+                mymap.removeLayer(ruta2);
+            }
+            if (marker) {
+                mymap.removeLayer(marker);
+            }
+            if (markend) {
+                mymap.removeLayer(markend);
+            }
+            if (ruta3) {
+                mymap.removeLayer(ruta3);
+            }
+            if (mark) {
+                mymap.removeLayer(mark);
+            }
+            if (mend) {
+                mymap.removeLayer(mend);
+            }
+        }
+
         var cuestionarioActivo = null;
 
         function mostrarCuestionario1() {
@@ -412,6 +443,9 @@
 
             // Actualiza el cuestionario activo
             cuestionarioActivo = cuestionario1;
+
+            clean();
+
             flatpickr("#inicio", {
                 enableTime: true,
                 dateFormat: "Y-m-d H:i",
@@ -432,27 +466,6 @@
                 }  
             });
 
-            if (ruta) {
-                mymap.removeLayer(ruta);
-            }
-            if (marcadorInicio) {
-                mymap.removeLayer(marcadorInicio);
-            }       
-            if (marcadorFin) {
-                mymap.removeLayer(marcadorFin);
-            }
-
-            if (ruta2) {
-                mymap.removeLayer(ruta2);
-            }
-            if (marker) {
-                mymap.removeLayer(marker);
-            }       
-            if (markend) {
-                mymap.removeLayer(markend);
-            }
-            
-
         }
 
         function mostrarCuestionario2() {
@@ -468,6 +481,9 @@
 
             // Actualiza el cuestionario activo
             cuestionarioActivo = cuestionario2;
+
+            clean();
+
             flatpickr("#inicio2", {
                 enableTime: true,
                 dateFormat: "Y-m-d H:i",
@@ -487,25 +503,8 @@
                     });               
                 }  
             });
-            if (ruta) {
-                mymap.removeLayer(ruta);
-            }
-            if (marcadorInicio) {
-                mymap.removeLayer(marcadorInicio);
-            }       
-            if (marcadorFin) {
-                mymap.removeLayer(marcadorFin);
-            }
-
-            if (ruta2) {
-                mymap.removeLayer(ruta2);
-            }
-            if (marker) {
-                mymap.removeLayer(marker);
-            }       
-            if (markend) {
-                mymap.removeLayer(markend);
-            }
+            
+        
 
         }
 
@@ -523,25 +522,7 @@
             // Actualiza el cuestionario activo
             cuestionarioActivo = cuestionario3;
 
-            if (ruta) {
-                mymap.removeLayer(ruta);
-            }
-            if (marcadorInicio) {
-                mymap.removeLayer(marcadorInicio);
-            }       
-            if (marcadorFin) {
-                mymap.removeLayer(marcadorFin);
-            }
-
-            if (ruta2) {
-                mymap.removeLayer(ruta2);
-            }
-            if (marker) {
-                mymap.removeLayer(marker);
-            }       
-            if (markend) {
-                mymap.removeLayer(markend);
-            }
+            clean();
 
             flatpickr("#inicio3", {
                 enableTime: true,
@@ -596,15 +577,7 @@
             var inicio = $("#inicio").val();
             var fin = $("#fin").val();
 
-            if (ruta) {
-                mymap.removeLayer(ruta);
-            }
-            if (marcadorInicio) {
-                mymap.removeLayer(marcadorInicio);
-            }       
-            if (marcadorFin) {
-                mymap.removeLayer(marcadorFin);
-            }
+            clean();
 
             $.ajax({
                 url: '/consulta_historica',
@@ -624,19 +597,7 @@
                         timestamps.push(timestamp); // Agregar el timestamp al array
                     }
                     
-                    if (ruta) {
-                        mymap.removeLayer(ruta);
-                    }
-                    if (marcadorInicio) {
-                        mymap.removeLayer(marcadorInicio);
-                    }
-                    if (marcadorFin) {
-                        mymap.removeLayer(marcadorFin);
-                    }
-                    if (coordenadas.length === 0) {
-                        alert("No hay recorridos disponibles.");
-                        return;
-                    }
+                    clean();
 
                     ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
                     var bounds = ruta.getBounds();
@@ -696,15 +657,7 @@
             var inicio2 = $("#inicio2").val();
             var fin2 = $("#fin2").val();
 
-            if (ruta2) {
-                mymap.removeLayer(ruta2);
-            }
-            if (marker) {
-                mymap.removeLayer(marker);
-            }       
-            if (markend) {
-                mymap.removeLayer(markend);
-            }
+            clean();
 
             $.ajax({
                 url: '/consulta_data',
@@ -728,15 +681,7 @@
                         rpms.push(rpm);
                     }
 
-                    if (ruta2) {
-                        mymap.removeLayer(ruta2);
-                    }
-                    if (marker) {
-                        mymap.removeLayer(marker);
-                    }       
-                    if (markend) {
-                        mymap.removeLayer(markend);
-                    }
+                    clean();
 
                     if (coordenadas.length === 0) {
                         alert("No hay recorridos disponibles.");
@@ -803,15 +748,7 @@
             var inicio3 = $("#inicio3").val();
             var fin3 = $("#fin3").val();
 
-            if (ruta3) {
-                mymap.removeLayer(ruta3);
-            }
-            if (mark) {
-                mymap.removeLayer(mark);
-            }       
-            if (mend) {
-                mymap.removeLayer(mend);
-            }
+            clean();
 
             $.ajax({
                 url: '/consulta_dos',
@@ -835,15 +772,7 @@
                         rpms.push(rpm);
                     }
 
-                    if (ruta3) {
-                        mymap.removeLayer(ruta3);
-                    }
-                    if (mark) {
-                        mymap.removeLayer(mark);
-                    }       
-                    if (mend) {
-                        mymap.removeLayer(mend);
-                    }
+                    clean();
 
                     if (coordenadas.length === 0) {
                         alert("No hay recorridos disponibles.");
