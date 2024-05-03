@@ -837,7 +837,6 @@
 
                         var newPosition2 = datosCoords[index]; // Obtener la nueva posición del marcador
                         mark2.setLatLng(newPosition2); // Actualizar la posición del marcador
-                        
                         var timestamp2 = timestamps2[index];
                         var rpm = rpms[index]; // Obtener las RPM correspondientes al índice
                         actualizarPopup3(newPosition2, timestamp2, rpm);
@@ -866,8 +865,8 @@
             var formattedTimestamp = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
             mark.timestamp = timestamp; // Guardar el timestamp en el marcador
 
-            var formattedTimestamp2 = timestamp1.toLocaleString(); // Formatear el timestamp como una cadena legible
-            mark2.timestamp1 = timestamp1; // Guardar el timestamp en el marcador
+            var formattedTimestamp2 = timestamp2.toLocaleString(); // Formatear el timestamp como una cadena legible
+            mark2.timestamp2 = timestamp2; // Guardar el timestamp en el marcador
             mark2.rpm = rpm; // Guardar las RPM en el marcador
 
             mark.bindPopup("Timestamp: " + formattedTimestamp).openPopup();
