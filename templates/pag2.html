@@ -53,7 +53,7 @@
             align-items: center;
             justify-content: center; 
         }
-        .btn-1.active {
+        .btn-1.active, .btn-2.active, .btn-3.active {
             background-color: #cc3b62;
         }
         /* Estilos del botón */
@@ -454,14 +454,17 @@
 
         function mostrarCuestionario2() {
             var cuestionario2 = document.getElementById("cuestionario2");
+            var button2 = document.getElementById("btnToggle2");
 
             // Si hay un cuestionario activo, ocúltalo
             if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
+                button2.classList.remove("active");
             }
 
             // Muestra el nuevo cuestionario
             cuestionario2.style.display = "block";
+            button2.classList.add("active");
 
             // Actualiza el cuestionario activo
             cuestionarioActivo = cuestionario2;
@@ -492,14 +495,17 @@
 
         function mostrarCuestionario3() {
             var cuestionario3 = document.getElementById("cuestionario3");
+            var button3 = document.getElementById("btnToggle3");
 
             // Si hay un cuestionario activo, ocúltalo
             if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
+                button3.classList.remove("active");
             }
 
             // Muestra el nuevo cuestionario
             cuestionario3.style.display = "block";
+            button3.classList.add("active");
 
             // Actualiza el cuestionario activo
             cuestionarioActivo = cuestionario3;
