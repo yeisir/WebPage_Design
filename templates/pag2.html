@@ -849,7 +849,8 @@
                         var newPosition2 = datosCoords[index]; // Obtener la nueva posición del marcador
                         mark2.setLatLng(newPosition2); // Actualizar la posición del marcador
                         var timestamp2 = timestamps2[index];
-                        actualizarPopup4(newPosition2, timestamp2);
+                        var rpm = rpm[index]; // Obtener las RPM correspondientes al índice
+                        actualizarPopup4(newPosition2, timestamp2, rpm);
 
                     });
 
