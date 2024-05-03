@@ -528,26 +528,6 @@
                     });               
                 }  
             });
-
-            flatpickr("#inicio2", {
-                enableTime: true,
-                dateFormat: "Y-m-d H:i",
-                time_24hr: true,
-                maxDate: "today",
-                defaultDate: "01:00",
-                onClose: function(selectedDates) {
-                    // Configurar la fecha mínima para el campo de fecha de fin
-                    var minDate = selectedDates[0];
-                    flatpickr("#fin2", {
-                        enableTime: true,
-                        dateFormat: "Y-m-d H:i",
-                        time_24hr: true,
-                        minDate: minDate,
-                        maxDate: "today",
-                        defaultDate: "23:00",
-                    });               
-                }  
-            });
             
 
         }
