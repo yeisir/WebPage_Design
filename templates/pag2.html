@@ -826,26 +826,16 @@
                     $('#time-slider').attr('max', maxSliderValue);
                     $('#time-slider').attr('min', 0);
 
-                    $('#time-slider').on('input', function() {
+                    $('#time-slider2').on('input', function() {
                         var sliderValue = parseFloat($(this).val());
-                        var index = Math.round(sliderValue);
+                        var index = Math.round(sliderValue); // Obtener el índice correspondiente
+                        var newPosition = datosCoords[index]; // Obtener la nueva posición del marcador
+                        marker.setLatLng(newPosition); // Actualizar la posición del marcador
+                        
+                        var timestamp = timestamps[index];
+                        var rpm = rpms[index]; // Obtener las RPM correspondientes al índice
+                        actualizarPopup3(newPosition, timestamp, rpm);
 
-                        if (index < historialCoords.length) {
-                            var newPosition = historialCoords[index];
-                            mark.setLatLng(newPosition);
-                            mark2.setLatLng(newPosition);
-                            var timestamp = timestamps1[index];
-                            actualizarPopup3(mark, newPosition, timestamp, null);
-                            actualizarPopup3(mark2, newPosition, timestamp, null);
-                        } else {
-                            var newPosition = datosCoords[index - historialCoords.length];
-                            mark.setLatLng(newPosition);
-                            mark2.setLatLng(newPosition);
-                            var timestamp = timestamps2[index - historialCoords.length];
-                            var rpm = rpms[index - historialCoords.length];
-                            actualizarPopup3(mark, newPosition, timestamp, rpm);
-                            actualizarPopup3(mark2, newPosition, timestamp, rpm);
-                        }
                     });
 
                 }
