@@ -538,6 +538,9 @@
                     });               
                 }  
             });
+            $('#recenter-button').click(function() {
+             mymap.setView(mark.getLatLng());
+            });
         }
         
         // Añadir capa de OpenStreetMap al mapa
