@@ -448,7 +448,8 @@
                     });               
                 }  
             });
-            cleanbtn()
+            document.querySelector(".btn-2.active").classList.remove("active");
+            document.querySelector(".btn-3.active").classList.remove("active"); 
         }
 
         function mostrarCuestionario2() {
@@ -490,6 +491,8 @@
                     });               
                 }  
             });
+            document.querySelector(".btn-1.active").classList.remove("active");
+            document.querySelector(".btn-3.active").classList.remove("active"); 
         }
 
         function mostrarCuestionario3() {
@@ -531,12 +534,8 @@
                     });               
                 }  
             });
-        }
-
-        //limpiar botónes
-        function cleanbtn() {
-            document.querySelector(".btn-2.active").classList.remove("active");
-            document.querySelector(".btn-3.active").classList.remove("active");            
+            document.querySelector(".btn-1.active").classList.remove("active");
+            document.querySelector(".btn-2.active").classList.remove("active"); 
         }
         
         // Añadir capa de OpenStreetMap al mapa
