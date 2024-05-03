@@ -396,6 +396,15 @@
             if (mend) {
                 mymap.removeLayer(mend);
             }
+            if (ruta4) {
+                mymap.removeLayer(ruta3);
+            }
+            if (mark2) {
+                mymap.removeLayer(mark);
+            }
+            if (mend2) {
+                mymap.removeLayer(mend);
+            }
         }
 
         function limpiarFechas() {
@@ -821,22 +830,21 @@
                         var sliderValue = parseFloat($(this).val());
                         var index = Math.round(sliderValue);
 
-                        // Actualizar la posición del marcador y el popup para ambas rutas
                         if (index < historialCoords.length) {
                             var newPosition = historialCoords[index];
                             mark.setLatLng(newPosition);
-                            mark2.setLatLng(newPosition); // Mover también el marcador de la segunda ruta
+                            mark2.setLatLng(newPosition);
                             var timestamp = timestamps1[index];
                             actualizarPopup3(mark, newPosition, timestamp, null);
-                            actualizarPopup3(mark2, newPosition, timestamp, null); // Actualizar popup para ambas rutas
+                            actualizarPopup3(mark2, newPosition, timestamp, null);
                         } else {
                             var newPosition = datosCoords[index - historialCoords.length];
                             mark.setLatLng(newPosition);
-                            mark2.setLatLng(newPosition); // Mover también el marcador de la segunda ruta
+                            mark2.setLatLng(newPosition);
                             var timestamp = timestamps2[index - historialCoords.length];
                             var rpm = rpms[index - historialCoords.length];
                             actualizarPopup3(mark, newPosition, timestamp, rpm);
-                            actualizarPopup3(mark2, newPosition, timestamp, rpm); // Actualizar popup para ambas rutas
+                            actualizarPopup3(mark2, newPosition, timestamp, rpm);
                         }
                     });
 
