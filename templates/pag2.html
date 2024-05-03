@@ -823,9 +823,16 @@
                     mend2.bindPopup("Fin de recorrido");
 
                     // Configurar slider de tiempo
-                    var maxSliderValue3 = Math.max(historialCoords.length, datosCoords.length) - 1;
+                    var maxSliderValue3;
+                    if (historialCoords.length < datosCoords.length) {
+                        maxSliderValue3 = datosCoords.length - 1;
+                    } else {
+                        maxSliderValue3 = historialCoords.length - 1;
+                    }
+
                     $('#time-slider3').attr('max', maxSliderValue3);
                     $('#time-slider3').attr('min', 0);
+
 
                     $('#time-slider3').on('input', function() {
                         var sliderValue = parseFloat($(this).val());
