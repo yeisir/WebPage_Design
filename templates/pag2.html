@@ -370,7 +370,6 @@
     <script>
 
         function clean() {
-
             if (ruta) {
                 mymap.removeLayer(ruta);
             }
@@ -398,6 +397,7 @@
             if (mend) {
                 mymap.removeLayer(mend);
             }
+            document.querySelector(".btn-1.active").classList.remove("active");
         }
 
         function limpiarFechas() {
