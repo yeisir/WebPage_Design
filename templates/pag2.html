@@ -362,13 +362,21 @@
     </div>
     <script>
 
+        var cuestionarioActivo = null;
+
         function mostrarCuestionario1() {
-            var cuestionario1 = document.getElementById("cuestionario1");
-            if (cuestionario1.style.display === "none") {
-                    cuestionario1.style.display = "block";
-            } else {
-                    cuestionario1.style.display = "none";
+            var cuestionario = document.getElementById(cuestionarioId);
+
+            // Si hay un cuestionario activo, ocúltalo
+            if (cuestionarioActivo) {
+                cuestionarioActivo.style.display = "none";
             }
+
+            // Muestra el nuevo cuestionario
+            cuestionario.style.display = "block";
+
+            // Actualiza el cuestionario activo
+            cuestionarioActivo = cuestionario;
             flatpickr("#inicio", {
                 enableTime: true,
                 dateFormat: "Y-m-d H:i",
