@@ -822,6 +822,8 @@
                     mend.bindPopup("Fin de recorrido");
                     mend2.bindPopup("Fin de recorrido");
 
+                    mark.timestamp = timestamps1[0];
+
                     // Configurar slider de tiempo
                     var maxSliderValue3;
                     if (historialCoords.length < datosCoords.length) {
@@ -841,7 +843,7 @@
                         mark.setLatLng(newPosition2); // Actualizar la posición del marcador
                         
                         var timestamp1 = timestamps1[index];
-                        actualizarPopup3(newPosition2, timestamp);
+                        actualizarPopup3(newPosition2, timestamp1);
                     });
 
                 }
