@@ -205,6 +205,16 @@
         </div>
     </div>
 
+    <div class="control">
+        <div id="b1" class="polilineas">
+            <i class="fas fa-crosshairs"></i>
+        </div>
+        <div id="b2" class="polilineas">
+            <i class="fas fa-crosshairs"></i>
+        </div>
+    </div>
+    
+
     <!-- Incluye la última versión de la librería de Leaflet -->
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
@@ -225,6 +235,24 @@
                 html: '<i class="fa-solid fa-truck fa-2xl" style="color: #000000;"></i>',
             })
         }).addTo(mymap);
+
+        // Define una clase para el control del botón de recentrado en la polilínea 2
+        var RecenterPolylineControl = L.Control.extend({
+            onAdd: function(map) {
+                var container = L.DomUtil.create('div', 'polilineas');
+                container.innerHTML = '<i class="fas fa-map-marker-alt"></i>';
+                container.onclick = function() {
+                    // Lógica para recentrar el mapa en la polilínea 2
+                    map.fitBounds(polyline.getBounds());
+                    mymap.panTo([data.latitud, data.longitud]);                
+                };
+                return container;
+            }
+        });
+
+        // Agrega el control al mapa
+        new RecenterPolylineControl().addTo(mymap);
+
 
         //var polyline2 = L.polyline([]).addTo(mymap);
         //var marker2 = L.marker([0, 0], {
@@ -295,7 +323,7 @@
             polyline.addLatLng([data.latitud, data.longitud]);
 
             // Centra el mapa en la nueva posición
-            mymap.panTo([data.latitud, data.longitud]);
+            //mymap.panTo([data.latitud, data.longitud]);
         }
 
         function actualizarUbicacion2(data) {
@@ -308,10 +336,10 @@
             rpmGauge.refresh(data.rpm);
 
             // Actualiza la posición del marcador en el mapa
-            //marker2.setLatLng([data.latitud, data.longitud]);
+            marker2.setLatLng([data.latitud, data.longitud]);
 
             // Agrega la posición a la polylinea para trazar la ruta
-            //polyline2.addLatLng([data.latitud, data.longitud]);
+            polyline2.addLatLng([data.latitud, data.longitud]);
 
             // Centra el mapa en la nueva posición
             //mymap.panTo([data.latitud, data.longitud]);
