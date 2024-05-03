@@ -162,7 +162,7 @@ def consultar_tablas():
         conexion.close()
         
         # Prepara los registros para enviarlos al frontend
-        coordenadas_json = [{'latitud': str(lat), 'longitud': str(lon), 'timestamp': str(ts), 'rpm': str(rpm)} for lat, lon, ts, rpm in coordenadas_registros]
+        coordenadas_json = [{'latitud': str(lat), 'longitud': str(lon), 'timestamp': str(ts)} for lat, lon, ts in coordenadas_registros]
         datos_json = [{'latitud': str(lat), 'longitud': str(lon), 'timestamp': str(ts), 'rpm': str(rpm)} for lat, lon, ts, rpm in datos_registros]
         
         # Devolver los registros en formato JSON
