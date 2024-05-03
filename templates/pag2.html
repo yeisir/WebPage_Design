@@ -163,7 +163,6 @@
         }
 
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap');
-
         /* Estilos para el formulario2 */
        .consulta-form2 label {
             display: block;
@@ -204,7 +203,6 @@
             cursor: pointer; /* Cambiar el cursor al pasar sobre él */
             margin-top: -5px; /* Alinear el control verticalmente */
         }
-
          /* Estilos para el formulario3 */
        .consulta-form3 label {
             display: block;
@@ -245,7 +243,6 @@
             cursor: pointer; /* Cambiar el cursor al pasar sobre él */
             margin-top: -5px; /* Alinear el control verticalmente */
         }
-
         /* Estilo del mensaje */
         .swal2-popup {
             font-family: 'Roboto', sans-serif; /* Aplica la fuente personalizada */
@@ -279,13 +276,10 @@
     <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
     <!-- Incluye la biblioteca Leaflet.GeometryUtil -->
     <script src="https://cdn.jsdelivr.net/npm/leaflet-geometryutil@0.9.0/leaflet.geometryutil.min.js"></script>
-
     <!-- Incluye Flatpickr para selección de fecha y hora -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
     <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
 </head>
 <body>
     <div class="title">
@@ -294,30 +288,25 @@
                 <h1>Consulta Histórica</h1><p>Gracias por visitar la consulta histórica! Aquí podrás visualizar las coordenadas históricas del vehículo.</p>
             </header>
         </div>
-
         
         <button type="button" class="btn-1" id="btnToggle1" onclick="mostrarCuestionario1();">
          <i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i>
         </button>
     
-    
         <button type="button" class="btn-2" id="btnToggle2" onclick="mostrarCuestionario2();">
             <i class="fa-solid fa-car-side fa-xl" style="color: #000000;"></i>
         </button>
         
-
         <button type="button" class="btn-3" id="btnToggle3" onclick="mostrarCuestionario3();">
             <i class="fa-solid fa-car fa-lg" style="color: #000000; margin-right: 5px;"></i>
             <i class="fa-solid fa-truck-front fa-lg" style="color: #000000;"></i>
         </button>
         
-
         <div style="align-items: center; justify-content: center; ">
             <form action="/tiempo_real" method="post">
                 <button type="submit" class="btn-volver">Ir a tiempo real</button>
             </form>
-        </div>  
-        
+        </div>        
     </div>
     
    
@@ -332,13 +321,9 @@
                 <input type="text" id="fin" name="fin" data-input>
                         
                 <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
-                <button type="button" id="consultar-historicos-btn" class="btn-form">Consultar historial</button>
-                
+                <button type="button" id="consultar-historicos-btn" class="btn-form">Consultar historial</button>  
             </form>
-
             <input type="range" id="time-slider" min="0" max="0" value="0" style="width: 100%;">
-       
-       
         </div>
 
         <div id="cuestionario2" style="display: none;">
@@ -353,11 +338,8 @@
                     
                 <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
                 <button type="button" id="consultar-historicos-btn2" class="btn-form2">Consultar historial</button>
-            
             </form>
-
             <input type="range" id="time-slider2" min="0" max="0" value="0" style="width: 100%;">
-
         </div>
 
         <div id="cuestionario3" style="display: none;">
@@ -372,21 +354,11 @@
                     
                 <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
                 <button type="button" id="consultar-historicos-btn3" class="btn-form3">Consultar historial</button>
-            
             </form>
-
             <input type="range" id="time-slider3" min="0" max="0" value="0" style="width: 100%;">
-
-            
-
-           
         </div>
-
     </div>
     
-
-    
-
     <!-- Contenedor del mapa -->
     <div id="map-container">
         <div id="map" style="height: 100%;"></div>
@@ -445,6 +417,7 @@
             // Si hay un cuestionario activo, ocúltalo
             if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
+                document.querySelector('.btn.active').classList.remove('active');
             }
 
             // Muestra el nuevo cuestionario
@@ -452,6 +425,8 @@
 
             // Actualiza el cuestionario activo
             cuestionarioActivo = cuestionario1;
+
+            document.getElementById('btnToggle1').classList.add('active');
 
             clean();
             limpiarFechas();
@@ -553,8 +528,6 @@
                     });               
                 }  
             });
-            
-
         }
 
         // Añadir capa de OpenStreetMap al mapa
@@ -601,9 +574,7 @@
                         historialCoords.push([latitud, longitud]);
                         timestamps.push(timestamp); // Agregar el timestamp al array
                     }
-                    
                     clean();
-
                     if (coordenadas.length === 0) {
                         alert("No hay recorridos disponibles.");
                         return;
@@ -638,7 +609,6 @@
 
                     marcadorInicio.timestamp = timestamps[0];
 
-                    
                     var maxSliderValue = historialCoords.length - 1;
                     $('#time-slider').attr('max', maxSliderValue);
                     
@@ -654,7 +624,6 @@
                         var timestamp = timestamps[index];
                         actualizarPopup(newPosition, timestamp);
                     });
-
                 }
             });
         }
@@ -679,8 +648,7 @@
                     var historialCoords = [];
                     var timestamps = []; // Crear un array para almacenar los timestamps
                     var rpms = [];
-
-
+                    
                     for (var i = 0; i < coordenadas.length; i++) {
                         var latitud = parseFloat(coordenadas[i].latitud);
                         var longitud = parseFloat(coordenadas[i].longitud);
@@ -690,9 +658,7 @@
                         timestamps.push(timestamp); // Agregar el timestamp al array
                         rpms.push(rpm);
                     }
-
                     clean();
-
                     if (coordenadas.length === 0) {
                         alert("No hay recorridos disponibles.");
                         return;
@@ -726,8 +692,7 @@
                     markend.bindPopup("Fin de recorrido")
 
                     marker.timestamp = timestamps[0];
-
-
+                    
                     var maxSliderValue2 = historialCoords.length - 1;
                     $('#time-slider2').attr('max', maxSliderValue2);
                     
@@ -745,7 +710,6 @@
                         actualizarPopup2(newPosition, timestamp, rpm);
 
                     });
-
                 }
             });
         }
@@ -770,8 +734,7 @@
                     var historialCoords = [];
                     var timestamps = []; // Crear un array para almacenar los timestamps
                     var rpms = [];
-
-
+                    
                     for (var i = 0; i < coordenadas.length; i++) {
                         var latitud = parseFloat(coordenadas[i].latitud);
                         var longitud = parseFloat(coordenadas[i].longitud);
@@ -781,9 +744,7 @@
                         timestamps.push(timestamp); // Agregar el timestamp al array
                         rpms.push(rpm);
                     }
-
                     clean();
-
                     if (coordenadas.length === 0) {
                         alert("No hay recorridos disponibles.");
                         return;
@@ -818,7 +779,6 @@
 
                     mark.timestamp = timestamps[0];
 
-
                     var maxSliderValue3 = historialCoords.length - 1;
                     $('#time-slider3').attr('max', maxSliderValue3);
                     
@@ -836,7 +796,6 @@
                         actualizarPopup3(newPosition, timestamp, rpm);
 
                     });
-
                 }
             });
         }
