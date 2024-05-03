@@ -823,10 +823,10 @@
 
                     // Configurar slider de tiempo
                     var maxSliderValue3 = datosCoords.length - 1;
-                    $('#time-slider').attr('max', maxSliderValue3);
-                    $('#time-slider').attr('min', 0);
+                    $('#time-slider3').attr('max', maxSliderValue3);
+                    $('#time-slider3').attr('min', 0);
 
-                    $('#time-slider2').on('input', function() {
+                    $('#time-slider3').on('input', function() {
                         var sliderValue = parseFloat($(this).val());
                         var index = Math.round(sliderValue); // Obtener el índice correspondiente
                         var newPosition = datosCoords[index]; // Obtener la nueva posición del marcador
