@@ -592,6 +592,11 @@
                     
                     clean();
 
+                    if (coordenadas.length === 0) {
+                        alert("No hay recorridos disponibles.");
+                        return;
+                    }
+
                     ruta = L.polyline(historialCoords, {color: 'red'}).addTo(mymap);
                     var bounds = ruta.getBounds();
                     mymap.fitBounds(bounds);
