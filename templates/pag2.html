@@ -416,7 +416,9 @@
             // Si hay un cuestionario activo, ocúltalo
             if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
-                button.classList.remove("active");
+                document.querySelector(".btn-1.active").classList.remove("active");
+                document.querySelector(".btn-2.active").classList.remove("active");
+                document.querySelector(".btn-3.active").classList.remove("active");
             }
 
             // Muestra el nuevo cuestionario
@@ -448,8 +450,6 @@
                     });               
                 }  
             });
-            document.querySelector(".btn-2.active").classList.remove("active");
-            document.querySelector(".btn-3.active").classList.remove("active"); 
         }
 
         function mostrarCuestionario2() {
@@ -459,7 +459,9 @@
             // Si hay un cuestionario activo, ocúltalo
             if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
-                button2.classList.remove("active");
+                document.querySelector(".btn-1.active").classList.remove("active");
+                document.querySelector(".btn-2.active").classList.remove("active");
+                document.querySelector(".btn-3.active").classList.remove("active");
             }
 
             // Muestra el nuevo cuestionario
@@ -491,8 +493,6 @@
                     });               
                 }  
             });
-            document.querySelector(".btn-1.active").classList.remove("active");
-            document.querySelector(".btn-3.active").classList.remove("active"); 
         }
 
         function mostrarCuestionario3() {
@@ -502,7 +502,9 @@
             // Si hay un cuestionario activo, ocúltalo
             if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
-                button3.classList.remove("active");
+                document.querySelector(".btn-1.active").classList.remove("active");
+                document.querySelector(".btn-2.active").classList.remove("active");
+                document.querySelector(".btn-3.active").classList.remove("active");
             }
 
             // Muestra el nuevo cuestionario
@@ -513,8 +515,6 @@
             cuestionarioActivo = cuestionario3;
 
             clean();
-            document.querySelector(".btn-2.active").classList.remove("active");
-            document.querySelector(".btn-1.active").classList.remove("active"); 
             limpiarFechas();
 
             flatpickr("#inicio3", {
