@@ -454,6 +454,10 @@
                     });               
                 }  
             });
+
+            $('#recenter-button').click(function() {
+             mymap.setView(marcadorInicio.getLatLng());
+            });
         }
 
         function mostrarCuestionario2() {
@@ -491,6 +495,10 @@
                         defaultDate: "23:00",
                     });               
                 }  
+            });
+
+            $('#recenter-button').click(function() {
+             mymap.setView(marker.getLatLng());
             });
         }
 
@@ -913,9 +921,7 @@
             $('#time-slider3').val(0);
         });
 
-        $('#recenter-button').click(function() {
-            mymap.setView(marcadorInicio.getLatLng());
-        });
+        
     </script>
 </body>
 </html>
