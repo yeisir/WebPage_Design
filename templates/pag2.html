@@ -831,10 +831,10 @@
                         var sliderValue = parseFloat($(this).val());
                         var index = Math.round(sliderValue);
 
-                        var newPosition1 = historialCoords[index]; // Obtener la nueva posición del marcador
-                        var timestamp1 = timestamps[index];
-                        mark.setLatLng(newPosition1); // Actualizar la posición del marcador
-                        actualizarPopup3(newPosition1, timestamp1);
+                        var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
+                        var timestamp = timestamps[index];
+                        mark.setLatLng(newPosition); // Actualizar la posición del marcador
+                        actualizarPopup3(newPosition, timestamp);
 
                         var newPosition2 = datosCoords[index]; // Obtener la nueva posición del marcador
                         mark2.setLatLng(newPosition2); // Actualizar la posición del marcador
