@@ -837,11 +837,11 @@
                     $('#time-slider3').on('input', function() {
                         var sliderValue = parseFloat($(this).val());
                         var index = Math.round(sliderValue); // Obtener el índice correspondiente
-                        var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
-                        mark.setLatLng(newPosition); // Actualizar la posición del marcador
+                        var newPosition2 = historialCoords[index]; // Obtener la nueva posición del marcador
+                        mark.setLatLng(newPosition2); // Actualizar la posición del marcador
                         
                         var timestamp2 = timestamps[index];
-                        actualizarPopup3(newPosition, timestamp2);
+                        actualizarPopup3(newPosition2, timestamp2);
                     });
 
                 }
