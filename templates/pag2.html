@@ -823,6 +823,7 @@
                     mend2.bindPopup("Fin de recorrido");
 
                     mark.timestamp = timestamps1[0];
+                    mark2.timestamp = timestamps2[0];
 
                     // Configurar slider de tiempo
                     var maxSliderValue3;
@@ -839,11 +840,16 @@
                     $('#time-slider3').on('input', function() {
                         var sliderValue = parseFloat($(this).val());
                         var index = Math.round(sliderValue); // Obtener el índice correspondiente
-                        var newPosition2 = historialCoords[index]; // Obtener la nueva posición del marcador
-                        mark.setLatLng(newPosition2); // Actualizar la posición del marcador
-                        
+                        var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
+                        mark.setLatLng(newPosition); // Actualizar la posición del marcador
                         var timestamp = timestamps1[index];
-                        actualizarPopup3(newPosition2, timestamp);
+                        actualizarPopup3(newPosition, timestamp);
+
+                        var newPosition2 = datosCoords[index]; // Obtener la nueva posición del marcador
+                        mark2.setLatLng(newPosition2); // Actualizar la posición del marcador
+                        var timestamp2 = timestamps2[index];
+                        actualizarPopup4(newPosition2, timestamp2);
+
                     });
 
                 }
@@ -866,9 +872,16 @@
         }
 
         function actualizarPopup3(latlng, timestamp) {
-            var formattedTimestamp1 = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
+            var formattedTimestamp = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
             mark.timestamp = timestamp; // Guardar el timestamp en el marcador
-            mark.bindPopup("Timestamp: " + formattedTimestamp1).openPopup();
+            mark.bindPopup("Timestamp: " + formattedTimestamp).openPopup();
+        }
+
+        function actualizarPopup4(latlng, timestamp, rpm) {
+            var formattedTimestamp = timestamp2.toLocaleString(); // Formatear el timestamp como una cadena legible
+            mark2.timestamp = timestamp2; // Guardar el timestamp en el marcador
+            mark2.rpm = rpm; // Guardar las RPM en el marcador
+            mark2.bindPopup("Timestamp: " + formattedTimestamp + "<br>RPM: " + rpm).openPopup();
         }
 
 
