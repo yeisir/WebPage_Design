@@ -372,6 +372,18 @@
     </div>
     <script>
 
+        function vincularEventosConsulta() {
+            $('#consultar-historicos-btn').click(function() {
+                obtenerCoordenadasHistoricas();
+                $('#time-slider').val(0);
+            });
+
+            $('#consultar-historicos-btn2').click(function() {
+                obtenerCoordenadasHistoricas2();
+                $('#time-slider2').val(0);
+            });
+        }
+
         var cuestionarioActivo = null;
 
         function mostrarCuestionario1() {
@@ -501,6 +513,8 @@
 
             // Actualiza el cuestionario activo
             cuestionarioActivo = cuestionario3;
+
+            vincularEventosConsulta();
 
             if (ruta) {
                 mymap.removeLayer(ruta);
