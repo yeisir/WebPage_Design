@@ -418,12 +418,12 @@
             // Si hay un cuestionario activo, ocúltalo
             if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
-                btnToggle1.classList.add("active");
+                btnToggle1.classList.remove("active");
             }
 
             // Muestra el nuevo cuestionario
             cuestionario1.style.display = "block";
-            btnToggle1.classList.remove("active");
+            btnToggle1.classList.add("active");
 
             // Actualiza el cuestionario activo
             cuestionarioActivo = cuestionario1;
