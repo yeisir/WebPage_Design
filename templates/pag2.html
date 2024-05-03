@@ -496,8 +496,6 @@
         }
 
         function mostrarCuestionario3() {
-            document.querySelector(".btn-1.active").classList.remove("active");
-            document.querySelector(".btn-2.active").classList.remove("active"); 
             var cuestionario3 = document.getElementById("cuestionario3");
             var button3 = document.getElementById("btnToggle3");
 
@@ -515,6 +513,8 @@
             cuestionarioActivo = cuestionario3;
 
             clean();
+            document.querySelector(".btn-1.active").classList.remove("active");
+            document.querySelector(".btn-2.active").classList.remove("active"); 
             limpiarFechas();
 
             flatpickr("#inicio3", {
