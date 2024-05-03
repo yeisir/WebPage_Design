@@ -367,9 +367,8 @@
             <i class="fas fa-crosshairs"></i>
         </div>
     </div>
-    <script>
-
-        function clean() {
+<script>
+    function clean() {
             if (ruta) {
                 mymap.removeLayer(ruta);
             }
@@ -397,7 +396,6 @@
             if (mend) {
                 mymap.removeLayer(mend);
             }
-            document.querySelector(".btn-1.active").classList.remove("active");
         }
 
         function limpiarFechas() {
@@ -450,6 +448,7 @@
                     });               
                 }  
             });
+            cleanbtn()
         }
 
         function mostrarCuestionario2() {
@@ -534,6 +533,13 @@
             });
         }
 
+        //limpiar botónes
+        function cleanbtn() {
+            document.querySelector(".btn-1.active").classList.remove("active");
+            document.querySelector(".btn-2.active").classList.remove("active");
+            document.querySelector(".btn-3.active").classList.remove("active");            
+        }
+        
         // Añadir capa de OpenStreetMap al mapa
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
