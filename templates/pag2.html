@@ -277,6 +277,15 @@
             background-color: #cc3b62; /* Color de fondo del botón */
             color: white; /* Color del texto del botón */
         }
+        .leaflet-control-group {
+            display: flex;
+            flex-direction: row;
+        }
+
+        .leaflet-bar {
+            margin-right: 5px; /* Espacio entre los botones */
+        }
+
         
     </style>
     <!-- Incluye jQuery -->
@@ -375,12 +384,15 @@
     <div id="map-container">
         <div id="map" style="height: 100%;"></div>
 
-        <div id="recenter-button" class="leaflet-bar leaflet-control">
-            <i class="fas fa-crosshairs"></i>
+        <div class="leaflet-control-group">
+            <div id="recenter-button" class="leaflet-bar leaflet-control">
+                <i class="fas fa-crosshairs"></i>
+            </div>
+            <div id="recenter-button2" class="leaflet-bar leaflet-control">
+                <i class="fas fa-crosshairs"></i>
+            </div>
         </div>
-        <div id="recenter-button2" class="leaflet-bar leaflet-control">
-            <i class="fas fa-crosshairs"></i>
-        </div>
+        
     </div>
 <script>
     function clean() {
