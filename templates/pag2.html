@@ -840,8 +840,8 @@
                         var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
                         mark.setLatLng(newPosition); // Actualizar la posición del marcador
                         
-                        var timestamp = timestamps[index];
-                        actualizarPopup3(mark, newPosition, timestamp);
+                        var timestamp2 = timestamps[index];
+                        actualizarPopup3(newPosition, timestamp2);
                     });
 
                 }
@@ -863,9 +863,9 @@
             marker.bindPopup("Timestamp: " + formattedTimestamp + "<br>RPM: " + rpm).openPopup();
         }
 
-        function actualizarPopup3(mark, latlng, timestamp) {
-            var formattedTimestamp = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
-            mark.timestamp = timestamp; // Guardar el timestamp en el marcador
+        function actualizarPopup3(latlng, timestamp) {
+            var formattedTimestamp = timestamp2.toLocaleString(); // Formatear el timestamp como una cadena legible
+            mark.timestamp = timestamp2; // Guardar el timestamp en el marcador
             mark.bindPopup("Timestamp: " + formattedTimestamp).openPopup();
         }
 
