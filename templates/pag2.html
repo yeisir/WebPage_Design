@@ -416,9 +416,7 @@
             // Si hay un cuestionario activo, ocúltalo
             if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
-                document.querySelector(".btn-1.active").classList.remove("active");
-                document.querySelector(".btn-2.active").classList.remove("active");
-                document.querySelector(".btn-3.active").classList.remove("active");
+                var button = document.getElementById("btnToggle1");
             }
 
             // Muestra el nuevo cuestionario
@@ -450,6 +448,8 @@
                     });               
                 }  
             });
+            document.querySelector(".btn-2.active").classList.remove("active");
+            document.querySelector(".btn-3.active").classList.remove("active");
         }
 
         function mostrarCuestionario2() {
@@ -459,9 +459,7 @@
             // Si hay un cuestionario activo, ocúltalo
             if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
-                document.querySelector(".btn-1.active").classList.remove("active");
-                document.querySelector(".btn-2.active").classList.remove("active");
-                document.querySelector(".btn-3.active").classList.remove("active");
+                var button2 = document.getElementById("btnToggle2");
             }
 
             // Muestra el nuevo cuestionario
@@ -493,6 +491,8 @@
                     });               
                 }  
             });
+            document.querySelector(".btn-1.active").classList.remove("active");
+            document.querySelector(".btn-3.active").classList.remove("active");
         }
 
         function mostrarCuestionario3() {
@@ -502,9 +502,7 @@
             // Si hay un cuestionario activo, ocúltalo
             if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
-                document.querySelector(".btn-1.active").classList.remove("active");
-                document.querySelector(".btn-2.active").classList.remove("active");
-                document.querySelector(".btn-3.active").classList.remove("active");
+                var button3 = document.getElementById("btnToggle3");
             }
 
             // Muestra el nuevo cuestionario
@@ -536,6 +534,8 @@
                     });               
                 }  
             });
+            document.querySelector(".btn-2.active").classList.remove("active");
+            document.querySelector(".btn-1.active").classList.remove("active");
         }
         
         // Añadir capa de OpenStreetMap al mapa
