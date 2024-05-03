@@ -412,12 +412,19 @@
         function mostrarCuestionario1() {
             var cuestionario1 = document.getElementById("cuestionario1");
             var button = document.getElementById("btnToggle1");
+            var button2 = document.getElementById("btnToggle2");
+            var button3 = document.getElementById("btnToggle3");
 
             // Si hay un cuestionario activo, ocúltalo
-            if (cuestionarioActivo) {
+            if (cuestionarioActivo && cuestionarioActivo.id !== "cuestionario1") {
                 cuestionarioActivo.style.display = "none";
-                var button = document.getElementById("btnToggle1");
-            }
+                if (button2.classList.contains("active")) {
+                    button2.classList.remove("active");
+                }
+                if (button3.classList.contains("active")) {
+                    button3.classList.remove("active");
+                }
+            }}
 
             // Muestra el nuevo cuestionario
             cuestionario1.style.display = "block";
@@ -454,13 +461,20 @@
 
         function mostrarCuestionario2() {
             var cuestionario2 = document.getElementById("cuestionario2");
+            var button = document.getElementById("btnToggle1");
             var button2 = document.getElementById("btnToggle2");
+            var button3 = document.getElementById("btnToggle3");
 
             // Si hay un cuestionario activo, ocúltalo
-            if (cuestionarioActivo) {
+            if (cuestionarioActivo && cuestionarioActivo.id !== "cuestionario2") {
                 cuestionarioActivo.style.display = "none";
-                var button2 = document.getElementById("btnToggle2");
-            }
+                if (button.classList.contains("active")) {
+                    button.classList.remove("active");
+                }
+                if (button3.classList.contains("active")) {
+                    button3.classList.remove("active");
+                }
+            }}
 
             // Muestra el nuevo cuestionario
             cuestionario2.style.display = "block";
@@ -497,13 +511,20 @@
 
         function mostrarCuestionario3() {
             var cuestionario3 = document.getElementById("cuestionario3");
+            var button = document.getElementById("btnToggle1");
+            var button2 = document.getElementById("btnToggle2");
             var button3 = document.getElementById("btnToggle3");
 
             // Si hay un cuestionario activo, ocúltalo
-            if (cuestionarioActivo) {
+            if (cuestionarioActivo && cuestionarioActivo.id !== "cuestionario1") {
                 cuestionarioActivo.style.display = "none";
-                var button3 = document.getElementById("btnToggle3");
-            }
+                if (button.classList.contains("active")) {
+                    button.classList.remove("active");
+                }
+                if (button2.classList.contains("active")) {
+                    button2.classList.remove("active");
+                }
+            }}
 
             // Muestra el nuevo cuestionario
             cuestionario3.style.display = "block";
