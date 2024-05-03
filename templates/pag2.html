@@ -485,75 +485,66 @@
         }
 
         function mostrarCuestionario3() {
-            // Ocultar cualquier cuestionario activo
+            var cuestionario3 = document.getElementById("cuestionario3");
+            var form1 = document.getElementById("31");
+            var form2 = document.getElementById("32");
+
+            // Si hay un cuestionario activo, ocúltalo
             if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
             }
 
-            // Mostrar el nuevo cuestionario
-            var cuestionario3 = document.getElementById("cuestionario3");
+            // Muestra el nuevo cuestionario y los formularios internos
             cuestionario3.style.display = "block";
+            form1.style.display = "block";
+            form2.style.display = "block";
+
+            // Actualiza el cuestionario activo
             cuestionarioActivo = cuestionario3;
 
-            // Mostrar los formularios internos
-            mostrarFormulario("31");
-            mostrarFormulario("32");
-
-            // Limpiar capas del mapa si es necesario
-            limpiarCapasMapa();
-
-            // Configurar flatpickr para los campos de fecha y hora
-            configurarFlatpickr("#inicio", "#fin");
-            configurarFlatpickr("#inicio2", "#fin2");
-        }
-
-        function mostrarFormulario(idFormulario) {
-            var formulario = document.getElementById(idFormulario);
-            if (formulario) {
-                formulario.style.display = "block";
-            }
-        }
-
-        function limpiarCapasMapa() {
             if (ruta) {
                 mymap.removeLayer(ruta);
             }
             if (marcadorInicio) {
                 mymap.removeLayer(marcadorInicio);
-            }
+            }       
             if (marcadorFin) {
                 mymap.removeLayer(marcadorFin);
             }
+
             if (ruta2) {
                 mymap.removeLayer(ruta2);
             }
             if (marker) {
                 mymap.removeLayer(marker);
-            }
+            }       
             if (markend) {
                 mymap.removeLayer(markend);
             }
-        }
 
-        function configurarFlatpickr(selectorInicio, selectorFin) {
-            flatpickr(selectorInicio, {
+            flatpickr("#inicio", {
                 enableTime: true,
                 dateFormat: "Y-m-d H:i",
                 time_24hr: true,
                 maxDate: "today",
                 defaultDate: "01:00",
                 onClose: function(selectedDates) {
+                    // Configurar la fecha mínima para el campo de fecha de fin
                     var minDate = selectedDates[0];
-                    flatpickr(selectorFin, {
+                    flatpickr("#fin", {
                         enableTime: true,
                         dateFormat: "Y-m-d H:i",
                         time_24hr: true,
                         minDate: minDate,
                         maxDate: "today",
                         defaultDate: "23:00",
-                    });
-                }
+                    });               
+                }  
             });
+
+           
+            
+
         }
 
         // Añadir capa de OpenStreetMap al mapa
