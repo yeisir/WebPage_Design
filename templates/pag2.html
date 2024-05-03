@@ -475,12 +475,18 @@
         }
 
         function mostrarCuestionario3() {
-            var cuestionario3 = document.getElementById("cuestionario3");
-            if (cuestionario3.style.display === "none") {
-                    cuestionario3.style.display = "block";
-            } else {
-                    cuestionario3.style.display = "none";
+            var cuestionario = document.getElementById("cuestionario3");
+
+            // Si hay un cuestionario activo, ocúltalo
+            if (cuestionarioActivo) {
+                cuestionarioActivo.style.display = "none";
             }
+
+            // Muestra el nuevo cuestionario
+            cuestionario.style.display = "block";
+
+            // Actualiza el cuestionario activo
+            cuestionarioActivo = cuestionario;
 
             flatpickr("#inicio", {
                 enableTime: true,
