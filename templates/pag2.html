@@ -416,7 +416,7 @@
             var button3 = document.getElementById("btnToggle3");
 
             // Si hay un cuestionario activo, ocúltalo
-            if (cuestionarioActivo && cuestionarioActivo.id !== "cuestionario1") {
+            if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
                 if (button2.classList.contains("active")) {
                     button2.classList.remove("active");
@@ -455,8 +455,6 @@
                     });               
                 }  
             });
-            document.querySelector(".btn-2.active").classList.remove("active");
-            document.querySelector(".btn-3.active").classList.remove("active");
         }
 
         function mostrarCuestionario2() {
@@ -466,7 +464,7 @@
             var button3 = document.getElementById("btnToggle3");
 
             // Si hay un cuestionario activo, ocúltalo
-            if (cuestionarioActivo && cuestionarioActivo.id !== "cuestionario2") {
+            if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
                 if (button.classList.contains("active")) {
                     button.classList.remove("active");
@@ -505,8 +503,6 @@
                     });               
                 }  
             });
-            document.querySelector(".btn-1.active").classList.remove("active");
-            document.querySelector(".btn-3.active").classList.remove("active");
         }
 
         function mostrarCuestionario3() {
@@ -516,7 +512,7 @@
             var button3 = document.getElementById("btnToggle3");
 
             // Si hay un cuestionario activo, ocúltalo
-            if (cuestionarioActivo && cuestionarioActivo.id !== "cuestionario1") {
+            if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
                 if (button.classList.contains("active")) {
                     button.classList.remove("active");
@@ -555,8 +551,6 @@
                     });               
                 }  
             });
-            document.querySelector(".btn-2.active").classList.remove("active");
-            document.querySelector(".btn-1.active").classList.remove("active");
         }
         
         // Añadir capa de OpenStreetMap al mapa
