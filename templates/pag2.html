@@ -99,8 +99,20 @@
             bottom: 10px;
             left: 10px;
         }
+        #recenter-button2 {
+            background-color: white;
+            border-radius: 5px;
+            padding: 5px;
+            cursor: pointer;
+            position: absolute;
+            bottom: 10px;
+            left: 10px;
+        }
         #recenter-button i {
             color: #cc3b62; /* Color rosa oscuro */
+        }
+        #recenter-button2 i {
+            color: #863bcc; /* Color rosa oscuro */
         }
         /* Estilos para el formulario */
         .consulta-form, .consulta-form2, .consulta-form3 {
@@ -364,6 +376,9 @@
         <div id="map" style="height: 100%;"></div>
 
         <div id="recenter-button" class="leaflet-bar leaflet-control">
+            <i class="fas fa-crosshairs"></i>
+        </div>
+        <div id="recenter-button2" class="leaflet-bar leaflet-control">
             <i class="fas fa-crosshairs"></i>
         </div>
     </div>
