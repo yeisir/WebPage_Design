@@ -488,6 +488,26 @@
             // Actualiza el cuestionario activo
             cuestionarioActivo = cuestionario3;
 
+            if (ruta) {
+                mymap.removeLayer(ruta);
+            }
+            if (marcadorInicio) {
+                mymap.removeLayer(marcadorInicio);
+            }       
+            if (marcadorFin) {
+                mymap.removeLayer(marcadorFin);
+            }
+
+            if (ruta2) {
+                mymap.removeLayer(ruta2);
+            }
+            if (marker) {
+                mymap.removeLayer(marker);
+            }       
+            if (markend) {
+                mymap.removeLayer(markend);
+            }
+
             flatpickr("#inicio", {
                 enableTime: true,
                 dateFormat: "Y-m-d H:i",
@@ -527,25 +547,7 @@
                     });               
                 }  
             });
-            if (ruta) {
-                mymap.removeLayer(ruta);
-            }
-            if (marcadorInicio) {
-                mymap.removeLayer(marcadorInicio);
-            }       
-            if (marcadorFin) {
-                mymap.removeLayer(marcadorFin);
-            }
-
-            if (ruta2) {
-                mymap.removeLayer(ruta2);
-            }
-            if (marker) {
-                mymap.removeLayer(marker);
-            }       
-            if (markend) {
-                mymap.removeLayer(markend);
-            }
+            
 
         }
 
