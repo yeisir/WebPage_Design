@@ -751,7 +751,6 @@
                     var end = historialCoords[historialCoords.length - 1];
 
                     marker = L.marker(primero, { 
-                        draggable: true,
                         icon: L.divIcon({
                             className: 'custom-marker',
                             html: '<i class="fa-solid fa-location-crosshairs fa-2xl" style="color: #3f5a8d;"></i>',
@@ -801,8 +800,8 @@
         var mend;
 
         function obtenerCoordenadasHistoricas3() {
-            var inicio2 = $("#inicio3").val();
-            var fin2 = $("#fin3").val();
+            var inicio3 = $("#inicio3").val();
+            var fin3 = $("#fin3").val();
 
             if (ruta3) {
                 mymap.removeLayer(ruta3);
@@ -859,7 +858,6 @@
                     var last = historialCoords[historialCoords.length - 1];
 
                     mark = L.marker(prim, { 
-                        draggable: true,
                         icon: L.divIcon({
                             className: 'custom-marker',
                             html: '<i class="fa-solid fa-location-crosshairs fa-2xl" style="color: #3f5a8d;"></i>',
