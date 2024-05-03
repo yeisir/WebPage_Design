@@ -840,6 +840,7 @@
                     $('#time-slider3').on('input', function() {
                         var sliderValue = parseFloat($(this).val());
                         var index = Math.round(sliderValue); // Obtener el índice correspondiente
+                        
                         var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
                         mark.setLatLng(newPosition); // Actualizar la posición del marcador
                         var timestamp = timestamps1[index];
@@ -878,8 +879,8 @@
         }
 
         function actualizarPopup4(latlng, timestamp, rpm) {
-            var formattedTimestamp = timestamp2.toLocaleString(); // Formatear el timestamp como una cadena legible
-            mark2.timestamp = timestamp2; // Guardar el timestamp en el marcador
+            var formattedTimestamp = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
+            mark2.timestamp = timestamp; // Guardar el timestamp en el marcador
             mark2.rpm = rpm; // Guardar las RPM en el marcador
             mark2.bindPopup("Timestamp: " + formattedTimestamp + "<br>RPM: " + rpm).openPopup();
         }
