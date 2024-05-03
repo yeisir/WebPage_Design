@@ -145,24 +145,31 @@ def consultar_tablas():
     
     # Verifica si hay valores para inicio y fin
     if inicio3 is not None and fin3 is not None:
-        # Realiza la conexión con la base de datos y ejecuta la consulta SQL
+        # Realiza la conexión con la base de datos y ejecuta la consulta SQL para la tabla coordenadas
         conexion = mysql.connector.connect(**db_config)
         cursor = conexion.cursor()
-        consulta = ("SELECT Latitud, Longitud, Timestamp, RPM FROM datos " # Agregar RPM a la consulta
-                    "WHERE timestamp >= %s AND timestamp <= %s")
-        cursor.execute(consulta, (inicio3, fin3))
-        registros = cursor.fetchall()
+        consulta_coordenadas = ("SELECT Latitud, Longitud, Timestamp FROM coordenadas " 
+                                "WHERE timestamp >= %s AND timestamp <= %s")
+        cursor.execute(consulta_coordenadas, (inicio3, fin3))
+        coordenadas_registros = cursor.fetchall()
+
+        # Ejecuta la consulta SQL para la tabla datos
+        consulta_datos = ("SELECT Latitud, Longitud, Timestamp, RPM FROM datos " 
+                          "WHERE timestamp >= %s AND timestamp <= %s")
+        cursor.execute(consulta_datos, (inicio3, fin3))
+        datos_registros = cursor.fetchall()
+
         conexion.close()
         
         # Prepara los registros para enviarlos al frontend
-        coordenadas_json = [{'latitud': str(lat), 'longitud': str(lon), 'timestamp': str(ts), 'rpm': str(rpm)} for lat, lon, ts, rpm in registros]
+        coordenadas_json = [{'latitud': str(lat), 'longitud': str(lon), 'timestamp': str(ts), 'rpm': str(rpm)} for lat, lon, ts, rpm in coordenadas_registros]
+        datos_json = [{'latitud': str(lat), 'longitud': str(lon), 'timestamp': str(ts), 'rpm': str(rpm)} for lat, lon, ts, rpm in datos_registros]
         
         # Devolver los registros en formato JSON
-        return jsonify({'coordenadas': coordenadas_json})
+        return jsonify({'coordenadas': coordenadas_json, 'datos': datos_json})
     
     # Si no hay valores para inicio y fin, solo muestra la página
     return render_template('pag2.html')
-
 
 
 
