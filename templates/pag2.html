@@ -53,7 +53,7 @@
             align-items: center;
             justify-content: center; 
         }
-        .btn-1.active, .btn-2.active, .btn-3:active {
+        .btn-1:active, .btn-2:active, .btn-3:active {
             background-color: #cc3b62;
         }
         /* Estilos del botón */
@@ -179,7 +179,7 @@
         }
         #time-slider2 {
             width: 100%;
-            background-color: #cc3b62; /* Color de fondo rosa oscuro */
+            background-color: #cd8ef5; /* Color de fondo rosa oscuro */
             border: none; /* Sin borde */
             border-radius: 5px; /* Bordes redondeados */
             height: 10px; /* Altura del slider */
@@ -411,17 +411,14 @@
 
         function mostrarCuestionario1() {
             var cuestionario1 = document.getElementById("cuestionario1");
-            var button = document.getElementById("btnToggle1");
-
+            
             // Si hay un cuestionario activo, ocúltalo
              if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
-                button.classList.remove("active");
             }
 
             // Muestra el nuevo cuestionario
             cuestionario1.style.display = "block";
-            button.classList.add("active");
 
             // Actualiza el cuestionario activo
             cuestionarioActivo = cuestionario1;
@@ -448,22 +445,18 @@
                     });               
                 }  
             });
-            document.querySelector(".btn-2.active").classList.remove("active");
         }
 
         function mostrarCuestionario2() {
             var cuestionario2 = document.getElementById("cuestionario2");
-            var button2 = document.getElementById("btnToggle2");
 
             // Si hay un cuestionario activo, ocúltalo
             if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
-                button2.classList.remove("active");
             }
 
             // Muestra el nuevo cuestionario
             cuestionario2.style.display = "block";
-            button2.classList.add("active");
 
             // Actualiza el cuestionario activo
             cuestionarioActivo = cuestionario2;
@@ -490,7 +483,6 @@
                     });               
                 }  
             });
-            document.querySelector(".btn-1.active").classList.remove("active");
         }
 
         function mostrarCuestionario3() {
@@ -529,8 +521,6 @@
                     });               
                 }  
             });
-            document.querySelector(".btn-2.active").classList.remove("active");
-            document.querySelector(".btn-1.active").classList.remove("active"); 
         }
         
         // Añadir capa de OpenStreetMap al mapa
@@ -623,7 +613,6 @@
                         var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
                         marcadorInicio.setLatLng(newPosition); // Actualizar la posición del marcador
                         
-                        
                         var timestamp = timestamps[index];
                         actualizarPopup(newPosition, timestamp);
                     });
@@ -667,7 +656,7 @@
                         return;
                     }
 
-                    ruta2 = L.polyline(historialCoords, {color: 'purple'}).addTo(mymap);
+                    ruta2 = L.polyline(historialCoords, {color: #cd8ef5}).addTo(mymap);
                     var bounds2 = ruta2.getBounds();
                     mymap.fitBounds(bounds2);
 
@@ -706,7 +695,6 @@
                         var index = Math.round(sliderValue); // Obtener el índice correspondiente
                         var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
                         marker.setLatLng(newPosition); // Actualizar la posición del marcador
-                        
                         
                         var timestamp = timestamps[index];
                         var rpm = rpms[index]; // Obtener las RPM correspondientes al índice
