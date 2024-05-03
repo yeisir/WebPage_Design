@@ -863,10 +863,10 @@
             marker.bindPopup("Timestamp: " + formattedTimestamp + "<br>RPM: " + rpm).openPopup();
         }
 
-        function actualizarPopup3(marker, latlng, timestamp) {
+        function actualizarPopup3(mark, latlng, timestamp) {
             var formattedTimestamp = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
-            marker.timestamp = timestamp; // Guardar el timestamp en el marcador
-            marker.bindPopup("Timestamp: " + formattedTimestamp).openPopup();
+            mark.timestamp = timestamp; // Guardar el timestamp en el marcador
+            mark.bindPopup("Timestamp: " + formattedTimestamp).openPopup();
         }
 
 
