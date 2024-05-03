@@ -103,7 +103,7 @@
             color: #cc3b62; /* Color rosa oscuro */
         }
         /* Estilos para el formulario */
-        .consulta-form, .consulta-form2 {
+        .consulta-form, .consulta-form2, .consulta-form3 {
             margin-bottom: 20px;
             display: flex;
             justify-content: space-between;
@@ -123,7 +123,7 @@
             width: calc(27% - 10px);
             margin-right: 10px;
         }
-        .btn-form, .btn-form2 {
+        .btn-form, .btn-form2, .btn-form3 {
             background-color: #cc3b62; /* Color de fondo rosa oscuro */
             color: white; /* Color del texto blanco */
             padding: 10px 20px; /* Espacio de relleno */
@@ -204,6 +204,48 @@
             cursor: pointer; /* Cambiar el cursor al pasar sobre él */
             margin-top: -5px; /* Alinear el control verticalmente */
         }
+
+         /* Estilos para el formulario3 */
+       .consulta-form3 label {
+            display: block;
+            margin-bottom: 5px;
+            margin-right: 7px;
+        }
+        .consulta-form3 input[type="text"] {
+            padding: 8px;
+            border-radius: 7px;
+            border: 2px solid #cc3b62;
+            box-sizing: border-box;
+            width: calc(27% - 10px);
+            margin-right: 10px;
+        }
+        #time-slider3 {
+            width: 100%;
+            background-color: #cc3b62; /* Color de fondo rosa oscuro */
+            border: none; /* Sin borde */
+            border-radius: 5px; /* Bordes redondeados */
+            height: 10px; /* Altura del slider */
+            outline: none; /* Sin contorno */
+            -webkit-appearance: none; /* Quitar la apariencia predeterminada en WebKit */
+            appearance: none; /* Quitar la apariencia predeterminada */
+        }
+        #time-slider3::-webkit-slider-runnable-track {
+            width: 100%;
+            height: 10px;
+            background: #878787; /* Color de fondo rosa claro */
+            border-radius: 5px; /* Bordes redondeados */
+        }
+        #time-slider3::-webkit-slider-thumb {
+            -webkit-appearance: none; /* Quitar la apariencia predeterminada en WebKit */
+            appearance: none; /* Quitar la apariencia predeterminada */
+            width: 20px; /* Ancho del control */
+            height: 20px; /* Altura del control */
+            background: #cc3b62; /* Color de fondo rosa oscuro */
+            border-radius: 50%; /* Hacer el control redondo */
+            cursor: pointer; /* Cambiar el cursor al pasar sobre él */
+            margin-top: -5px; /* Alinear el control verticalmente */
+        }
+
         /* Estilo del mensaje */
         .swal2-popup {
             font-family: 'Roboto', sans-serif; /* Aplica la fuente personalizada */
@@ -315,44 +357,23 @@
         </div>
 
         <div id="cuestionario3" style="display: none;">
-            
-            <div id="31" style="display: none;">
-                <form class="consulta-form">
-                    <!-- Campo de entrada para la fecha de inicio -->
-                    <label for="inicio">Fecha y hora de inicio:</label>
-                    <input type="text" id="inicio" name="inicio" data-input>                       
-                    <!-- Campo de entrada para la fecha de fin -->
-                    <label for="fin">Fecha y hora de fin:</label>
-                    <input type="text" id="fin" name="fin" data-input>
-                            
-                    <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
-                    <button type="button" id="consultar-historicos-btn" class="btn-form">Consultar historial</button>
+            <form class="consulta-form3">
+                <!-- Campo de entrada para la fecha de inicio -->
+                <label for="inicio">Fecha y hora de inicio:</label>
+                <input type="text" id="inicio3" name="inicio" data-input>
+        
+                <!-- Campo de entrada para la fecha de fin -->
+                <label for="fin">Fecha y hora de fin:</label>
+                <input type="text" id="fin3" name="fin" data-input>
                     
-                </form>
-    
-                <input type="range" id="time-slider" min="0" max="0" value="0" style="width: 100%;">
-           
-           
-            </div>
-
-            <div id="32" style="display: none;">
-                <form class="consulta-form2">
-                    <!-- Campo de entrada para la fecha de inicio -->
-                    <label for="inicio">Fecha y hora de inicio:</label>
-                    <input type="text" id="inicio2" name="inicio" data-input>
+                <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
+                <button type="button" id="consultar-historicos-btn3" class="btn-form2">Consultar historial</button>
             
-                    <!-- Campo de entrada para la fecha de fin -->
-                    <label for="fin">Fecha y hora de fin:</label>
-                    <input type="text" id="fin2" name="fin" data-input>
-                        
-                    <!-- Agrega el identificador "consultar-historicos-btn" al botón -->
-                    <button type="button" id="consultar-historicos-btn2" class="btn-form2">Consultar historial</button>
-                
-                </form>
-    
-                <input type="range" id="time-slider2" min="0" max="0" value="0" style="width: 100%;">
-    
-            </div>
+            </form>
+
+            <input type="range" id="time-slider3" min="0" max="0" value="0" style="width: 100%;">
+
+            
 
            
         </div>
@@ -485,19 +506,15 @@
         }
 
         function mostrarCuestionario3() {
-            var cuestionario3 = document.getElementById("cuestionario3");
-            var form1 = document.getElementById("31");
-            var form2 = document.getElementById("32");
+            var cuestionario3 = document.getElementById("cuestionario2");
 
             // Si hay un cuestionario activo, ocúltalo
             if (cuestionarioActivo) {
                 cuestionarioActivo.style.display = "none";
             }
 
-            // Muestra el nuevo cuestionario y los formularios internos
+            // Muestra el nuevo cuestionario
             cuestionario3.style.display = "block";
-            form1.style.display = "block";
-            form2.style.display = "block";
 
             // Actualiza el cuestionario activo
             cuestionarioActivo = cuestionario3;
@@ -522,7 +539,7 @@
                 mymap.removeLayer(markend);
             }
 
-            flatpickr("#inicio", {
+            flatpickr("#inicio3", {
                 enableTime: true,
                 dateFormat: "Y-m-d H:i",
                 time_24hr: true,
@@ -531,27 +548,7 @@
                 onClose: function(selectedDates) {
                     // Configurar la fecha mínima para el campo de fecha de fin
                     var minDate = selectedDates[0];
-                    flatpickr("#fin", {
-                        enableTime: true,
-                        dateFormat: "Y-m-d H:i",
-                        time_24hr: true,
-                        minDate: minDate,
-                        maxDate: "today",
-                        defaultDate: "23:00",
-                    });               
-                }  
-            });
-
-            flatpickr("#inicio2", {
-                enableTime: true,
-                dateFormat: "Y-m-d H:i",
-                time_24hr: true,
-                maxDate: "today",
-                defaultDate: "01:00",
-                onClose: function(selectedDates) {
-                    // Configurar la fecha mínima para el campo de fecha de fin
-                    var minDate = selectedDates[0];
-                    flatpickr("#fin2", {
+                    flatpickr("#fin3", {
                         enableTime: true,
                         dateFormat: "Y-m-d H:i",
                         time_24hr: true,
@@ -795,6 +792,114 @@
             });
         }
         
+        var ruta3;
+        var mark;
+        var mend;
+
+        function obtenerCoordenadasHistoricas3() {
+            var inicio2 = $("#inicio3").val();
+            var fin2 = $("#fin3").val();
+
+            if (ruta3) {
+                mymap.removeLayer(ruta3);
+            }
+            if (mark) {
+                mymap.removeLayer(mark);
+            }       
+            if (mend) {
+                mymap.removeLayer(mend);
+            }
+
+            $.ajax({
+                url: '/consulta_dos',
+                type: 'POST',
+                data: {inicio3: inicio3, fin3: fin3},
+                success: function(data) {
+                    // Tratar la respuesta del servidor y trazar la polilínea en el mapa
+                    var coordenadas = data.coordenadas;
+                    var historialCoords = [];
+                    var timestamps = []; // Crear un array para almacenar los timestamps
+                    var rpms = [];
+
+
+                    for (var i = 0; i < coordenadas.length; i++) {
+                        var latitud = parseFloat(coordenadas[i].latitud);
+                        var longitud = parseFloat(coordenadas[i].longitud);
+                        var timestamp = new Date(coordenadas[i].timestamp); // Obtener el timestamp de cada coordenada
+                        var rpm = parseFloat(coordenadas[i].rpm);
+                        historialCoords.push([latitud, longitud]);
+                        timestamps.push(timestamp); // Agregar el timestamp al array
+                        rpms.push(rpm);
+                    }
+
+                    if (ruta3) {
+                        mymap.removeLayer(ruta3);
+                    }
+                    if (mark) {
+                        mymap.removeLayer(mark);
+                    }       
+                    if (mend) {
+                        mymap.removeLayer(mend);
+                    }
+
+                    if (coordenadas.length === 0) {
+                        alert("No hay recorridos disponibles.");
+                        return;
+                    }
+
+                    ruta3 = L.polyline(historialCoords, {color: 'blue'}).addTo(mymap);
+                    var bounds3 = ruta3.getBounds();
+                    mymap.fitBounds(bounds3);
+
+                    var prim = historialCoords[0];
+                    var last = historialCoords[historialCoords.length - 1];
+
+                    mark = L.marker(prim, { 
+                        draggable: true,
+                        icon: L.divIcon({
+                            className: 'custom-marker',
+                            html: '<i class="fa-solid fa-location-crosshairs fa-2xl" style="color: #3f5a8d;"></i>',
+                        })
+                    }).addTo(mymap);
+
+                    mark.bindPopup("Desplázame al lugar requerido", {
+                        autoClose: false // Evita que se cierre automáticamente al abrir otro popup
+                    }).openPopup();
+
+                    mend = L.marker(last, {
+                        icon: L.divIcon({
+                            className: 'custom-marker',
+                            html: '<i class="fa-solid fa-flag-checkered fa-2xl" style="color: #000000;"></i>',
+                        })
+                    }).addTo(mymap);
+
+                    mend.bindPopup("Fin de recorrido")
+
+                    mark.timestamp = timestamps[0];
+
+
+                    var maxSliderValue2 = historialCoords.length - 1;
+                    $('#time-slider3').attr('max', maxSliderValue2);
+                    
+                    $('#time-slider3').attr('min', 0);
+                    
+                    $('#time-slider3').on('input', function() {
+                        var sliderValue = parseFloat($(this).val());
+                        var index = Math.round(sliderValue); // Obtener el índice correspondiente
+                        var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
+                        marker.setLatLng(newPosition); // Actualizar la posición del marcador
+                        
+                        
+                        var timestamp = timestamps[index];
+                        var rpm = rpms[index]; // Obtener las RPM correspondientes al índice
+                        actualizarPopup2(newPosition, timestamp, rpm);
+
+                    });
+
+                }
+            });
+        }
+
         // Actualizar el popup del marcador con el timestamp y la ubicación
         function actualizarPopup(latlng, timestamp) {
             var formattedTimestamp = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
