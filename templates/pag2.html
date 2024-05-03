@@ -728,14 +728,14 @@
                     // Tratar la respuesta del servidor y trazar la polilínea en el mapa
                     var coordenadas = data.coordenadas;
                     var historialCoords = [];
-                    var timestamps1 = []; // Crear un array para almacenar los timestamps
+                    var timestamps = []; // Crear un array para almacenar los timestamps
                     
                     for (var i = 0; i < coordenadas.length; i++) {
-                        var latitud1 = parseFloat(coordenadas[i].latitud);
-                        var longitud1 = parseFloat(coordenadas[i].longitud);
-                        var timestamp1 = new Date(coordenadas[i].timestamp); // Obtener el timestamp de cada coordenada
-                        historialCoords.push([latitud1, longitud1]);
-                        timestamps1.push(timestamp1); // Agregar el timestamp al array
+                        var latitud = parseFloat(coordenadas[i].latitud);
+                        var longitud = parseFloat(coordenadas[i].longitud);
+                        var timestamp = new Date(coordenadas[i].timestamp); // Obtener el timestamp de cada coordenada
+                        historialCoords.push([latitud, longitud]);
+                        timestamps.push(timestamp); // Agregar el timestamp al array
                     }
                     clean();
                     if (coordenadas.length === 0) {
@@ -749,12 +749,12 @@
                     var rpms = [];
 
                     for (var i = 0; i < datos.length; i++) {
-                        var latitud2 = parseFloat(datos[i].latitud);
-                        var longitud2 = parseFloat(datos[i].longitud);
-                        var timestamp2 = new Date(datos[i].timestamp);
+                        var latitud = parseFloat(datos[i].latitud);
+                        var longitud = parseFloat(datos[i].longitud);
+                        var timestamp = new Date(datos[i].timestamp);
                         var rpm = parseFloat(datos[i].rpm);
-                        datosCoords.push([latitud2, longitud2]);
-                        timestamps2.push(timestamp2); // Agregar el timestamp al array
+                        datosCoords.push([latitud, longitud]);
+                        timestamps.push(timestamp); // Agregar el timestamp al array
                         rpms.push(rpm);
                         
                     }
