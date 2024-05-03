@@ -428,6 +428,15 @@
             }
         }
 
+        function limpiarFechas() {
+            flatpickr("#inicio").clear();
+            flatpickr("#fin").clear();
+            flatpickr("#inicio2").clear();
+            flatpickr("#fin2").clear();
+            flatpickr("#inicio3").clear();
+            flatpickr("#fin3").clear();
+        }
+
         var cuestionarioActivo = null;
 
         function mostrarCuestionario1() {
@@ -445,6 +454,7 @@
             cuestionarioActivo = cuestionario1;
 
             clean();
+            limpiarFechas();
 
             flatpickr("#inicio", {
                 enableTime: true,
@@ -483,6 +493,7 @@
             cuestionarioActivo = cuestionario2;
 
             clean();
+            limpiarFechas();
 
             flatpickr("#inicio2", {
                 enableTime: true,
@@ -521,6 +532,7 @@
             cuestionarioActivo = cuestionario3;
 
             clean();
+            limpiarFechas();
 
             flatpickr("#inicio3", {
                 enableTime: true,
