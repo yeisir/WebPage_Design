@@ -226,13 +226,13 @@
             })
         }).addTo(mymap);
 
-        //var polyline2 = L.polyline([]).addTo(mymap);
-        //var marker2 = L.marker([0, 0], {
-            //icon: L.divIcon({
-                //className: 'custom-marker',
-                //html: '<i class="fa-solid fa-car-side fa-2xl" style="color: #000000;"></i>',
-            //})
-        //}).addTo(mymap);
+        var polyline2 = L.polyline([]).addTo(mymap);
+        var marker2 = L.marker([0, 0], {
+            icon: L.divIcon({
+                className: 'custom-marker',
+                html: '<i class="fa-solid fa-truck fa-2xl" style="color: #000000;"></i>',
+            })
+        }).addTo(mymap);
 
         // Código JavaScript para inicializar los medidores de aguja
         var speedometer = new JustGage({
@@ -283,11 +283,6 @@
             document.getElementById('altitud').innerText = data.altitud;
             document.getElementById('timestamp').innerText = data.timestamp;
 
-            var velocidad = 40;
-            var rpm = 2500;
-            speedometer.refresh(velocidad);
-            rpmGauge.refresh(rpm);
-
             // Actualiza la posición del marcador en el mapa
             marker.setLatLng([data.latitud, data.longitud]);
 
@@ -314,7 +309,7 @@
             polyline2.addLatLng([data.latitud, data.longitud]);
 
             // Centra el mapa en la nueva posición
-            //mymap.panTo([data.latitud, data.longitud]);
+            mymap.panTo([data.latitud, data.longitud]);
         }
         
         // Conexión con el servidor WebSocket
