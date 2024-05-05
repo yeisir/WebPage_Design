@@ -856,19 +856,22 @@
                         var sliderValue = parseFloat($(this).val());
                         var index = Math.round(sliderValue); // Obtener el índice correspondiente
                         
-                        var newPosition = historialCoords[index]; // Obtener la nueva posición del marcador
+                        // Asegurarse de que el índice esté dentro del rango de historialCoords
+                        var newIndex1 = Math.min(index, historialCoords.length - 1);
+                        // Asegurarse de que el índice esté dentro del rango de datosCoords
+                        var newIndex2 = Math.min(index, datosCoords.length - 1);
+
+                        var newPosition = historialCoords[newIndex1]; // Obtener la nueva posición del marcador
                         mark.setLatLng(newPosition); // Actualizar la posición del marcador
-                        var timestamp = timestamps1[index];
+                        var timestamp = timestamps1[newIndex1];
                         actualizarPopup3(newPosition, timestamp);
 
-                        var newPosition2 = datosCoords[index]; // Obtener la nueva posición del marcador
+                        var newPosition2 = datosCoords[newIndex2]; // Obtener la nueva posición del marcador
                         mark2.setLatLng(newPosition2); // Actualizar la posición del marcador
-                        var timestamp2 = timestamps2[index];
-                        var rpm = rpms[index];
+                        var timestamp2 = timestamps2[newIndex2];
+                        var rpm = rpms[newIndex2];
                         actualizarPopup4(newPosition2, timestamp2, rpm);
-
                     });
-
                 }
             });
         }
