@@ -839,11 +839,14 @@
 
                     // Configurar slider de tiempo
                     var maxSliderValue3;
+
                     if (historialCoords.length < datosCoords.length) {
                         maxSliderValue3 = datosCoords.length - 1;
-                    } else {
+                    } 
+
+                    if (historialCoords.length > datosCoords.length) {
                         maxSliderValue3 = historialCoords.length - 1;
-                    }
+                    } 
 
                     $('#time-slider3').attr('max', maxSliderValue3);
                     $('#time-slider3').attr('min', 0);
