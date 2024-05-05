@@ -765,11 +765,6 @@
                     var timestamps2 = []; // Array de timestamps para la tabla de datos
                     var rpms = []; // Array de RPMs para la tabla de datos
 
-                    if (coordenadas.length && datos.length === 0) {
-                        alert("No hay recorridos disponibles.");
-                        return;
-                    }
-
                     for (var i = 0; i < datos.length; i++) {
                         var latitud = parseFloat(datos[i].latitud);
                         var longitud = parseFloat(datos[i].longitud);
@@ -778,6 +773,11 @@
                         datosCoords.push([latitud, longitud]);
                         timestamps2.push(timestamp);
                         rpms.push(rpm);
+                    }
+                    
+                    if (coordenadas.length && datos.length === 0) {
+                        alert("No hay recorridos disponibles.");
+                        return;
                     }
 
                     // Trazar las polilíneas en el mapa
