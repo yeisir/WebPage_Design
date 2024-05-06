@@ -71,20 +71,24 @@ def recibir_elm():
     #speed = data.get('speed')
     rpm = data.get('rpm')
 
-    # Insertar los datos en la base de datos MySQL
-    cursor = db.cursor()
-    insert_query = "INSERT INTO datos (latitud, longitud, altitud, timestamp, rpm) VALUES (%s, %s, %s, %s, %s)"
-    data_tuple = (latitud, longitud, altitud, timestamp, rpm)
-    cursor.execute(insert_query, data_tuple)
-    db.commit()
-    cursor.close()
+    if rpm != 67:
+        # Insertar los datos en la base de datos MySQL
+        cursor = db.cursor()
+        insert_query = "INSERT INTO datos (latitud, longitud, altitud, timestamp, rpm) VALUES (%s, %s, %s, %s, %s)"
+        data_tuple = (latitud, longitud, altitud, timestamp, rpm)
+        cursor.execute(insert_query, data_tuple)
+        db.commit()
+        cursor.close()
 
-    print("Datos:", {'latitud': latitud, 'longitud': longitud, 'altitud': altitud, 'timestamp': timestamp, 'rpm': rpm})
+        print("Datos guardados en la base de datos:", {'latitud': latitud, 'longitud': longitud, 'altitud': altitud, 'timestamp': timestamp, 'rpm': rpm})
 
-    # Emitir los datos al cliente WebSocket
-    socketio.emit('up_datos', {'latitud': latitud, 'longitud': longitud, 'altitud': altitud, 'timestamp': timestamp, 'rpm': rpm})
-    print("Datos enviados al cliente WebSocket:", {'latitud': latitud, 'longitud': longitud, 'altitud': altitud, 'timestamp': timestamp, 'rpm': rpm})
-    return 'Datos recibidos y procesados correctamente'
+        # Emitir los datos al cliente WebSocket
+        socketio.emit('up_datos', {'latitud': latitud, 'longitud': longitud, 'altitud': altitud, 'timestamp': timestamp, 'rpm': rpm})
+        print("Datos enviados al cliente WebSocket:", {'latitud': latitud, 'longitud': longitud, 'altitud': altitud, 'timestamp': timestamp, 'rpm': rpm})
+    else:
+        print("Los datos no se guardaron en la base de datos ni se enviaron por el socket debido a que las RPM son iguales a 67.")
+
+    return 'Datos recibidos y procesados correctamente''
 
 
 
