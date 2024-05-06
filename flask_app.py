@@ -88,7 +88,7 @@ def recibir_elm():
     else:
         print("Los datos no se guardaron en la base de datos ni se enviaron por el socket debido a que las RPM son iguales a 67.")
 
-    return 'Datos recibidos y procesados correctamente''
+    return 'Datos recibidos y procesados correctamente'
 
 
 
