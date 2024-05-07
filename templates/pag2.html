@@ -856,22 +856,32 @@
                         var sliderValue = parseFloat($(this).val());
                         var index = Math.round(sliderValue); // Obtener el índice correspondiente
                         
-                        // Asegurarse de que el índice esté dentro del rango de historialCoords
-                        var newIndex1 = Math.min(index, historialCoords.length - 1);
-                        // Asegurarse de que el índice esté dentro del rango de datosCoords
-                        var newIndex2 = Math.min(index, datosCoords.length - 1);
+                        // Obtener la fecha correspondiente al índice actual del slider
+                        var currentTimestamp = timestamps1[index];
 
-                        var newPosition = historialCoords[newIndex1]; // Obtener la nueva posición del marcador
-                        mark.setLatLng(newPosition); // Actualizar la posición del marcador
-                        var timestamp = timestamps1[newIndex1];
-                        actualizarPopup3(newPosition, timestamp);
+                        // Verificar si la fecha actual es mayor o igual a la fecha de inicio de la segunda ruta
+                        var startTimestamp2 = timestamps2[0];
+                        if (currentTimestamp >= startTimestamp2) {
+                            // Actualizar el marker y popup de la segunda ruta solo si la fecha actual es mayor o igual a la fecha de inicio de la segunda ruta
+                            var newIndex2 = Math.min(index, datosCoords.length - 1);
+                            var newPosition2 = datosCoords[newIndex2]; // Obtener la nueva posición del marcador
+                            mark2.setLatLng(newPosition2); // Actualizar la posición del marcador
+                            var timestamp2 = timestamps2[newIndex2];
+                            var rpm = rpms[newIndex2];
+                            actualizarPopup4(newPosition2, timestamp2, rpm);
+                        }
 
-                        var newPosition2 = datosCoords[newIndex2]; // Obtener la nueva posición del marcador
-                        mark2.setLatLng(newPosition2); // Actualizar la posición del marcador
-                        var timestamp2 = timestamps2[newIndex2];
-                        var rpm = rpms[newIndex2];
-                        actualizarPopup4(newPosition2, timestamp2, rpm);
+                        // Actualizar el marker y popup de la primera ruta solo si la fecha actual es mayor o igual a la fecha de inicio de la primera ruta
+                        var startTimestamp1 = timestamps1[0];
+                        if (currentTimestamp >= startTimestamp1) {
+                            var newIndex1 = Math.min(index, historialCoords.length - 1);
+                            var newPosition1 = historialCoords[newIndex1]; // Obtener la nueva posición del marcador
+                            mark.setLatLng(newPosition1); // Actualizar la posición del marcador
+                            var timestamp1 = timestamps1[newIndex1];
+                            actualizarPopup3(newPosition1, timestamp1);
+                        }
                     });
+
                 }
             });
         }
