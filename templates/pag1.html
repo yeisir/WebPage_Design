@@ -115,6 +115,11 @@
             margin-bottom: 20px;
             margin-top: 2px;
         }
+        #voltage {
+            width: 100%;
+            margin-bottom: 20px;
+            margin-top: 2px;
+        }
         #data-container h2 {
             text-align: center;
             margin-top: 10px;
@@ -126,11 +131,19 @@
             font-size: 17px;
             margin-top: 0px;
         }
-        #rpm svg path:nth-child(3) {
-            fill: #8c8b8b; 
+        .progress-bar {
+            width: 80%;
+            background-color: #ddd;
+            border-radius: 10px;
+            margin-bottom: 10px;
         }
-        #rpm svg path:nth-child(4) {
-            fill: #de597d; 
+        .progress-bar-fill {
+            height: 20px;
+            border-radius: 10px;
+            background-color: #cc3b62;
+            text-align: center;
+            line-height: 20px;
+            color: white;
         }
         /* Estilos del botón */
         .btn-consulta {
@@ -147,16 +160,6 @@
             font-size: 13.5px; /* Tamaño del texto aumentado */
             float: right;
         }
-        #battery-value {
-            font-size: 20px;
-            margin-top: 10px;
-        }
-        .battery-ok {
-            color: green;
-        }
-        .battery-error {
-            color: red;
-        }
     </style>
 </head>
 <body>
@@ -164,7 +167,7 @@
         <!-- Encabezado dentro de un cuadro con bordes cuadrados -->
         <div class="header-container">
             <header>
-                <h1>¡Bienvenido!</h1>
+                <h1><¡Bienvenido!</h1>
                 <p><i class="fa-solid fa-map-location-dot fa-2xl" style="color: #cc3b62; margin-right: 5px;" ></i>¡Bienvenido a Road Track! Aquí podrás seguir en tiempo real la ubicación del vehículo.</p>
             </header>
         </div>
@@ -203,7 +206,9 @@
         <div id="rpm" class="gauge-container">
             <div id="rpm-value" class="gauge-value">RPM</div>
         </div>
-        <div id="battery-value"></div>
+        <div id="voltage" class="progress-bar">
+            <div id="voltage-fill" class="progress-bar-fill"></div>
+        </div>
     </div>
     
     <!-- Incluye la última versión de la librería de Leaflet -->
@@ -255,6 +260,15 @@
             relativeGaugeSize: true
         });
 
+        // Código JavaScript para mostrar el voltaje de la batería en una barra de progreso
+        function mostrarVoltaje(voltaje) {
+            var voltageFill = document.getElementById("voltage-fill");
+            var voltageValue = (voltaje / 12) * 100; // Suponiendo que el voltaje máximo es de 12V
+
+            voltageFill.style.width = voltageValue + "%";
+            voltageFill.innerText = voltaje + "V";
+        }
+
         // Inicialización de la conexión con el servidor WebSocket
         const socket = io();
 
@@ -283,6 +297,7 @@
             document.getElementById('rpm-value').innerText = data.rpm + " RPM";
             
             rpmGauge.refresh(data.rpm);
+            mostrarVoltaje(data.voltaje);
 
             // Actualiza la posición del marcador en el mapa
             marker2.setLatLng([data.latitud, data.longitud]);
@@ -292,18 +307,6 @@
 
             // Centra el mapa en la nueva posición
             mymap.panTo([data.latitud, data.longitud]);
-
-            // Actualiza el voltaje de la batería
-            var batteryValue = data.battery;
-            var batteryElement = document.getElementById('battery-value');
-            batteryElement.innerText = "Voltaje de la batería: " + batteryValue + "V";
-            if (batteryValue >= 12 && batteryValue <= 14) {
-                batteryElement.classList.add('battery-ok');
-                batteryElement.classList.remove('battery-error');
-            } else {
-                batteryElement.classList.remove('battery-ok');
-                batteryElement.classList.add('battery-error');
-            }
         }
         
         // Conexión con el servidor WebSocket
