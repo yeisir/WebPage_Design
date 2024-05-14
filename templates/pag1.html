@@ -129,6 +129,12 @@
             font-size: 17px;
             margin-top: 0px;
         }
+         #rpm svg path:nth-child(3) {
+            fill: #8c8b8b; 
+        }
+        #rpm svg path:nth-child(4) {
+            fill: #de597d; 
+        }
         .progress-bar {
             width: 100%;
             max-width: 200px;
@@ -278,7 +284,7 @@
 
         // Generar valores aleatorios para el voltaje de la batería
         setInterval(function() {
-            var voltaje = getRandomInt(0, 100);
+            var voltaje = getRandomInt(0, 15);
             mostrarVoltaje(voltaje);
         }, 1000);
 
