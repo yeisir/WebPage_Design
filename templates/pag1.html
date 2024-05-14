@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <script src="https://kit.fontawesome.com/8750339612.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/8750339612.js" crossorigin="anonymous"></script>
     <title>Coordenadas</title>
     <!-- Estilos -->
     <style>
@@ -48,9 +48,6 @@
             align-items: flex-start;
             margin-top: 20px; /* Dejar espacio debajo del encabezado */
             width: 100%;
-        }
-        .coord-icon2 {
-            float: left;
         }
         .container2 {
             display: flex;
@@ -116,29 +113,40 @@
             margin-top: 2px;
         }
         #voltage {
-            width: 80%;
-            height: 20px;
-            background-color: #ddd;
-            border-radius: 10px;
-            margin-bottom: 10px;
+            width: 100%;
+            max-width: 200px; 
+            margin-bottom: 20px;
+            margin-top: 2px;
         }
-        #voltage-fill {
-            height: 20px;
-            border-radius: 10px;
-            background-color: #cc3b62;
+        #data-container h2 {
             text-align: center;
-            line-height: 20px;
-            color: white;
+            margin-top: 10px;
+            margin-bottom: 0px;
+            font-size: 20px;
+        }
+        .gauge-value {
+            text-align: center;
+            font-size: 17px;
+            margin-top: 0px;
+        }
+        .progress-bar {
+            width: 100%;
+            max-width: 200px;
+            background-color: #f3f3f3;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            margin-top: 2px;
+            overflow: hidden;
         }
         .progress-bar-fill {
-            height: 20px;
-            border-radius: 10px;
+            height: 30px;
             background-color: #cc3b62;
-            text-align: center;
-            line-height: 20px;
-            color: white;
+            text-align: right;
+            padding-right: 10px;
+            line-height: 30px;
+            transition: width 0.5s;
+            border-radius: 10px;
         }
-        /* Estilos del botón */
         .btn-consulta {
             background-color: #cc3b62; /* Color de fondo rosa oscuro */
             color: white; /* Color del texto blanco */
@@ -179,13 +187,13 @@
         <div class="coord-data">Timestamp: <span id="timestamp"></span></div>
     </div>
 
-     <!-- Contenedor de coordenadas -->
-     <div class="container2">
-         <div class="coord-icon1"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;"></i></div>
-         <div class="coord-data2">Latitud: <span id="latitud2"></span></div>
-         <div class="coord-data2">Longitud: <span id="longitud2"></span></div>
-         <div class="coord-data2">Altitud: <span id="altitud2"></span></div>
-         <div class="coord-data2">Timestamp: <span id="timestamp2"></span></div>
+    <!-- Contenedor de coordenadas -->
+    <div class="container2">
+        <div class="coord-icon1"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;"></i></div>
+        <div class="coord-data2">Latitud: <span id="latitud2"></span></div>
+        <div class="coord-data2">Longitud: <span id="longitud2"></span></div>
+        <div class="coord-data2">Altitud: <span id="altitud2"></span></div>
+        <div class="coord-data2">Timestamp: <span id="timestamp2"></span></div>
     </div>
 
     <!-- Mapa -->
@@ -201,6 +209,7 @@
         </div>
         <div id="voltage" class="progress-bar">
             <div id="voltage-fill" class="progress-bar-fill"></div>
+            <span id="voltage-value" class="gauge-value"></span>
         </div>
     </div>
     
@@ -253,12 +262,25 @@
             relativeGaugeSize: true
         });
 
-        // Código JavaScript para mostrar el voltaje de la batería
+        // Actualizar voltaje
         function mostrarVoltaje(voltaje) {
-            var voltageFill = document.getElementById('voltage-fill');
-            voltageFill.style.width = voltaje + '%';
-            voltageFill.innerHTML = voltaje + 'V';
+            var voltageBar = document.getElementById("voltage-fill");
+            var voltageValue = document.getElementById("voltage-value");
+
+            voltageBar.style.width = voltaje + "%";
+            voltageValue.innerText = voltaje + "V";
         }
+
+        // Función para generar un número aleatorio entre un rango de valores
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Generar valores aleatorios para el voltaje de la batería
+        setInterval(function() {
+            var voltaje = getRandomInt(0, 100);
+            mostrarVoltaje(voltaje);
+        }, 1000);
 
         // Código JavaScript para obtener y actualizar la ubicación del vehículo
         function actualizarUbicacion(data) {
@@ -285,7 +307,6 @@
             document.getElementById('rpm-value').innerText = data.rpm + " RPM";
             
             rpmGauge.refresh(data.rpm);
-            mostrarVoltaje(data.voltaje);
 
             // Actualiza la posición del marcador en el mapa
             marker2.setLatLng([data.latitud, data.longitud]);
@@ -299,16 +320,6 @@
         
         // Conexión con el servidor WebSocket
         const socket = io();
-
-        socket.on('connect', function() {
-            console.log('Conexión establecida correctamente con el servidor WebSocket');
-        });
-
-        // Simulación de datos aleatorios para el voltaje de la batería
-        setInterval(() => {
-            var voltaje = Math.random() * 100; // Genera un valor aleatorio entre 0 y 100
-            mostrarVoltaje(voltaje);
-        }, 1000);
 
         // Escucha el evento 'update_coords' del servidor WebSocket
         socket.on('update_coords', function(data) {
