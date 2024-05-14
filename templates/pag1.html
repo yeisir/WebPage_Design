@@ -116,26 +116,19 @@
             margin-top: 2px;
         }
         #voltage {
-            width: 100%;
-            margin-bottom: 20px;
-            margin-top: 2px;
-        }
-        #data-container h2 {
-            text-align: center;
-            margin-top: 10px;
-            margin-bottom: 0px;
-            font-size: 20px;
-        }
-        .gauge-value {
-            text-align: center;
-            font-size: 17px;
-            margin-top: 0px;
-        }
-        .progress-bar {
             width: 80%;
+            height: 20px;
             background-color: #ddd;
             border-radius: 10px;
             margin-bottom: 10px;
+        }
+        #voltage-fill {
+            height: 20px;
+            border-radius: 10px;
+            background-color: #cc3b62;
+            text-align: center;
+            line-height: 20px;
+            color: white;
         }
         .progress-bar-fill {
             height: 20px;
@@ -204,7 +197,7 @@
     <div id="data-container">
         <h2>Datos del vehículo<i class="fa-solid fa-car-side fa-lg" style="color: #000000; margin-left: 5px;"></i></h2>
         <div id="rpm" class="gauge-container">
-            <div id="rpm-value" class="gauge-value">RPM</div>
+            <div id="rpm-value" class="gauge-value">Rpm</div>
         </div>
         <div id="voltage" class="progress-bar">
             <div id="voltage-fill" class="progress-bar-fill"></div>
@@ -260,17 +253,12 @@
             relativeGaugeSize: true
         });
 
-        // Código JavaScript para mostrar el voltaje de la batería en una barra de progreso
+        // Código JavaScript para mostrar el voltaje de la batería
         function mostrarVoltaje(voltaje) {
-            var voltageFill = document.getElementById("voltage-fill");
-            var voltageValue = (voltaje / 12) * 100; // Suponiendo que el voltaje máximo es de 12V
-
-            voltageFill.style.width = voltageValue + "%";
-            voltageFill.innerText = voltaje + "V";
+            var voltageFill = document.getElementById('voltage-fill');
+            voltageFill.style.width = voltaje + '%';
+            voltageFill.innerHTML = voltaje + 'V';
         }
-
-        // Inicialización de la conexión con el servidor WebSocket
-        const socket = io();
 
         // Código JavaScript para obtener y actualizar la ubicación del vehículo
         function actualizarUbicacion(data) {
@@ -310,9 +298,17 @@
         }
         
         // Conexión con el servidor WebSocket
+        const socket = io();
+
         socket.on('connect', function() {
             console.log('Conexión establecida correctamente con el servidor WebSocket');
         });
+
+        // Simulación de datos aleatorios para el voltaje de la batería
+        setInterval(() => {
+            var voltaje = Math.random() * 100; // Genera un valor aleatorio entre 0 y 100
+            mostrarVoltaje(voltaje);
+        }, 1000);
 
         // Escucha el evento 'update_coords' del servidor WebSocket
         socket.on('update_coords', function(data) {
