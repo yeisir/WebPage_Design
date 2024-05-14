@@ -79,7 +79,7 @@
             border: 2px solid #cc3b62; /* Rosa oscuro */
             padding: 8px;
             margin-bottom: 8px;
-            width: 22%; /* Ancho de los cuadros */
+            width: 45%; /* Ancho de los cuadros */
             margin-left: 1%; /* Espacio entre los cuadros */
             box-sizing: border-box; /* Incluye el borde en el cálculo del ancho */
             background-color: #fcf2f6; 
@@ -109,7 +109,6 @@
             justify-content: space-around;
             align-items: center;
         }
-        #speedometer,
         #rpm {
             width: 100%;
             max-width: 200px; 
@@ -126,12 +125,6 @@
             text-align: center;
             font-size: 17px;
             margin-top: 0px;
-        }
-        #speedometer svg path:nth-child(3) {
-            fill: #8c8b8b; 
-        }
-        #speedometer svg path:nth-child(4) {
-            fill: #de597d; 
         }
         #rpm svg path:nth-child(3) {
             fill: #8c8b8b; 
@@ -161,7 +154,7 @@
         <!-- Encabezado dentro de un cuadro con bordes cuadrados -->
         <div class="header-container">
             <header>
-                <h1><¡Bienvenido!</h1>
+                <h1>¡Bienvenido!</h1>
                 <p><i class="fa-solid fa-map-location-dot fa-2xl" style="color: #cc3b62; margin-right: 5px;" ></i>¡Bienvenido a Road Track! Aquí podrás seguir en tiempo real la ubicación del vehículo.</p>
             </header>
         </div>
@@ -187,6 +180,9 @@
          <div class="coord-data2">Longitud: <span id="longitud2"></span></div>
          <div class="coord-data2">Altitud: <span id="altitud2"></span></div>
          <div class="coord-data2">Timestamp: <span id="timestamp2"></span></div>
+         <div id="rpm" class="gauge-container">
+            <div id="rpm-value" class="gauge-value">Rpm</div>
+        </div>
     </div>
 
     <!-- Mapa -->
@@ -197,9 +193,6 @@
     <!-- Contenedor datos vehículo -->
     <div id="data-container">
         <h2>Datos del vehículo<i class="fa-solid fa-car-side fa-lg" style="color: #000000; margin-left: 5px;"></i></h2>
-        <div id="speedometer" class="gauge-container">
-            <div id="speedometer-value" class="gauge-value">Km/h</div>
-        </div>
         <div id="rpm" class="gauge-container">
             <div id="rpm-value" class="gauge-value">Rpm</div>
         </div>
@@ -235,25 +228,6 @@
         }).addTo(mymap);
 
         // Código JavaScript para inicializar los medidores de aguja
-        var speedometer = new JustGage({
-            id: "speedometer",
-            value: 0,
-            min: 0,
-            max: 200,
-            title: "Velocidad",
-            gaugeWidthScale: 0.4,
-            counter: true,
-            pointer: true,
-            pointerOptions: {
-                toplength: -16,
-                bottomlength: 50,
-                bottomwidth: 2,
-                color: "#cc3b62"
-            },
-            labelFontColor: "#030303",
-            relativeGaugeSize: true
-        });
-
         var rpmGauge = new JustGage({
             id: "rpm",
             min: 0,
