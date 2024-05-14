@@ -107,6 +107,7 @@
             display: flex;
             flex-direction: column;
             justify-content: space-around;
+            align-items: center;
         }
         #rpm {
             width: 100%;
@@ -146,6 +147,16 @@
             font-size: 13.5px; /* Tamaño del texto aumentado */
             float: right;
         }
+        #battery-value {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+        .battery-ok {
+            color: green;
+        }
+        .battery-error {
+            color: red;
+        }
     </style>
 </head>
 <body>
@@ -153,7 +164,7 @@
         <!-- Encabezado dentro de un cuadro con bordes cuadrados -->
         <div class="header-container">
             <header>
-                <h1><¡Bienvenido!</h1>
+                <h1>¡Bienvenido!</h1>
                 <p><i class="fa-solid fa-map-location-dot fa-2xl" style="color: #cc3b62; margin-right: 5px;" ></i>¡Bienvenido a Road Track! Aquí podrás seguir en tiempo real la ubicación del vehículo.</p>
             </header>
         </div>
@@ -190,8 +201,9 @@
     <div id="data-container">
         <h2>Datos del vehículo<i class="fa-solid fa-car-side fa-lg" style="color: #000000; margin-left: 5px;"></i></h2>
         <div id="rpm" class="gauge-container">
-            <div id="rpm-value" class="gauge-value">Rpm</div>
+            <div id="rpm-value" class="gauge-value">RPM</div>
         </div>
+        <div id="battery-value"></div>
     </div>
     
     <!-- Incluye la última versión de la librería de Leaflet -->
@@ -280,6 +292,18 @@
 
             // Centra el mapa en la nueva posición
             mymap.panTo([data.latitud, data.longitud]);
+
+            // Actualiza el voltaje de la batería
+            var batteryValue = data.battery;
+            var batteryElement = document.getElementById('battery-value');
+            batteryElement.innerText = "Voltaje de la batería: " + batteryValue + "V";
+            if (batteryValue >= 12 && batteryValue <= 14) {
+                batteryElement.classList.add('battery-ok');
+                batteryElement.classList.remove('battery-error');
+            } else {
+                batteryElement.classList.remove('battery-ok');
+                batteryElement.classList.add('battery-error');
+            }
         }
         
         // Conexión con el servidor WebSocket
