@@ -255,7 +255,7 @@
             value: 0,
             max: 8000,
             title: "RPM",
-            gaugeWidthScale: 0.4,
+            gaugeWidthScale: 0.6,
             counter: true,
             pointer: true,
             pointerOptions: {
@@ -273,7 +273,7 @@
             var voltageBar = document.getElementById("voltage-fill");
             var voltageValue = document.getElementById("voltage-value");
 
-            voltageBar.style.width = voltaje + "%";
+            voltageBar.style.width = (voltaje * 100 / 15) + "%";
             voltageValue.innerText = voltaje + "V";
         }
 
