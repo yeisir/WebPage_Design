@@ -823,11 +823,11 @@
                         })
                     }).addTo(mymap);
 
-                    mark.bindPopup("Punto inicial Vehículo 1", {
+                    mark.bindPopup("Punto inicial Vehículo 2", {
                         autoClose: false // Evita que se cierre automáticamente al abrir otro popup
                     }).openPopup();
 
-                    mark2.bindPopup("Punto inicial Vehículo 2", {
+                    mark2.bindPopup("Punto inicial Vehículo 1", {
                         autoClose: false // Evita que se cierre automáticamente al abrir otro popup
                     }).openPopup();
 
@@ -851,32 +851,65 @@
                     $('#time-slider3').attr('max', maxSliderValue3);
                     $('#time-slider3').attr('min', 0);
 
+                    // Función para encontrar el índice más cercano en el tiempo
+            function findClosestIndex(timestamp, timestamps) {
+                var minDiff = Number.MAX_SAFE_INTEGER;
+                var closestIndex = 0;
 
-                    $('#time-slider3').on('input', function() {
-                        var sliderValue = parseFloat($(this).val());
-                        var index = Math.round(sliderValue); // Obtener el índice correspondiente
-                        
-                        // Asegurarse de que el índice esté dentro del rango de historialCoords
-                        var newIndex1 = Math.min(index, historialCoords.length - 1);
-                        // Asegurarse de que el índice esté dentro del rango de datosCoords
-                        var newIndex2 = Math.min(index, datosCoords.length - 1);
-
-                        var newPosition = historialCoords[newIndex1]; // Obtener la nueva posición del marcador
-                        mark.setLatLng(newPosition); // Actualizar la posición del marcador
-                        var timestamp = timestamps1[newIndex1];
-                        actualizarPopup3(newPosition, timestamp);
-
-                        var newPosition2 = datosCoords[newIndex2]; // Obtener la nueva posición del marcador
-                        mark2.setLatLng(newPosition2); // Actualizar la posición del marcador
-                        var timestamp2 = timestamps2[newIndex2];
-                        var rpm = rpms[newIndex2];
-                        actualizarPopup4(newPosition2, timestamp2, rpm);
-                    });
+                for (var i = 0; i < timestamps.length; i++) {
+                    var diff = Math.abs(timestamp - timestamps[i]);
+                    if (diff < minDiff) {
+                        minDiff = diff;
+                        closestIndex = i;
+                    }
                 }
+
+                return closestIndex;
+            }
+
+            $('#time-slider3').on('input', function() {
+                var sliderValue = parseFloat($(this).val());
+                var index = Math.round(sliderValue); // Obtener el índice correspondiente
+                
+                // Asegurarse de que el índice esté dentro del rango de historialCoords
+                var newIndex1 = Math.min(index, historialCoords.length - 1);
+                // Asegurarse de que el índice esté dentro del rango de datosCoords
+                var newIndex2 = Math.min(index, datosCoords.length - 1);
+
+                var newPosition = historialCoords[newIndex1]; // Obtener la nueva posición del marcador
+                mark.setLatLng(newPosition); // Actualizar la posición del marcador
+                var timestamp = timestamps1[newIndex1];
+                actualizarPopup3(newPosition, timestamp);
+
+                var newPosition2 = datosCoords[newIndex2]; // Obtener la nueva posición del marcador
+                mark2.setLatLng(newPosition2); // Actualizar la posición del marcador
+                var timestamp2 = timestamps2[newIndex2];
+                var rpm = rpms[newIndex2];
+                actualizarPopup4(newPosition2, timestamp2, rpm);
             });
+
+            // Función para actualizar el slider basado en el timestamp
+            function updateSlider() {
+                var now = new Date();
+                var timestamp = now.getTime(); // Obtiene el timestamp actual en milisegundos
+                var closestIndex1 = findClosestIndex(timestamp, timestamps1);
+                var closestIndex2 = findClosestIndex(timestamp, timestamps2);
+                var maxSliderValue = $('#time-slider3').attr('max');
+
+                // Normaliza el índice para el slider
+                var normalizedIndex = Math.min(Math.max(closestIndex1, closestIndex2), maxSliderValue);
+                $('#time-slider3').val(normalizedIndex).trigger('input');
+            }
+
+            // Actualiza el slider cada segundo
+            setInterval(updateSlider, 1000);
+            
+            // Actualizar el slider cuando se cargan las coordenadas por primera vez
+            updateSlider();
         }
-
-
+    });
+}
+    
         // Actualizar el popup del marcador con el timestamp y la ubicación
         function actualizarPopup(latlng, timestamp) {
             var formattedTimestamp = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible
