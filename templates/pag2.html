@@ -607,7 +607,7 @@
                         })
                     }).addTo(mymap);
 
-                    marcadorInicio.bindPopup("Desplázame al lugar requerido", {
+                    marcadorInicio.bindPopup("Punto inicial", {
                         autoClose: false // Evita que se cierre automáticamente al abrir otro popup
                     }).openPopup();
 
@@ -690,7 +690,7 @@
                         })
                     }).addTo(mymap);
 
-                    marker.bindPopup("Desplázame al lugar requerido", {
+                    marker.bindPopup("Punto inicial", {
                         autoClose: false // Evita que se cierre automáticamente al abrir otro popup
                     }).openPopup();
 
@@ -823,11 +823,11 @@
                         })
                     }).addTo(mymap);
 
-                    mark.bindPopup("Desplázame al lugar requerido", {
+                    mark.bindPopup("Punto inicial Vehículo 2", {
                         autoClose: false // Evita que se cierre automáticamente al abrir otro popup
                     }).openPopup();
 
-                    mark2.bindPopup("Desplázame al lugar requerido", {
+                    mark2.bindPopup("Punto inicial Vehículo 1", {
                         autoClose: false // Evita que se cierre automáticamente al abrir otro popup
                     }).openPopup();
 
@@ -875,8 +875,7 @@
                 }
             });
         }
-
-
+    
         // Actualizar el popup del marcador con el timestamp y la ubicación
         function actualizarPopup(latlng, timestamp) {
             var formattedTimestamp = timestamp.toLocaleString(); // Formatear el timestamp como una cadena legible

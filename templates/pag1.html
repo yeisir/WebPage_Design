@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-     <script src="https://kit.fontawesome.com/8750339612.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/8750339612.js" crossorigin="anonymous"></script>
     <title>Coordenadas</title>
     <!-- Estilos -->
     <style>
@@ -48,9 +48,6 @@
             align-items: flex-start;
             margin-top: 20px; /* Dejar espacio debajo del encabezado */
             width: 100%;
-        }
-        .coord-icon2 {
-            float: left;
         }
         .container2 {
             display: flex;
@@ -109,8 +106,13 @@
             justify-content: space-around;
             align-items: center;
         }
-        #speedometer,
         #rpm {
+            width: 200%;
+            max-width: 200px; 
+            margin-bottom: 20px;
+            margin-top: 2px;
+        }
+        #voltage {
             width: 100%;
             max-width: 200px; 
             margin-bottom: 20px;
@@ -127,19 +129,30 @@
             font-size: 17px;
             margin-top: 0px;
         }
-        #speedometer svg path:nth-child(3) {
-            fill: #8c8b8b; 
-        }
-        #speedometer svg path:nth-child(4) {
-            fill: #de597d; 
-        }
-        #rpm svg path:nth-child(3) {
+         #rpm svg path:nth-child(3) {
             fill: #8c8b8b; 
         }
         #rpm svg path:nth-child(4) {
             fill: #de597d; 
         }
-        /* Estilos del botón */
+        .progress-bar {
+            width: 100%;
+            max-width: 200px;
+            background-color: #8c8b8b;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            margin-top: 2px;
+            overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 30px;
+            background-color: #de597d;
+            text-align: right;
+            padding-right: 10px;
+            line-height: 30px;
+            transition: width 0.5s;
+            border-radius: 10px;
+        }
         .btn-consulta {
             background-color: #cc3b62; /* Color de fondo rosa oscuro */
             color: white; /* Color del texto blanco */
@@ -180,13 +193,13 @@
         <div class="coord-data">Timestamp: <span id="timestamp"></span></div>
     </div>
 
-     <!-- Contenedor de coordenadas -->
-     <div class="container2">
-         <div class="coord-icon1"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;"></i></div>
-         <div class="coord-data2">Latitud: <span id="latitud2"></span></div>
-         <div class="coord-data2">Longitud: <span id="longitud2"></span></div>
-         <div class="coord-data2">Altitud: <span id="altitud2"></span></div>
-         <div class="coord-data2">Timestamp: <span id="timestamp2"></span></div>
+    <!-- Contenedor de coordenadas -->
+    <div class="container2">
+        <div class="coord-icon1"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;"></i></div>
+        <div class="coord-data2">Latitud: <span id="latitud2"></span></div>
+        <div class="coord-data2">Longitud: <span id="longitud2"></span></div>
+        <div class="coord-data2">Altitud: <span id="altitud2"></span></div>
+        <div class="coord-data2">Timestamp: <span id="timestamp2"></span></div>
     </div>
 
     <!-- Mapa -->
@@ -197,11 +210,11 @@
     <!-- Contenedor datos vehículo -->
     <div id="data-container">
         <h2>Datos del vehículo<i class="fa-solid fa-car-side fa-lg" style="color: #000000; margin-left: 5px;"></i></h2>
-        <div id="speedometer" class="gauge-container">
-            <div id="speedometer-value" class="gauge-value">Km/h</div>
-        </div>
         <div id="rpm" class="gauge-container">
             <div id="rpm-value" class="gauge-value">Rpm</div>
+        </div>
+        <div id="voltage" class="progress-bar">
+            <div id="voltage-fill" class="progress-bar-fill"></div>
         </div>
     </div>
     
@@ -235,32 +248,13 @@
         }).addTo(mymap);
 
         // Código JavaScript para inicializar los medidores de aguja
-        var speedometer = new JustGage({
-            id: "speedometer",
-            value: 0,
-            min: 0,
-            max: 200,
-            title: "Velocidad",
-            gaugeWidthScale: 0.4,
-            counter: true,
-            pointer: true,
-            pointerOptions: {
-                toplength: -16,
-                bottomlength: 50,
-                bottomwidth: 2,
-                color: "#cc3b62"
-            },
-            labelFontColor: "#030303",
-            relativeGaugeSize: true
-        });
-
         var rpmGauge = new JustGage({
             id: "rpm",
             min: 0,
             value: 0,
             max: 8000,
             title: "RPM",
-            gaugeWidthScale: 0.4,
+            gaugeWidthScale: 0.6,
             counter: true,
             pointer: true,
             pointerOptions: {
@@ -273,8 +267,25 @@
             relativeGaugeSize: true
         });
 
-        // Inicialización de la conexión con el servidor WebSocket
-        const socket = io();
+        // Actualizar voltaje
+        function mostrarVoltaje(voltaje) {
+            var voltageBar = document.getElementById("voltage-fill");
+            var voltageValue = document.getElementById("voltage-value");
+
+            voltageBar.style.width = (voltaje * 100 / 15) + "%";
+            voltageValue.innerText = voltaje + "V";
+        }
+
+        // Función para generar un número aleatorio entre un rango de valores
+        function getRandomInt(min, max) {
+            return Math.floor(Math.random() * (max - min + 1)) + min;
+        }
+
+        // Generar valores aleatorios para el voltaje de la batería
+        setInterval(function() {
+            var voltaje = getRandomInt(0, 15);
+            mostrarVoltaje(voltaje);
+        }, 1000);
 
         // Código JavaScript para obtener y actualizar la ubicación del vehículo
         function actualizarUbicacion(data) {
@@ -313,9 +324,7 @@
         }
         
         // Conexión con el servidor WebSocket
-        socket.on('connect', function() {
-            console.log('Conexión establecida correctamente con el servidor WebSocket');
-        });
+        const socket = io();
 
         // Escucha el evento 'update_coords' del servidor WebSocket
         socket.on('update_coords', function(data) {
