@@ -186,7 +186,7 @@
     
     <!-- Contenedor de coordenadas -->
     <div class="container">
-        <div class="coord-icon1"><i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i></div>
+        <div class="coord-icon1" id="camion-icon"><i class="fa-solid fa-truck fa-xl" style="color: #000000;"></i></div>
         <div class="coord-data">Latitud: <span id="latitud"></span></div>
         <div class="coord-data">Longitud: <span id="longitud"></span></div>
         <div class="coord-data">Altitud: <span id="altitud"></span></div>
@@ -195,7 +195,7 @@
 
     <!-- Contenedor de coordenadas -->
     <div class="container2">
-        <div class="coord-icon1"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;"></i></div>
+        <div class="coord-icon1" id="carro-icon"><i class="fa-solid fa-car-side fa-xl" style="color: #000000;"></i></div>
         <div class="coord-data2">Latitud: <span id="latitud2"></span></div>
         <div class="coord-data2">Longitud: <span id="longitud2"></span></div>
         <div class="coord-data2">Altitud: <span id="altitud2"></span></div>
@@ -225,6 +225,17 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/raphael/2.1.4/raphael-min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/justgage/1.4.0/justgage.min.js"></script>
     <script>
+
+    
+        document.getElementById('carro-icon').addEventListener('click', function() {
+            seguirVehiculo('carro');
+        });
+
+        
+        document.getElementById('camion-icon').addEventListener('click', function() {
+            seguirVehiculo('camion');
+        });
+
         // Código JavaScript para inicializar el mapa Leaflet
         var mymap = L.map('map').setView([10.99912735754, -74.81467299], 15);
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
@@ -301,7 +312,7 @@
             polyline.addLatLng([data.latitud, data.longitud]);
 
             // Centra el mapa en la nueva posición
-            mymap.panTo([data.latitud, data.longitud]);
+            //mymap.panTo([data.latitud, data.longitud]);
         }
 
         function actualizarUbicacion2(data) {
@@ -321,6 +332,23 @@
 
             // Centra el mapa en la nueva posición
             //mymap.panTo([data.latitud, data.longitud]);
+        }
+
+        // Función para seguir la ubicación del vehículo especificado en el mapa
+        function seguirVehiculo(vehiculo) {
+            // Obtiene la ubicación del vehículo específico según el parámetro 'vehiculo'
+            var latitud, longitud;
+
+            if (vehiculo === 'camion') {
+                latitud = parseFloat(document.getElementById('latitud').innerText);
+                longitud = parseFloat(document.getElementById('longitud').innerText);
+            } else if (vehiculo === 'carro') {
+                latitud = parseFloat(document.getElementById('latitud2').innerText);
+                longitud = parseFloat(document.getElementById('longitud2').innerText);
+            }
+
+            // Centra el mapa en la ubicación del vehículo y ajusta el zoom
+            mymap.setView([latitud, longitud], 15);
         }
         
         // Conexión con el servidor WebSocket
