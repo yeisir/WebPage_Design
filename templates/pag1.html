@@ -218,9 +218,6 @@
         <div id="rpm" class="gauge-container">
             <div id="rpm-value" class="gauge-value">Rpm</div>
         </div>
-        <div id="voltage" class="progress-bar">
-            <div id="voltage-fill" class="progress-bar-fill"></div>
-        </div>
     </div>
     
     <!-- Incluye la última versión de la librería de Leaflet -->
@@ -283,25 +280,6 @@
             relativeGaugeSize: true
         });
 
-        // Actualizar voltaje
-        function mostrarVoltaje(voltaje) {
-            var voltageBar = document.getElementById("voltage-fill");
-            var voltageValue = document.getElementById("voltage-value");
-
-            voltageBar.style.width = (voltaje * 100 / 15) + "%";
-            voltageValue.innerText = voltaje + "V";
-        }
-
-        // Función para generar un número aleatorio entre un rango de valores
-        function getRandomInt(min, max) {
-            return Math.floor(Math.random() * (max - min + 1)) + min;
-        }
-
-        // Generar valores aleatorios para el voltaje de la batería
-        setInterval(function() {
-            var voltaje = getRandomInt(0, 15);
-            mostrarVoltaje(voltaje);
-        }, 1000);
 
         // Código JavaScript para obtener y actualizar la ubicación del vehículo
         function actualizarUbicacion(data) {
