@@ -103,55 +103,32 @@
             float: right;
             display: flex;
             flex-direction: column;
-            justify-content: space-around;
+            justify-content: flex-start;
             align-items: center;
         }
         #rpm {
-            width: 200%;
-            max-width: 200px; 
-            margin-bottom: 20px;
-            margin-top: 2px;
-        }
-        #voltage {
             width: 100%;
-            max-width: 200px; 
-            margin-bottom: 20px;
-            margin-top: 2px;
+            max-width: 300px; 
+            height: 200px;
+            margin-bottom: 90px;
+            margin-top: 20px;
         }
         #data-container h2 {
             text-align: center;
-            margin-top: 10px;
-            margin-bottom: 0px;
-            font-size: 20px;
+            margin-top: 30px;
+            margin-bottom: 30px;
+            font-size: 23px;
         }
         .gauge-value {
             text-align: center;
             font-size: 17px;
-            margin-top: 0px;
+            margin-top: 10px;
         }
          #rpm svg path:nth-child(3) {
             fill: #8c8b8b; 
         }
         #rpm svg path:nth-child(4) {
             fill: #de597d; 
-        }
-        .progress-bar {
-            width: 100%;
-            max-width: 200px;
-            background-color: #8c8b8b;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            margin-top: 2px;
-            overflow: hidden;
-        }
-        .progress-bar-fill {
-            height: 30px;
-            background-color: #de597d;
-            text-align: right;
-            padding-right: 10px;
-            line-height: 30px;
-            transition: width 0.5s;
-            border-radius: 10px;
         }
         .btn-consulta {
             background-color: #cc3b62; /* Color de fondo rosa oscuro */
@@ -216,7 +193,7 @@
     <div id="data-container">
         <h2>Datos del vehículo<i class="fa-solid fa-car-side fa-lg" style="color: #000000; margin-left: 5px;"></i></h2>
         <div id="rpm" class="gauge-container">
-            <div id="rpm-value" class="gauge-value">Rpm</div>
+            <div id="rpm-value" class="gauge-value">RPM</div>
         </div>
     </div>
     
