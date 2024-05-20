@@ -28,7 +28,7 @@ def main():
 
     with socket.socket(socket.AF_INET, socket.SOCK_DGRAM) as servidor:
         servidor.bind((host, puerto))
-        print("Servidor UDP escuchando en el puerto {puerto}...")
+        print(f"Servidor UDP escuchando en el puerto {puerto}...")
 
         while True:
             datos_recibidos, direccion_cliente = servidor.recvfrom(1024)
