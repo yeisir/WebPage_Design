@@ -39,7 +39,6 @@ Make sure you have the following installed:
 6. Run the UDP server and data processing scripts:
    ```sh
     python3 udp_server.py
-   ```sh
     python3 sn_data.py
 8. Start the Flask application:
    ```sh
