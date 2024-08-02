@@ -23,8 +23,7 @@ Make sure you have the following installed:
 
 - Python 3.x
 - MySQL server (for local development) or access to AWS RDS MySQL
-
-## Installation
+   
    ```sh
    pip3 install -r requirements.txt
 
