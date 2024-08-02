@@ -27,18 +27,24 @@ Make sure you have the following installed:
 ## Installation
 
 1. Clone the repository:
+    ```sh
     git clone git@github.com:yeisir/WebPage_Design.git
 2. Navigate to the project directory:
+   ```sh
     cd WebPage_Design
-3. Install the required Python packages:
-    pip install -r requirements.txt
-4. Configure the 'flask_app.py' file with your AWS RDS MySQL database credentials.
-5. Run the UDP server and data processing scripts:
-    python udp_server.py
-    python sn_data.py
-6. Start the Flask application:
-    python flask_app.py
-7. Access the web interface by navigating to http://<YOUR_EC2_PUBLIC_IP>:<PORT> in your web browser.
+4. Install the required Python:
+   ```sh
+   pip3 install -r requirements.txt
+5. Configure the 'flask_app.py' file with your AWS RDS MySQL database credentials.
+6. Run the UDP server and data processing scripts:
+   ```sh
+    python3 udp_server.py
+   ```sh
+    python3 sn_data.py
+8. Start the Flask application:
+   ```sh
+    python3 flask_app.py
+10. Access the web interface by navigating to http://<YOUR_EC2_PUBLIC_IP>:<PORT> in your web browser.
 
 ## Usage
 
