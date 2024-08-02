@@ -29,13 +29,13 @@ Make sure you have the following installed:
 
 ## Usage
 
-Page 1: Displays data received from the UDP server.
-Page 2: Provides additional options for managing the data.
+- Page 1: Displays data received from the UDP server.
+- Page 2: Provides additional options for managing the data.
 
 ## AWS Deployment Details
 
-EC2 Instance: The application is hosted on an AWS EC2 instance.
-RDS Database: Uses an AWS RDS MySQL instance for data storage.
+- EC2 Instance: The application is hosted on an AWS EC2 instance.
+- RDS Database: Uses an AWS RDS MySQL instance for data storage.
 
 # Note
 
